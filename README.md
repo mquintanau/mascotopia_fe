@@ -1,6 +1,8 @@
 # Mascotopia
 
-Mascotopia es un sitio web para mascotas. En ella puedes ver todo tipo de publicaciones de mascotas, reportar mascotas perdidas, comentar en foros de discusión y manejar un práctico calendario de eventos
+Bienvenido a Mascotopía, tu centro integral para el cuidado de mascotas y comunidad
+
+En mascotopia, estamos dedicados a proveerte una plataforma comprehensiva donde los dueños de mascotas pueden conectarse, compartir experiencias, y acceder a valiosos recursos como foros, listados de mascotas perdidas y las últimas noticias de mascotas
 
 ## Equipo de trabajo
 
