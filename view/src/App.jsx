@@ -1,5 +1,6 @@
 import "./App.css";
 import Button from "./components/Button/Button";
+import RectangularLogo from "./components/RectangularLogo/RectangularLogo";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         Hello Mascotopia Frontend!
       </h1>
       <Button />
+      <RectangularLogo />
     </>
   );
 }
