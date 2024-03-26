@@ -9,14 +9,13 @@ function App() {
         Hello Mascotopia Frontend!
       </h1>
       <Button
-        backgroundColor="bg-primary"
         onClick={() => {
           console.log("Click en botón!");
         }}
       >
         Este es un boton nuevo
       </Button>
-      <RectangularLogo />
+      <RectangularLogo className="h-[200px] w-[400px]" />
     </>
   );
 }

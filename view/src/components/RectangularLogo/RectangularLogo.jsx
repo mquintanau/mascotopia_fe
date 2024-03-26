@@ -1,11 +1,15 @@
-import React from 'react'
+import PropTypes from "prop-types";
 
-const RectangularLogo = () => {
+const RectangularLogo = ({ className, ...props }) => {
   return (
-    <div className="flex justify-center items-center">
-        <img style={{width: '253px', height: '89px'}} src="https://i.ibb.co/R2H7816/image.png" alt="Logo" />
+    <div className={`flex items-center justify-center ${className}`} {...props}>
+      <img src="https://i.ibb.co/R2H7816/image.png" alt="Logo" />
     </div>
-  )
-}
+  );
+};
 
-export default RectangularLogo
+RectangularLogo.propTypes = {
+  className: PropTypes.string,
+};
+
+export default RectangularLogo;
