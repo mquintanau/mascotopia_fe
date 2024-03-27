@@ -10,6 +10,8 @@ export default {
         black: "#0E1918",
         green1: "#A4F3B3",
         green2: "#78D8AB",
+        navbar: "#D6FEDA",
+        greenLogo: "#387f49",
       },
       fontFamily: {
         sans: ["Graphik", "sans-serif"],
