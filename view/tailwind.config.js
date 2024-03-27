@@ -8,6 +8,8 @@ export default {
         primary: "#80ED99",
         secondary: "#6FC2BD",
         black: "#0E1918",
+        green1: "#A4F3B3",
+        green2: "#78D8AB",
       },
       fontFamily: {
         sans: ["Graphik", "sans-serif"],
