@@ -25,8 +25,10 @@ const Navbar = () => {
         ref={menuRef}
       >
         <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
-          <li className="hover:cursor-pointer hover:text-greenLogo">Inicio</li>
-          <li className="hover:cursor-pointer hover:text-greenLogo">
+          <li className="hover:cursor-pointer hover:text-greenLogo active:font-bold">
+            Inicio
+          </li>
+          <li className="hover:cursor-pointer hover:text-greenLogo active:font-bold">
             Sobre Nosotros
           </li>
           <Button className="bg-green1">Registrarse</Button>
