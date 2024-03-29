@@ -13,22 +13,20 @@ const Navbar = () => {
   // se cambia la clase (top) del menú para mostrarlo o esconderlo
 
   const toggleDropdownMenu = () => {
-    menuRef.current.classList.toggle("top-20");
-    menuRef.current.classList.toggle("-top-full");
+    menuRef.current.classList.toggle("top-20"); // clase que muestra el menú
+    menuRef.current.classList.toggle("-top-full"); // clase que esconde el menú
   };
 
   return (
-    <nav className="bg-navbar flex h-20 items-center justify-between px-5 lg:gap-8">
+    <nav className="flex h-20 items-center justify-between bg-navbar px-5 lg:gap-8">
       <RectangularLogo className="h-full hover:cursor-pointer" />
       <div
-        className="bg-navbar absolute -top-full left-0 flex w-full flex-col items-center justify-center gap-6 py-3 text-lg lg:static lg:flex-row lg:justify-end"
+        className="absolute -top-full left-0 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg lg:static lg:flex-row lg:justify-end"
         ref={menuRef}
       >
         <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
-          <li className="hover:text-greenLogo hover:cursor-pointer hover:font-bold">
-            Inicio
-          </li>
-          <li className="hover:text-greenLogo hover:cursor-pointer hover:font-bold">
+          <li className="hover:cursor-pointer hover:text-greenLogo">Inicio</li>
+          <li className="hover:cursor-pointer hover:text-greenLogo">
             Sobre Nosotros
           </li>
           <Button className="bg-green1">Registrarse</Button>
