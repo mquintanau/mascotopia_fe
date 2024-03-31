@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const Button = ({ className = "", onClick, children, ...props }) => {
   return (
     <button
-      className={`rounded-lg bg-primary px-4 py-1 font-bold text-black hover:bg-black hover:text-primary ${className}`}
+      className={`rounded-lg bg-primary px-4 py-1 font-bold text-black hover:bg-black hover:text-primary focus:ring focus:ring-green2 ${className}`}
       onClick={onClick}
       {...props}
     >
