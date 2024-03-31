@@ -18,10 +18,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex h-20 items-center justify-between bg-navbar px-5 lg:gap-8">
+    <nav className="fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-navbar px-5 transition-all lg:gap-8">
       <RectangularLogo className="h-full hover:cursor-pointer" />
       <div
-        className="absolute -top-full left-0 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg lg:static lg:flex-row lg:justify-end"
+        className="absolute -top-[300%] left-0 -z-10 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg transition-all lg:static lg:flex-row lg:justify-end"
         ref={menuRef}
       >
         <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
