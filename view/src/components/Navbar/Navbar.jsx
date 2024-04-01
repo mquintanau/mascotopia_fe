@@ -6,6 +6,7 @@ import RectangularLogo from "../RectangularLogo/RectangularLogo";
 // Componentes externos
 import { Menu } from "iconoir-react";
 import { Link } from "react-router-dom";
+import NavbarLink from "./NavbarLink";
 
 const Navbar = () => {
   // Referencia el elemento de menu y el boton de toggle
@@ -30,16 +31,14 @@ const Navbar = () => {
         ref={menuRef}
       >
         <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
-          <li className="hover:cursor-pointer hover:text-greenLogo active:font-bold">
-            Inicio
-          </li>
-          <li className="hover:cursor-pointer hover:text-greenLogo active:font-bold">
-            Sobre Nosotros
-          </li>
-          <Button className="bg-green1">Registrarse</Button>
-          <Link to="/login">
+          <NavbarLink to="/">Inicio</NavbarLink>
+          <NavbarLink to="/">Sobre Nosotros</NavbarLink>
+          <NavbarLink to="/">
+            <Button className="bg-green1">Registrarse</Button>
+          </NavbarLink>
+          <NavbarLink to="/login">
             <Button>Iniciar Sesión</Button>
-          </Link>
+          </NavbarLink>
         </ul>
       </div>
       <div ref={toggleRef} className="lg:hidden">
