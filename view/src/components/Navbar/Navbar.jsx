@@ -1,8 +1,11 @@
+// Hooks react
 import { useRef } from "react";
-
+// Componentes propios
 import Button from "../Button/Button";
 import RectangularLogo from "../RectangularLogo/RectangularLogo";
+// Componentes externos
 import { Menu } from "iconoir-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   // Referencia el elemento de menu y el boton de toggle
@@ -18,10 +21,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex h-20 items-center justify-between bg-navbar px-5 lg:gap-8">
-      <RectangularLogo className="h-full hover:cursor-pointer" />
+    <nav className="z-50 flex h-20 items-center justify-between bg-navbar px-5 lg:gap-8">
+      <Link to="/" className="h-20">
+        <RectangularLogo className="h-20 hover:cursor-pointer" />
+      </Link>
       <div
-        className="absolute -top-full left-0 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg lg:static lg:flex-row lg:justify-end"
+        className="absolute -top-full left-0 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg transition-all lg:static lg:flex-row lg:justify-end"
         ref={menuRef}
       >
         <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
@@ -32,7 +37,9 @@ const Navbar = () => {
             Sobre Nosotros
           </li>
           <Button className="bg-green1">Registrarse</Button>
-          <Button>Iniciar Sesión</Button>
+          <Link to="/login">
+            <Button>Iniciar Sesión</Button>
+          </Link>
         </ul>
       </div>
       <div ref={toggleRef} className="lg:hidden">
