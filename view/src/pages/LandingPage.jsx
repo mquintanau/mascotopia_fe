@@ -5,7 +5,7 @@ import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
 
 const LandingPage = () => {
   return (
-    <div className="flex h-full flex-col items-center justify-center">
+    <div className="mt-10 flex h-full flex-col items-center justify-center">
       <h1 className="m-0 p-3 text-3xl font-bold text-black">
         Hello Mascotopia Frontend!
       </h1>
