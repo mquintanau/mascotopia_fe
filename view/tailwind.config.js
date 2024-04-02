@@ -17,6 +17,9 @@ export default {
         sans: ["Graphik", "sans-serif"],
         serif: ["Merriweather", "serif"],
       },
+      backgroundImage: {
+        "login-background": "url('./assets/loginBackground.png')",
+      },
     },
   },
   plugins: [],
