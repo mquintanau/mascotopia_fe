@@ -17,34 +17,36 @@ const Navbar = () => {
   // se cambia la clase (top) del menú para mostrarlo o esconderlo
 
   const toggleDropdownMenu = () => {
-    menuRef.current.classList.toggle("top-20"); // clase que muestra el menú
-    menuRef.current.classList.toggle("-top-full"); // clase que esconde el menú
+    menuRef.current.classList.toggle("-top-80"); // clase que muestra el menú
+    menuRef.current.classList.toggle("top-20"); // clase que esconde el menú
   };
 
   return (
-    <nav className="z-50 flex h-20 items-center justify-between bg-navbar px-5 lg:gap-8">
-      <Link to="/" className="h-20">
-        <RectangularLogo className="h-20 hover:cursor-pointer" />
-      </Link>
-      <div
-        className="absolute -top-full left-0 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg transition-all lg:static lg:flex-row lg:justify-end"
-        ref={menuRef}
-      >
-        <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
-          <NavbarLink to="/">Inicio</NavbarLink>
-          <NavbarLink to="/">Sobre Nosotros</NavbarLink>
-          <NavbarLink to="/">
-            <Button className="bg-green1">Registrarse</Button>
-          </NavbarLink>
-          <NavbarLink to="/login">
-            <Button>Iniciar Sesión</Button>
-          </NavbarLink>
-        </ul>
-      </div>
-      <div ref={toggleRef} className="lg:hidden">
-        <Menu onClick={toggleDropdownMenu} />
-      </div>
-    </nav>
+    <>
+      <nav className="fixed left-0 top-0 z-50 flex h-20 w-screen items-center justify-between bg-navbar px-5 pr-10 lg:gap-8">
+        <Link to="/" className="h-20">
+          <RectangularLogo className="h-20 hover:cursor-pointer" />
+        </Link>
+        <div
+          className="absolute -top-80 left-0 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg transition-all lg:static lg:flex-row lg:justify-end"
+          ref={menuRef}
+        >
+          <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
+            <NavbarLink to="/">Inicio</NavbarLink>
+            <NavbarLink to="/">Sobre Nosotros</NavbarLink>
+            <NavbarLink to="/">
+              <Button className="bg-green1">Registrarse</Button>
+            </NavbarLink>
+            <NavbarLink to="/login">
+              <Button>Iniciar Sesión</Button>
+            </NavbarLink>
+          </ul>
+        </div>
+        <div ref={toggleRef} className="lg:hidden">
+          <Menu onClick={toggleDropdownMenu} />
+        </div>
+      </nav>
+    </>
   );
 };
 
