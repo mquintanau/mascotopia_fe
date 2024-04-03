@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
-// Inicio de sesión
+
 import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
@@ -77,6 +77,8 @@ function Login() {
               {errorResponse}
             </div>
           )}
+        >
+          <RectangularLogo className="m-auto mb-5 w-3/4 translate-x-3" />
           <Input
             type="text"
             label="Email/Nombre de usuario"
