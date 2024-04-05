@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
+import { UserProfile } from "./pages/UserProfile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/perfil" element={<UserProfile />} />
         </Routes>
       </main>
       <footer></footer>
