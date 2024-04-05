@@ -11,13 +11,14 @@ const Perfil = () => {
     >
       <Header />
       <div className="scrollbar flex justify-center">
-        <div className="flex-col">
-          <div className="m-6 inline-block">
+        <div className="flex">
+          <div className="m-6">
             <UserView />
           </div>
-          <div className="m-6 inline-block">
-            <PetView />
-            
+          <div className="m-6">
+            <div className="flex flex-col">
+              <PetView /> {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
+            </div>
           </div>
         </div>
       </div>
