@@ -49,7 +49,7 @@ function Login() {
           json.body.refreshToken
         ) {
           auth.saveUser(json);
-          goTo(`/perfil?idUser${json.body.userId}`);
+          goTo(`/perfil?idUser=${json.body.userId}`);
         }
       } else {
         console.log("Something went wrong");
