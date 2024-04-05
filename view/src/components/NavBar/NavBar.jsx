@@ -2,14 +2,14 @@ import { useState } from 'react';
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 
 const NavBar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
-  return (
-    <div className="flex items-center justify-between">
+    const toggleMenu = () => {
+      setShowMenu(!showMenu);
+    };
+    return ( 
+        <header className="bg-[#D6FEDA] sticky top-0 w-screen h-[50px] flex items-center justify-center text-black z-50">
+            <div className="flex items-center justify-between">
       <div className="fixed left-0">
         <UserNavbarImage className="ml-[22px]" />
       </div>
@@ -85,7 +85,8 @@ const NavBar = () => {
         )}
       </div>
     </div>
-  );
-};
-
+        </header>
+     );
+}
+ 
 export default NavBar;
