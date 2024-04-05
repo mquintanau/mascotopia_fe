@@ -49,7 +49,7 @@ function Login() {
           json.body.refreshToken
         ) {
           auth.saveUser(json);
-          goTo(`/perfil`);
+          goTo(`/perfil${json.body.userId}`);
         }
       } else {
         console.log("Something went wrong");
@@ -66,7 +66,7 @@ function Login() {
 
   return (
     <>
-      <div className="bg-login-background h-full min-h-screen bg-cover pb-28 pt-20 lg:pl-[600px]">
+      <div className="h-full min-h-screen bg-login-background bg-cover pb-28 pt-20 lg:pl-[600px]">
         <form
           action=""
           onSubmit={handleSubmit}
