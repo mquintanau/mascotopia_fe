@@ -2,9 +2,13 @@ import PropTypes from "prop-types";
 
 const RectangularLogo = ({ className, ...props }) => {
   return (
-    <div className={`flex items-center justify-center ${className}`} {...props}>
-      <img src="https://i.ibb.co/R2H7816/image.png" alt="Logo" />
-    </div>
+    <a href="#" className={`flex items-center justify-center ${className}`} {...props}
+    onClick={() => {
+      console.log("Click en logo");
+    }}>
+      <img src="/shared/Logo Op 1.svg" className="w-[40px]" alt="Logo"/>
+      <h1 className="text-24 font-semibold ml-2">Mascotopia</h1>
+    </a>
   );
 };
 
