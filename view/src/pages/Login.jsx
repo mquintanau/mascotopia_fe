@@ -43,12 +43,13 @@ function Login() {
         if (
           json &&
           json.body &&
+          json.body.userId &&
           json.body.user &&
           json.body.accessToken &&
           json.body.refreshToken
         ) {
           auth.saveUser(json);
-          goTo("/perfil");
+          goTo(`/perfil`);
         }
       } else {
         console.log("Something went wrong");
@@ -77,8 +78,6 @@ function Login() {
               {errorResponse}
             </div>
           )}
-        >
-          <RectangularLogo className="m-auto mb-5 w-3/4 translate-x-3" />
           <Input
             type="text"
             label="Email/Nombre de usuario"
