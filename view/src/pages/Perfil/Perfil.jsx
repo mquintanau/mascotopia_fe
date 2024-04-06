@@ -4,16 +4,19 @@ import PetView from "../../components/Pet/PetView/PetView";
 import UserView from "../../components/User/UserView/UserView";
 
 //Ejemplos para la pagina mientras union
+//Revisar como unir pet y user
 const user = {
   name: "AAAaaaA css",
   email: "aaa@gmail.com",
   username: "aa123",
   role: "Volunteer",
   imageURL: "/shared/EjemploImagenUsuario.jpg",
+  user_id: 20
 };
 
 //Ejemplos para la pagina mientras union
 const pet = {
+  owner_id: 20,
   imageURL: "./shared/EjemploPet.jpg",
   name: "Fluffy",
   age: 3,
@@ -29,7 +32,7 @@ const Perfil = () => {
     >
       <NavBar />
       <div className="flex justify-center scrollbar">
-        <div className="flex">
+        <div className="flex flex-col sm:flex-row">
           <div className="m-6">
             <UserView
               imageURL={user.imageURL}
@@ -41,6 +44,13 @@ const Perfil = () => {
           </div>
           <div className="m-6">
             <div className="flex flex-col">
+              <PetView
+                imageURL={pet.imageURL}
+                petName={pet.name}
+                petAge={pet.age}
+                animalPet={pet.kind}
+                petDescription={pet.description}
+              />
               <PetView
                 imageURL={pet.imageURL}
                 petName={pet.name}
