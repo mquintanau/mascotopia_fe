@@ -2,7 +2,7 @@
 
 
 const PetView = (props) => {
-    const { imageURL, petName, petAge, animalPet, petDescription } = props;
+    const { imageURL, petName, petAge, animalPet, petDescription, petLocation } = props;
   return (
     <div className="items-start font-semibold text-black">
       <p className="flex justify-start px-4 py-1">Pet</p>
@@ -17,6 +17,7 @@ const PetView = (props) => {
       <div className="border-l-4 border-primary flex-col justify-start px-4 text-[15px] font-light text-black">
         <div className="text-left leading-8">
           <p>Name: {petName}</p>
+          <p>Location: {petLocation}</p>
           <p>Age: {petAge}</p>
           <p>Kind: {animalPet}</p>
           <p>Description: {petDescription}</p>
