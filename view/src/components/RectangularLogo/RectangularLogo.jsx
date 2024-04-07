@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 const RectangularLogo = ({ className, ...props }) => {
   return (
+    // Cambio pata que el logo sea un vector
     <a href="#" className={`flex items-center justify-center ${className}`} {...props}
     onClick={() => {
       console.log("Click en logo");
