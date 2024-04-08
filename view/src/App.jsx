@@ -1,3 +1,4 @@
+
 import Navbar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
@@ -19,6 +20,7 @@ function App() {
       </main>
       <footer></footer>
     </div>
+
   );
 }
 

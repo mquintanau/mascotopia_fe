@@ -8,7 +8,7 @@ const Button = ({ className = "", onClick, children, ...props }) => {
       {...props}
     >
       {children}
-    </button>
+    </button> 
   );
 };
 

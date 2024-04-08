@@ -3,6 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      animation: {
+        'spin-slow': 'spin 1s linear', // Define una animación de giro lento
+        'fadeIn': 'fadeIn 0.3s ease-in', // Define una animación de fundido
+        'fadeOut': 'fadeOut 0.3s ease-out', // Define una animación de fundido
+        'bounce' : 'bounce 1s'
+        
+      },
       colors: {
         main: "#F1FFF2",
         primary: "#80ED99",
@@ -22,5 +29,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 };
