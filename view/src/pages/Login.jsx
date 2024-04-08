@@ -83,7 +83,7 @@ function Login() {
           )}
           <Input
             type="text"
-            label="Email/Nombre de usuario"
+            label="Email/Username"
             id="user"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
@@ -94,7 +94,7 @@ function Login() {
           <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
             <Input
               type={showPassword ? "text" : "password"}
-              label="Contraseña"
+              label="Password"
               id="pass"
               className="mt-5"
               value={contraseña}
@@ -108,7 +108,7 @@ function Login() {
               style={{ position: 'absolute', right: '10px' ,color: 'black',top: 'calc(50% - -3px)', // Ajusta este valor
               transform: 'translateY(-50%)' }}
             >
-              {showPassword ? "Ocultar" : "Mostrar"}
+              {showPassword ? "Hide" : "Show"}
             </button>
           </div>
 
@@ -116,21 +116,21 @@ function Login() {
             href=""
             className="text-center font-light text-black hover:text-greenLogo active:font-normal"
           >
-            ¿Olvidaste tu contraseña?
+            Forgot Password?
           </a>
 
           <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
-            Iniciar Sesión
+            Login
           </Button>
 
           <hr className="my-5 border-black" />
           <p className="text-center text-black">
-            ¿No tienes una cuenta?{" "}
+            Don't have an account?{" "}
             <a
               href=""
               className="font-semibold text-black hover:text-greenLogo"
             >
-              Regístrate
+              Sign Up
             </a>
           </p>
         </form>

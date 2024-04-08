@@ -32,13 +32,13 @@ const NavbarExternal = () => {
           ref={menuRef}
         >
           <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
-            <NavbarLink to="/">Inicio</NavbarLink>
-            <NavbarLink to="/">Sobre Nosotros</NavbarLink>
+            <NavbarLink to="/">Home</NavbarLink>
+            <NavbarLink to="/">About Us</NavbarLink>
             <NavbarLink to="/">
-              <Button className="bg-green1">Registrarse</Button>
+              <Button className="bg-green1">Sign Up</Button>
             </NavbarLink>
             <NavbarLink to="/login">
-              <Button>Iniciar Sesión</Button>
+              <Button>Login</Button>
             </NavbarLink>
           </ul>
         </div>
