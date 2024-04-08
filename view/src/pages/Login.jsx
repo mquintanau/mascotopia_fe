@@ -97,6 +97,7 @@ function Login() {
               style={{ color: 'black', flex: 1 }}
             />
             <button 
+              type="button"
               onClick={() => setShowPassword(!showPassword)}
               style={{ position: 'absolute', right: '10px' ,color: 'black',top: 'calc(50% - -3px)', // Ajusta este valor
               transform: 'translateY(-50%)' }}
