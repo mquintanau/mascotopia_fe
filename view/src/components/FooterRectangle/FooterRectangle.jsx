@@ -10,10 +10,10 @@ const FooterRectangle = () => {
           © 2024 Mascotopia. All rights reserved
         </div>
       </div>
-      <div className="flex items-center justify-center p-4 md:w-auto w-full text-center">
+      <div className="flex items-center justify-center p-4 md:w-auto w-full text-center ">
         <a
           href="#"
-          className="mr-[25px]"
+          className="mr-[25px] text-black hover:text-[#424a49]"
           onClick={() => {
             console.log("Click en Contact Us");
           }}
@@ -22,7 +22,7 @@ const FooterRectangle = () => {
         </a>
         <a
           href="#"
-          className="mr-[25px] "
+          className="mr-[25px] text-black hover:text-[#424a49]"
           onClick={() => {
             console.log("Click en Privacy Policy");
           }}
@@ -31,7 +31,7 @@ const FooterRectangle = () => {
         </a>
         <a
           href="#"
-          className="mr-[25px]"
+          className="mr-[25px] text-black hover:text-[#424a49]"
           onClick={() => {
             console.log("Click en Terms of Use");
           }}

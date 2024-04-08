@@ -1,5 +1,5 @@
 import FooterRectangle from "../../components/FooterRectangle/FooterRectangle";
-import NavBar from "../../components/NavBar/NavBar";
+import NavbarInternal from "../../components/NavbarInternal/NavbarInternal";
 import PetView from "../../components/Pet/PetView/PetView";
 import UserView from "../../components/User/UserView/UserView";
 
@@ -29,15 +29,15 @@ const pet = {
   description: "A fluffy and friendly dog.",
 };
 
-const Perfil = () => {
+const Profile = () => {
   return (
     <div
       className="mx-auto mb-10 max-w-screen-xl"
       style={{ backgroundImage: "url('public/shared/DecorationLine.svg')" }}
     >
-      <NavBar />
+      <NavbarInternal />
       <div className="flex justify-center scrollbar">
-        <div className="flex flex-col sm:flex-row">
+        <div className="mb-8 flex flex-col sm:flex-row">
           <div className="m-6">
             <UserView
               imageURL={user.imageURL}
@@ -79,4 +79,4 @@ const Perfil = () => {
   );
 };
 
-export default Perfil;
+export default Profile;
