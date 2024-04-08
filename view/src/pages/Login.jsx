@@ -12,6 +12,7 @@ function Login() {
   // Variables de estado formulario
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   // Se inicializa el estado de la respuesta de error
   const [errorResponse, setErrorResponse] = useState("");
   // Se inicializa la variable de navegación
@@ -85,15 +86,24 @@ function Login() {
             onChange={(e) => setCorreo(e.target.value)}
             style={{ color: 'black' }}
           />
-          <Input
-            type="password"
-            label="Contraseña"
-            id="pass"
-            className="mt-5"
-            value={contraseña}
-            onChange={(e) => setContraseña(e.target.value)}
-            style={{ color: 'black' }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+            <Input
+              type={showPassword ? "text" : "password"}
+              label="Contraseña"
+              id="pass"
+              className="mt-5"
+              value={contraseña}
+              onChange={(e) => setContraseña(e.target.value)}
+              style={{ color: 'black', flex: 1 }}
+            />
+            <button 
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ position: 'absolute', right: '10px' ,color: 'black',top: 'calc(50% - -3px)', // Ajusta este valor
+              transform: 'translateY(-50%)' }}
+            >
+              {showPassword ? "Ocultar" : "Mostrar"}
+            </button>
+          </div>
 
           <a
             href=""
