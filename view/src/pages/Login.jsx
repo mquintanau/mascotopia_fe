@@ -12,7 +12,10 @@ function Login() {
   // Variables de estado formulario
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
+  // Variable de estado para mostrar u ocultar la contraseña
   const [showPassword, setShowPassword] = useState(false);
+  // Variable de estado para mostrar si la tecla de mayúsculas está activada
+  const [capsLockOn, setCapsLockOn] = useState(false);
   // Se inicializa el estado de la respuesta de error
   const [errorResponse, setErrorResponse] = useState("");
   // Se inicializa la variable de navegación
@@ -84,8 +87,10 @@ function Login() {
             id="user"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
+            onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
             style={{ color: 'black' }}
           />
+          {capsLockOn && <p style={{ color: 'red' }}>Mayusculas activadas.</p>}
           <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
             <Input
               type={showPassword ? "text" : "password"}
@@ -94,6 +99,7 @@ function Login() {
               className="mt-5"
               value={contraseña}
               onChange={(e) => setContraseña(e.target.value)}
+              onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
               style={{ color: 'black', flex: 1 }}
             />
             <button 
