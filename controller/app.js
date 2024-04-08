@@ -11,6 +11,7 @@ app.use(cors());//permite que el servidor acepte peticiones de cualquier origen
 app.use(express.json());//permite que el servidor pueda recibir y enviar datos en formato JSON
 
 
+//CONEXIÓN CON LA BASE DE DATOS
 async function connectDB(){
     await mongoose.connect(process.env.DB_CONNECTION_STRING)
     console.log('DB connected')
@@ -20,7 +21,7 @@ connectDB().catch(console.eror);
 
 //RUTAS
 app.use('/api/login', require('./routes/login'));
-    
+app.use('/api/signup', require('./routes/signup')); 
 
 
 app.get('/', (req, res) => {

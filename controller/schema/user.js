@@ -7,8 +7,14 @@ const getUserInfo = require('../lib/getUserInfo');//importamos la funcion para o
 const UserSchema = new mongoose.Schema({ //creamos el esquema de usuario
     id: { type: Object},
     correo: { type: String, required: true, unique:true},
+    username: { type: String, required: true, unique:true},
     contraseña: { type: String, required: true},
     nombre: { type: String, required: true},
+    nombreMascota: { type: String, required: false},
+    animal: { type: String, required: false},
+    edad: { type: String, required: false},
+    descripcion: { type: String, required: false},
+    rol: { type: String, required: true}
 });
 
 //RECORDAR QUE LOS DOCUMENTOS SON LAS TABLAS EN MONGODB
@@ -29,6 +35,12 @@ UserSchema.pre('save', function(next){//funcion que se ejecuta antes de guardar 
     }
 });
 //Se utiliza next ya que los middleware son funciones que se ejecutan en pila, es decir, una tras otra, y next es la función que se utiliza para pasar al siguiente middleware
+
+UserSchema.methods.usernameExist = async function(username){ //funcion para verificar si el username ya existe
+    const result = await mongoose.model('User').findOne({username}); //buscamos un usuario con el username proporcionado
+    return !!result; //retornamos si el usuario existe o no
+}
+
 
 UserSchema.methods.correoExist = async function(correo){ //funcion para verificar si el correo ya existe
     const result = await mongoose.model('User').findOne({correo}); //buscamos un usuario con el correo proporcionado
