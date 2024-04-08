@@ -65,7 +65,7 @@ function Login() {
 
   return (
     <>
-      <div className="h-full min-h-screen bg-login-background bg-cover pb-28 pt-20 lg:pl-[600px]">
+      <div className="h-full min-h-screen bg-login-background bg-cover py-28 lg:pl-[600px]">
         <form
           action=""
           onSubmit={handleSubmit}
@@ -105,7 +105,7 @@ function Login() {
           </Button>
 
           <hr className="my-5 border-black" />
-          <p className="text-center font-light">
+          <p className="text-center text-black">
             ¿No tienes una cuenta?{" "}
             <a
               href=""

@@ -1,15 +1,15 @@
 
-import Navbar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
+import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 
 function App() {
   return (
     <div className="h-screen w-screen bg-main">
       <header>
         {/* Barra de navegación */}
-        <Navbar />
+        <NavbarExternal />
       </header>
       <main>
         {/* Contenido principal, manejando la navegacion con react-router-dom */}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 
-const NavBar = () => {
+const NavbarInternal = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const toggleMenu = () => {
@@ -89,4 +89,4 @@ const NavBar = () => {
      );
 }
  
-export default NavBar;
+export default NavbarInternal;
