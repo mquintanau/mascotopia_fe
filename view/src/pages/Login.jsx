@@ -83,6 +83,7 @@ function Login() {
             id="user"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
+            style={{ color: 'black' }}
           />
           <Input
             type="password"
@@ -91,6 +92,7 @@ function Login() {
             className="mt-5"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
+            style={{ color: 'black' }}
           />
 
           <a
