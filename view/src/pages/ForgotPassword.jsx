@@ -8,12 +8,9 @@ import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 
-function Login() {
+function ForgotPassword() {
   // Variables de estado formulario
-  const [correo, setCorreo] = useState("");
-  const [contraseña, setContraseña] = useState("");
-  // Variable de estado para mostrar u ocultar la contraseña
-  const [showPassword, setShowPassword] = useState(false);
+  const [correo, setCorreo] = useState("");;
   // Variable de estado para mostrar si la tecla de mayúsculas está activada
   const [capsLockOn, setCapsLockOn] = useState(false);
   // Se inicializa el estado de la respuesta de error
@@ -37,7 +34,7 @@ function Login() {
         body: JSON.stringify({
           //Se envian los datos del formulario en formato JSON al servidor
           correo,
-          contraseña,
+          
         }),
       });
       if (response.ok) {
@@ -83,7 +80,7 @@ function Login() {
           )}
           <Input
             type="text"
-            label="Email/Username"
+            label="Email"
             id="user"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
@@ -91,52 +88,13 @@ function Login() {
             style={{ color: 'black' }}
           />
           {capsLockOn && <p style={{ color: 'red' }}>Mayusculas activadas.</p>}
-          <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
-            <Input
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              id="pass"
-              className="mt-5"
-              value={contraseña}
-              onChange={(e) => setContraseña(e.target.value)}
-              onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
-              style={{ color: 'black', flex: 1 }}
-            />
-            <button 
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              style={{ position: 'absolute', right: '10px' ,color: 'black',top: 'calc(50% - -3px)', // Ajusta este valor
-              transform: 'translateY(-50%)' }}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
-
-          <a
-            href="/forgotPassword"
-            className="text-center font-light text-black hover:text-greenLogo active:font-normal"
-          >
-            Forgot Password?
-          </a>
-
           <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
-            Login
+            Send
           </Button>
-
-          <hr className="my-5 border-black" />
-          <p className="text-center text-black">
-            Don't have an account?{" "}
-            <a
-              href=""
-              className="font-semibold text-black hover:text-greenLogo"
-            >
-              Sign Up
-            </a>
-          </p>
         </form>
       </div>
     </>
   );
 }
 
-export default Login;
+export default ForgotPassword;
