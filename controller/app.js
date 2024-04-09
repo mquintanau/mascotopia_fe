@@ -20,7 +20,7 @@ connectDB().catch(console.eror);
 
 //RUTAS
 app.use('/api/login', require('./routes/login'));
-    
+app.use('/api/forgotPassword', require('./routes/forgotPassword')); 
 
 
 app.get('/', (req, res) => {

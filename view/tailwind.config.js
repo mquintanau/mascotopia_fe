@@ -26,6 +26,7 @@ export default {
       },
       backgroundImage: {
         "login-background": "url('./assets/loginBackground.png')",
+        "line-background": "url('./assets/lineForgotPassword.svg')",
       },
     },
   },
