@@ -1,4 +1,3 @@
-
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -6,7 +5,7 @@ import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 
 function App() {
   return (
-    <div className="h-screen w-screen bg-main">
+    <div className="h-screen w-screen bg-main text-black">
       <header>
         {/* Barra de navegación */}
         <NavbarExternal />
@@ -20,7 +19,6 @@ function App() {
       </main>
       <footer></footer>
     </div>
-
   );
 }
 
