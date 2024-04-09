@@ -8,7 +8,7 @@ import { Menu } from "iconoir-react";
 import { Link } from "react-router-dom";
 import NavbarLink from "./NavbarLink";
 
-const Navbar = () => {
+const NavbarExternal = () => {
   // Referencia el elemento de menu y el boton de toggle
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
@@ -50,4 +50,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarExternal;
