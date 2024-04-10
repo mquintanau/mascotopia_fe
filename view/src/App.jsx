@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} /> {/* Prueba perfil */}
+          <Route path="/profile/:id" element={<Profile />} /> {/* Prueba perfil */}
         </Routes>
       </main>
       <FooterRectangle />

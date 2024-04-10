@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Modelo para la colección usuario
-const UserModel = mongoose.model('User', UserSchema);
+//const UserModel = mongoose.model('User', UserSchema);
 
 
 //RECORDAR QUE LOS DOCUMENTOS SON LAS TABLAS EN MONGODB
@@ -79,6 +79,6 @@ UserSchema.methods.createRefreshToken = async function(){
     }
 }
 
-module.exports = UserModel; //expotamos el modelo de usuario
+//module.exports = UserModel; //expotamos el modelo de usuario
 
-//module.exports = mongoose.model('User', UserSchema);//exportamos el modelo de usuario
+module.exports = mongoose.model('User', UserSchema);//exportamos el modelo de usuario

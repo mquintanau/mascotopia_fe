@@ -4,8 +4,6 @@ const UserView = (props) => {
     email,
     username,
     role,
-    birthday,
-    contact_number,
     number_pets
   } = props;
   return (
@@ -24,9 +22,7 @@ const UserView = (props) => {
               <p>Name: {name}</p>
               <p>Email: {email}</p>
               <p>Username: {username}</p>
-              <p>Birthday: {birthday}</p>
-              <p>Number: {contact_number}</p>
-              <p># of pets: {number_pets}</p>
+              <p>Pets: {number_pets}</p>
               <p> &gt; {role} </p>
             </div>
           </div>
