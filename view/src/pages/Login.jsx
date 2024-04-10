@@ -88,6 +88,7 @@ function Login() {
           json.body.refreshToken
         ) {
           auth.saveUser(json);
+            console.log(auth.isAuthenticated);
           goTo("/profile");
         }
       } else {

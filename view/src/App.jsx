@@ -40,7 +40,7 @@ function App() {
           <Route path="/register" element={<Signup />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/" element={<PrivateRoute/>}>  
-            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> {/* Prueba perfil */}
+            <Route path="/profile" element={<Profile /> } />
             <Route path="resetPassword/:id/:token" element={<ResetPassword />} />
           </Route>
         </Routes>
