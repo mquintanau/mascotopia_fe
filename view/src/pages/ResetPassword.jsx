@@ -7,6 +7,7 @@ import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
 import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
+import { useParams } from 'react-router-dom';
 
 function ResetPassword() {
   // Variables de estado formulario
@@ -16,17 +17,20 @@ function ResetPassword() {
   const [capsLockOn, setCapsLockOn] = useState(false);
   // Se inicializa el estado de la respuesta de error
   const [errorResponse, setErrorResponse] = useState("");
+  const {id, token} = useParams();
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
   // Se obtiene la función de autenticación
   const auth = useAuth();
+
+
 
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/resetPassword`, {
+      const response = await fetch(`${API_URL}/resetPassword/${id}/${token}`, {
         //Se realiza una petición POST al servidor y se espera la respuesta
         method: "POST",
         headers: {
@@ -57,13 +61,12 @@ function ResetPassword() {
 
   return (
       <div className="h-screen  bg-line-background bg-cover bg-right flex items-center justify-center">
-        
         <form
           action=""
           onSubmit={handleSubmit}
           className="z-50 mx-auto mt-6 flex max-w-xxl flex-col rounded-xl bg-navbar p-10 text-black text-center"
         >
-          <RectangularLogo className="m-auto mb-5 w-full" />
+          <RectangularLogo className="m-auto mb-5 w-full -ml-1" />
           Enter your new Password
           <br></br>
           <br></br>
@@ -75,7 +78,7 @@ function ResetPassword() {
           <Input
             type="text"
             label="Password"
-            id="user"
+            id="password"
             value={contraseña}
             onChange={(e) => setContraseña(e.target.value)}
             onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
@@ -85,7 +88,7 @@ function ResetPassword() {
           <Input
             type="text"
             label="Confirm Your Password"
-            id="user"
+            id="passwordRev"
             value={contraseñaRev}
             onChange={(e) => setContraseñaRev(e.target.value)}
             onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
