@@ -1,5 +1,7 @@
 import { useState } from "react";
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
+import NavbarLink from "../NavbarExternal/NavbarLink";
+import { Link } from "react-router-dom";
 
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -21,9 +23,11 @@ const NavbarInternal = () => {
   return (
     <header className="sticky top-0 z-50 flex h-[50px] w-screen items-center justify-center bg-[#D6FEDA] text-black">
       <div className="flex w-full items-center justify-between">
-        <div className="ml-[22px]">
-          <UserNavbarImage />
-        </div>
+        <Link to="/profile">
+          <div className="ml-[22px]">
+            <UserNavbarImage />
+          </div>
+        </Link>
         <div className="hidden lg:flex">
           <div className="mr-[25px]">
             <a
