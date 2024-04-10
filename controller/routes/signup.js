@@ -5,7 +5,7 @@ const router = require("express").Router(); //importamos el router de express
 router.post("/", async(req,res) => {
     const {correo, nombre, username, contraseña, nombreMascota, animal, edad, descripcion, rol} = req.body; //obtenemos los datos del body
 
-    if(!!!correo ||  !!!contraseña || !!!nombre  || !!!username  || !!!nombreMascota  || !!!animal  || !!!edad  || !!!descripcion || !!!rol) {//verificamos si los campos estan vacios
+    if(!!!correo ||  !!!contraseña || !!!nombre  || !!!username  || !!!rol) {//verificamos si los campos estan vacios
         return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error
             error: "Los campos son requeridos"
         })
@@ -35,7 +35,7 @@ router.post("/", async(req,res) => {
     }
 
     //Si el username y correo son validos se crea el usuario
-    const newUser = new UserModel({
+    const newUser = new User({
         correo,
         nombre,
         username,

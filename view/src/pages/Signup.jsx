@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
+
 import { User } from "iconoir-react";
+import Swal from "sweetalert2";
+
 
 function Signup() {
   // Variables de estado formulario
@@ -24,6 +27,18 @@ function Signup() {
   const auth = useAuth();
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
+
+  // Seccion Alertas
+  // if (errorResponse) {
+  //   Swal.fire({
+  //     title: "¡Error!",
+  //     text: errorResponse,
+  //     icon: "error",
+  //     confirmButtonText: "Continue",
+  //     confirmButtonColor: "#f27474",
+  //   });
+  // }
+
 
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
@@ -45,7 +60,7 @@ function Signup() {
           animal,
           edad,
           descripcion,
-          rol,
+          rol
         }),
       });
 
@@ -56,6 +71,7 @@ function Signup() {
         goTo("/login"); //Se redirige a la página de login
       } else {
         console.log("Hubo un error en el registro");
+        const json = await response.json();
         if (json && json.body && typeof json.body.error === "string") {
           setErrorResponse(json.body.error);
           // json tiene la estructura de AuthResponseError
@@ -145,11 +161,30 @@ function Signup() {
           className="mt-5"
           value={edad}
           onChange={(e) => setEdad(e.target.value)}
+          type="email"
+          label="Email"
+          id="correo"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Nombre Completo"
+          id="nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Nombre de usuario"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           type="text"
           label="Descripcion"
-          id="role"
+          id="description"
           className="mt-5"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
@@ -157,7 +192,6 @@ function Signup() {
         <div className="flex w-2/5 flex-col">
           <User />
         </div>
-
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
           Sign Up
         </Button>
