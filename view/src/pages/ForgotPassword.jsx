@@ -26,11 +26,11 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/fogotPassword`, {
+      const response = await fetch(`${API_URL}/forgotPassword`, {
         //Se realiza una petición POST al servidor y se espera la respuesta
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify({
           //Se envian los datos del formulario en formato JSON al servidor
@@ -56,11 +56,11 @@ function ForgotPassword() {
         goTo("/login")
       } else {
         console.log("Something went wrong");
-        // const json = await response.json();
-        // if (json && json.body && typeof json.body.error === "string") {
-        //   setErrorResponse(json.body.error);
-        //   // json tiene la estructura de AuthResponseError
-        // }
+        const json = await response.json();
+        if (json && json.body && typeof json.body.error === "string") {
+          setErrorResponse(json.body.error);
+          // json tiene la estructura de AuthResponseError
+        }
       }
     } catch (error) {
       console.log(error);
@@ -68,7 +68,6 @@ function ForgotPassword() {
   }
 
   return (
-    <>
       <div className="h-screen  bg-line-background bg-cover bg-right flex items-center justify-center">
         
         <form
@@ -111,7 +110,6 @@ function ForgotPassword() {
           </Button>
         </form>
       </div>
-    </>
   );
 }
 
