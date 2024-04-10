@@ -1,6 +1,3 @@
-import FooterRectangle from "../../components/FooterRectangle/FooterRectangle";
-import NavbarInternal from "../../components/NavbarInternal/NavbarInternal";
-import PetView from "../../components/Pet/PetView/PetView";
 import PetList from "../../components/PetList/Petlist";
 import UserView from "../../components/User/UserView/UserView";
 
@@ -8,38 +5,38 @@ import UserView from "../../components/User/UserView/UserView";
 //Revisar como unir pet y user
 //Ejemplos para la pagina mientras union
 const petsData = [
-  {
-    imageURL: "./shared/EjemploPet.jpg",
-    petLocation: "Bogotá",
-    name: "Fluffy",
-    age: 3,
-    kind: "Dog",
-    description: "A fluffy and friendly dog.",
-  },
-  {
-    imageURL: "https://via.placeholder.com/150",
-    petLocation: "Los Angeles",
-    name: "Whiskers",
-    age: 2,
-    kind: "Cat",
-    description: "Independent and curious",
-  },
-  {
-    imageURL: "https://via.placeholder.com/150",
-    petLocation: "Chicago",
-    name: "Buddy",
-    age: 5,
-    kind: "Dog",
-    description: "Loyal and energetic",
-  },
-  {
-    imageURL: "https://via.placeholder.com/150",
-    petLocation: "Houston",
-    name: "Fluffy",
-    age: 1,
-    kind: "Rabbit",
-    description: "Adorable and cuddly",
-  },
+    {
+      "imageURL": "./shared/EjemploPet.jpg",
+      "petLocation": "Bogotá",
+      "name": "Fluffy",
+      "age": 3,
+      "kind": "Dog",
+      "description": "A fluffy and friendly dog."
+    },
+    {
+      "imageURL": "https://via.placeholder.com/150",
+      "petLocation": "Los Angeles",
+      "name": "Whiskers",
+      "age": 2,
+      "kind": "Cat",
+      "description": "Independent and curious"
+    },
+    {
+      "imageURL": "https://via.placeholder.com/150",
+      "petLocation": "Chicago",
+      "name": "Buddy",
+      "age": 5,
+      "kind": "Dog",
+      "description": "Loyal and energetic"
+    },
+    {
+      "imageURL": "https://via.placeholder.com/150",
+      "petLocation": "Houston",
+      "name": "Fluffy",
+      "age": 1,
+      "kind": "Rabbit",
+      "description": "Adorable and cuddly"
+    }  
 ];
 
 const user = {
@@ -54,7 +51,6 @@ const user = {
   description: ":3",
   number_pets: 2,
 };
-
 
 const Profile = () => {
   return (
