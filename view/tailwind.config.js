@@ -29,6 +29,9 @@ export default {
       backgroundImage: {
         loginBackground: "url('./assets/loginBackground.png')",
         welcome: "url('./assets/Group14.png')",
+        "login-background": "url('./assets/loginBackground.png')",
+        "line-background": "url('./assets/lineForgotPassword.svg')",
+//         TODO: Arreglar duplicados
       },
     },
   },

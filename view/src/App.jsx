@@ -1,20 +1,30 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
+
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
+import Signup from "./pages/Signup";
 import Profile from "./pages/Profile/Profile";
-import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
+
+import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import NavbarInternal from "./components/NavbarInternal/NavbarInternal";
+import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
+
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
+  console.log("Pathname", location.pathname);
+
   let showExternalNavbar =
     location.pathname === "/" ||
-    location.pathname === "/register" ||
-    location.pathname === "/forgotPassword" ||
-    location.pathname === "/login" ||
-    location.pathname === "/resetPassword";
+    location.pathname.startsWith("/register") ||
+    location.pathname.startsWith("/forgotPassword") ||
+    location.pathname.startsWith("/login") ||
+    location.pathname.startsWith("/resetPassword");
 
   return (
     <div className="h-screen w-screen bg-main text-black">
@@ -28,6 +38,10 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:id" element={<Profile />} /> {/* Prueba perfil */}
+          <Route path="/register" element={<Signup />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="resetPassword/:id/:token" element={<ResetPassword />} />
+
         </Routes>
       </main>
       <FooterRectangle />
