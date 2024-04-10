@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 
-import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile/Profile";
 
