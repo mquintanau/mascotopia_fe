@@ -8,7 +8,7 @@ import AboutUs from "../assets/aboutUs.png";
 const LandingPage = () => {
   return (
     <div className="pt-30 flex h-full min-h-screen flex-col bg-cover">
-      <section className="relative mt-16 flex h-[200px] w-screen items-center justify-center bg-welcome bg-contain bg-center bg-no-repeat md:mt-0 md:h-screen lg:mt-10 lg:h-screen">
+      <section className="relative flex h-[200px] w-screen items-center justify-center bg-welcome bg-contain bg-center bg-no-repeat md:mt-0 md:h-screen lg:mt-0 lg:h-screen">
         <p className="-ml-36 -mt-8 w-1/2 max-w-[234px] text-center text-xs font-bold md:-ml-44 md:w-1/3 md:text-lg lg:-ml-80 lg:max-w-[320px] lg:text-2xl">
           Welcome to Mascotopia: Your All-In-One Hub for Pet Care & Community!
         </p>

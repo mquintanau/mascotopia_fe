@@ -8,14 +8,20 @@ import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 import NavbarInternal from "./components/NavbarInternal/NavbarInternal";
 
 function App() {
+  // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
-  console.log(location.pathname);
+  let showExternalNavbar =
+    location.pathname === "/" ||
+    location.pathname === "/register" ||
+    location.pathname === "/forgotPassword" ||
+    location.pathname === "/login" ||
+    location.pathname === "/resetPassword";
 
   return (
     <div className="h-screen w-screen bg-main text-black">
       <header>
-        {location.pathname === "/" && <NavbarExternal />}
-        {location.pathname !== "/" && <NavbarInternal />}
+        {showExternalNavbar && <NavbarExternal />}
+        {!showExternalNavbar && <NavbarInternal />}
       </header>
       <main>
         {/* Contenido principal, manejando la navegacion con react-router-dom */}
