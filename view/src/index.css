@@ -1,17 +1,35 @@
-/* css que inicializa los estilos del proyecto, para casi todo deberia usarse tailwind directamente */
+/* CSS que inicializa los estilos del proyecto, para casi todo debería usarse Tailwind directamente */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Estilos de la scroll bar */
+/* Personalización de la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra de desplazamiento */
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d5d5d3; /* Color de la barra de desplazamiento */
+  border-radius: 5px; /* Radio de borde de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent; /* Fondo transparente */
+}
+
 /* Estilos default de react */
+
 :root {
   font-family: "Lexend", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #0e1918;
+
+  color: rgba(255, 255, 255, 0.87);
   background-color: #f1fff2;
 
   font-synthesis: none;
@@ -20,20 +38,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  /* place-items: center; */
   min-height: 100vh;
   overflow-x: hidden;
 }

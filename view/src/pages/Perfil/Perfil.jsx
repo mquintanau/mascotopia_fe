@@ -1,4 +1,3 @@
-
 import FooterRectangle from "../../components/FooterRectangle/FooterRectangle";
 import NavBar from "../../components/NavbarExternal/NavbarExternal";
 import PetView from "../../components/Pet/PetView/PetView";
@@ -48,7 +47,6 @@ const Perfil = () => {
       console.error('Error:', error);
     });
   }, []);
-
   return (
     <div
       className="mx-auto mb-10 max-w-screen-xl"
