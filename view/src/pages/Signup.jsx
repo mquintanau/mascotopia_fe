@@ -8,7 +8,6 @@ import Button from "../components/Button/Button";
 import { User } from "iconoir-react";
 import Swal from "sweetalert2";
 
-
 function Signup() {
   // Variables de estado formulario
   const [correo, setCorreo] = useState("");
@@ -39,7 +38,6 @@ function Signup() {
   //   });
   // }
 
-
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
     e.preventDefault();
@@ -60,7 +58,7 @@ function Signup() {
           animal,
           edad,
           descripcion,
-          rol
+          rol,
         }),
       });
 
@@ -148,7 +146,7 @@ function Signup() {
         />
         <Input
           type="text"
-          label="Animal"
+          label="Animal Type"
           id="role"
           className="mt-5"
           value={animal}
@@ -156,34 +154,15 @@ function Signup() {
         />
         <Input
           type="text"
-          label="Edad animal"
+          label="Pet age"
           id="role"
           className="mt-5"
           value={edad}
           onChange={(e) => setEdad(e.target.value)}
-          type="email"
-          label="Email"
-          id="correo"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
         />
         <Input
           type="text"
-          label="Nombre Completo"
-          id="nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-        />
-        <Input
-          type="text"
-          label="Nombre de usuario"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          type="text"
-          label="Descripcion"
+          label="Description"
           id="description"
           className="mt-5"
           value={descripcion}
