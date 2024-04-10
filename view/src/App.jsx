@@ -15,12 +15,14 @@ import ResetPassword from "./pages/ResetPassword";
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
+  console.log("Pathname", location.pathname);
+
   let showExternalNavbar =
     location.pathname === "/" ||
-    location.pathname === "/register" ||
-    location.pathname === "/forgotPassword" ||
-    location.pathname === "/login" ||
-    location.pathname === "/resetPassword";
+    location.pathname.startsWith("/register") ||
+    location.pathname.startsWith("/forgotPassword") ||
+    location.pathname.startsWith("/login") ||
+    location.pathname.startsWith("/resetPassword");
 
   return (
     <div className="h-screen w-screen bg-main text-black">
