@@ -70,50 +70,52 @@ function Signup() {
         onSubmit={handleSubmit}
         className="z-50 mx-auto mt-6 flex max-w-sm flex-col rounded-xl bg-navbar p-10"
       >
-        
-        {!!errorResponse && (
-          <div className="errorMessage mb-4 rounded-md bg-red-400 p-2 text-white">
-            {errorResponse}
-          </div>
-        )}
+        <h1 className="mb-5 text-center text-3xl font-bold text-black">
+          Register Form
+        </h1>
         <Input
           type="email"
           label="Email"
-          id="user"
+          id="email"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
         />
         <Input
           type="text"
-          label="Nombre Completo"
-          id="user"
-          value={correo}
+          label="Full Name"
+          id="name"
+          value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
         <Input
           type="text"
           label="Nombre de usuario"
           id="user"
-          value={correo}
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           type="password"
-          label="Contraseña"
+          label="Password"
           id="pass"
           className="mt-5"
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
         />
-        
-
+        <Input
+          type="password"
+          label="Confirm Password"
+          id="passConfirmation"
+          className="mt-5"
+          value={contraseña}
+          onChange={(e) => setContraseña(e.target.value)}
+        />
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
           Sign Up
         </Button>
-
         <hr className="my-5 border-black" />
         <p className="text-center text-black">
-          Do you have alredy an accound?{" "}
+          Do you have alredy an account?{" "}
           <a href="" className="font-semibold text-black hover:text-greenLogo">
             Login
           </a>
