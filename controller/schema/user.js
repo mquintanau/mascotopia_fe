@@ -4,18 +4,30 @@ const { generateAccessToken,generateRefreshToken } = require('../auth/generateTo
 const Token = require('../schema/token');//importamos el modelo de token
 const getUserInfo = require('../lib/getUserInfo');//importamos la funcion para obtener la informacion del usuario
 
-const UserSchema = new mongoose.Schema({ //creamos el esquema de usuario
-    id: { type: Object},
-    correo: { type: String, required: true, unique:true},
-    username: { type: String, required: true, unique:true},
-    contraseña: { type: String, required: true},
-    nombre: { type: String, required: true},
-    nombreMascota: { type: String, required: false},
-    animal: { type: String, required: false},
-    edad: { type: String, required: false},
-    descripcion: { type: String, required: false},
-    rol: { type: String, required: true}
+
+// Esquema para la subcolección mascota
+const MascotaSchema = new mongoose.Schema({
+    nombreMascota: { type: String, required: false },
+    animal: { type: String, required: false },
+    edad: { type: String, required: false },
+    descripcion: { type: String, required: false }
 });
+
+// Esquema para la colección usuario que incluye la subcolección mascota
+const UserSchema = new mongoose.Schema({
+    id: { type: Object },
+    correo: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true },
+    contraseña: { type: String, required: true },
+    nombre: { type: String, required: true },
+    mascotas: [MascotaSchema], // Referencia al esquema de la subcolección
+    numMascotas: { type: Number, required: false },
+    rol: { type: String, required: true }
+});
+
+// Modelo para la colección usuario
+const UserModel = mongoose.model('User', UserSchema);
+
 
 //RECORDAR QUE LOS DOCUMENTOS SON LAS TABLAS EN MONGODB
 
@@ -67,4 +79,6 @@ UserSchema.methods.createRefreshToken = async function(){
     }
 }
 
-module.exports = mongoose.model('User', UserSchema);//exportamos el modelo de usuario
+module.exports = UserModel; //expotamos el modelo de usuario
+
+//module.exports = mongoose.model('User', UserSchema);//exportamos el modelo de usuario
