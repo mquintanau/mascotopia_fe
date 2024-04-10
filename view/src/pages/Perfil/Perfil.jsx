@@ -60,15 +60,15 @@ const Perfil = () => {
           <div className="m-6">
           {data && 
             <UserView
-              imageURL={user.imageURL}
+              imageURL={user.imageURL} //Falta
               name={data.nombre}
               email={data.correo}
-              role={user.role}
-              username={user.username}
-              birthday={user.birthday}
-              contact_number={user.contact_number}
-              description={user.description}
-              number_pets={user.number_pets}
+              role={data.rol}
+              username={data.username}
+              birthday={user.birthday} //Falta
+              contact_number={user.contact_number} //Falta
+              description={data.descripcion}
+              number_pets={data.number_pets} //Falta
              />
           }
           </div>
