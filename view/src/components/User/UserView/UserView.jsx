@@ -40,4 +40,3 @@ const UserView = (props) => {
 };
 
 export default UserView;
-}
