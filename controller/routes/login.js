@@ -20,7 +20,10 @@ router.post('/', async (req, res) => {
             const accessToken = user.createAccessToken();//creamos el token de acceso
             const refreshToken = await user.createRefreshToken();//creamos el token de refresco
             return res.status(200).json(jsonResponse(200,{//retornamos un json con el mensaje de exito
-                user: getUserInfo(user),accessToken,refreshToken
+                user: getUserInfo(user),
+                userId : user._id,
+                accessToken,
+                refreshToken
             }));
         }else{//si la contraseña es incorrecta
             return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error

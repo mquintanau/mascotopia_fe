@@ -43,12 +43,13 @@ function Login() {
         if (
           json &&
           json.body &&
+          json.body.userId &&
           json.body.user &&
           json.body.accessToken &&
           json.body.refreshToken
         ) {
           auth.saveUser(json);
-          goTo("/perfil");
+          goTo(`/perfil?idUser=${json.body.userId}`);
         }
       } else {
         console.log("Something went wrong");
@@ -91,7 +92,6 @@ function Login() {
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
         />
-
         <a
           href=""
           className="text-center font-light text-black hover:text-greenLogo active:font-normal"

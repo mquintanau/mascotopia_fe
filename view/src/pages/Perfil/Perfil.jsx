@@ -1,10 +1,14 @@
 import FooterRectangle from "../../components/FooterRectangle/FooterRectangle";
-import NavBar from "../../components/NavBar/NavBar";
+import NavBar from "../../components/NavbarExternal/NavbarExternal";
 import PetView from "../../components/Pet/PetView/PetView";
 import UserView from "../../components/User/UserView/UserView";
 
+import { API_URL } from "../../auth/constants";
+import React, { useState, useEffect } from 'react';
+
 //Ejemplos para la pagina mientras union
 //Revisar como unir pet y user
+
 const user = {
   name: "AAAaaaA css",
   email: "aaa@gmail.com",
@@ -30,6 +34,19 @@ const pet = {
 };
 
 const Perfil = () => {
+  const [data, setData] = useState(null); //Variable de estado para guardar los datos del usuario
+
+  useEffect(() => {
+    fetch(`${API_URL}/userProfile`)
+    .then(response => response.json())//Convierte la respuesta a un objeto JSON
+    .then(data => {//Con los datos obtenidos se hace lo siguiente
+      // Aquí puedes utilizar los datos que recibiste
+      setData(data);//Imprime en consola los datos obtenidos
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }, []);
   return (
     <div
       className="mx-auto mb-10 max-w-screen-xl"
@@ -39,17 +56,19 @@ const Perfil = () => {
       <div className="flex justify-center scrollbar">
         <div className="flex flex-col sm:flex-row">
           <div className="m-6">
+          {data && 
             <UserView
-              imageURL={user.imageURL}
-              name={user.name}
-              email={user.email}
-              role={user.role}
-              username={user.username}
-              birthday={user.birthday}
-              contact_number={user.contact_number}
-              description={user.description}
-              number_pets={user.number_pets}
-            />
+              imageURL={user.imageURL} //Falta
+              name={data.nombre}
+              email={data.correo}
+              role={data.rol}
+              username={data.username}
+              birthday={user.birthday} //Falta
+              contact_number={user.contact_number} //Falta
+              description={data.descripcion}
+              number_pets={data.number_pets} //Falta
+             />
+          }
           </div>
           <div className="m-6">
             <div className="flex flex-col">

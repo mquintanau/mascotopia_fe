@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
+import Perfil from "./pages/Perfil/Perfil";
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </main>
       <FooterRectangle />
