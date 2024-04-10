@@ -28,7 +28,7 @@ const NavbarExternal = () => {
           <RectangularLogo className="h-20 hover:cursor-pointer" />
         </Link>
         <div
-          className="absolute left-0 top-[65px] flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg transition-all lg:static lg:flex-row lg:justify-end"
+          className="absolute left-0 -top-80 flex w-full flex-col items-center justify-center gap-6 bg-navbar py-3 text-lg transition-all lg:static lg:flex-row lg:justify-end"
           ref={menuRef}
         >
           <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
