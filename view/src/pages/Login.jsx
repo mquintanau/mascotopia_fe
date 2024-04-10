@@ -17,23 +17,15 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   // Variable de estado para mostrar si la tecla de mayúsculas está activada
   const [capsLockOn, setCapsLockOn] = useState(false);
-  // Se inicializa el estado de la respuesta de error
-  const [errorResponse, setErrorResponse] = useState("");
+
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
   // Se obtiene la función de autenticación
   const auth = useAuth();
 
   // Seccion Alertas
-  if (errorResponse) {
-    Swal.fire({
-      title: "¡Error!",
-      text: errorResponse,
-      icon: "error",
-      confirmButtonText: "Continue",
-      confirmButtonColor: "#f27474",
-    });
-  }
+
+  
 
   function showDataProtection() {
     Swal.fire({
@@ -48,7 +40,7 @@ function Login() {
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
     e.preventDefault();
-
+ 
     try {
       const response = await fetch(`${API_URL}/login`, {
         //Se realiza una petición POST al servidor y se espera la respuesta
@@ -80,7 +72,16 @@ function Login() {
         console.log("Something went wrong");
         const json = await response.json();
         if (json && json.body && typeof json.body.error === "string") {
-          setErrorResponse(json.body.error);
+          if (json.body.error) {
+            Swal.fire({
+              title: "¡Error!",
+              text: json.body.error,
+              icon: "error",
+              confirmButtonText: "Continue",
+              confirmButtonColor: "#f27474",
+            });
+          }
+      
           // json tiene la estructura de AuthResponseError
         }
       }
