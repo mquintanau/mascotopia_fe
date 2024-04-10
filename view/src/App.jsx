@@ -1,11 +1,16 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
-import Perfil from "./pages/Profile/Profile";
-import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
+import Signup from "./pages/Signup";
 import Profile from "./pages/Profile/Profile";
-import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
+
+import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import NavbarInternal from "./components/NavbarInternal/NavbarInternal";
+import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
+
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
@@ -28,8 +33,10 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Signup />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="resetPassword/:id/:token" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} /> {/* Prueba perfil */}
-          <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </main>
       <FooterRectangle />

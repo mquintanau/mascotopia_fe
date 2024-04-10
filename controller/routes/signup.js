@@ -5,7 +5,7 @@ const router = require("express").Router(); //importamos el router de express
 router.post("/", async(req,res) => {
     const {correo, nombre, username, contraseña, nombreMascota, animal, edad, descripcion, rol} = req.body; //obtenemos los datos del body
 
-    if(!!!correo ||  !!!contraseña || !!!nombre  || !!!username  || !!!nombreMascota  || !!!animal  || !!!edad  || !!!descripcion || !!!rol) {//verificamos si los campos estan vacios
+    if(!!!correo ||  !!!contraseña || !!!nombre  || !!!username  || !!!rol) {//verificamos si los campos estan vacios
         return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error
             error: "Los campos son requeridos"
         })
@@ -14,52 +14,51 @@ router.post("/", async(req,res) => {
 
     try {
         //Se crea el usuario en la base de datos
-    const user = new User();
-    const exists = await user.usernameExist(username);
-    const existsCorreo = await user.correoExist(correo);
+        const user = new User();
+        const exists = await user.usernameExist(username);
+        const existsCorreo = await user.correoExist(correo);
 
-    if(exists){ //Se revisa si existe el username
-        return res.status(400).json(
-            jsonResponse(400,{
-                error: "El username indicado ya existe"
-            })
-        )
-    }
+        if(exists){ //Se revisa si existe el username
+            return res.status(400).json(
+                jsonResponse(400,{
+                    error: "El username indicado ya existe"
+                })
+            )
+        }
 
-    if(existsCorreo){ //Se revisa si el correo esta asociado a otro cuenta
-        return res.status(400).json(
-            jsonResponse(400,{
-                error: "El correo indicado ya esta asociado con una cuenta"
-            })
-        )
-    }
+        if(existsCorreo){ //Se revisa si el correo esta asociado a otro cuenta
+            return res.status(400).json(
+                jsonResponse(400,{
+                    error: "El correo indicado ya esta asociado con una cuenta"
+                })
+            )
+        }
 
-    //Si el username y correo son validos se crea el usuario
-    const newUser = new UserModel({
-        correo,
-        nombre,
-        username,
-        contraseña,
-        rol
-    });
+        //Si el username y correo son validos se crea el usuario
+        const newUser = new User({
+            correo,
+            nombre,
+            username,
+            contraseña,
+            rol
+        });
 
-    // Agrega la mascota proporcionada al array de mascotas del usuario
-    newUser.mascotas.push({
-        nombreMascota,
-        animal,
-        edad,
-        descripcion
-    });
+        // Agrega la mascota proporcionada al array de mascotas del usuario
+        newUser.mascotas.push({
+            nombreMascota,
+            animal,
+            edad,
+            descripcion
+        });
 
-    //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
+        //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
 
-    newUser.save();
-    res.status(200).json(jsonResponse(200, {message: "Registro exitoso"}));
+        newUser.save();
+        res.status(200).json(jsonResponse(200, {message: "Registro exitoso"}));
 
-    res.send("signup");
-        
     } catch (error) {
         console.log("Hubo un problema al crear el usuario");
+        console.log({error})
     }
 
 })
