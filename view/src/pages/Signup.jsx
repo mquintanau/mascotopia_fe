@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
+import { User } from "iconoir-react";
 
 function Signup() {
   // Variables de estado formulario
@@ -71,10 +72,10 @@ function Signup() {
         onSubmit={handleSubmit}
         className="pr-50 z-50 mx-auto mt-6 flex max-w-xl flex-col rounded-xl bg-navbar p-10"
       >
-        <div className="flex flex-col">
-          <h1 className="mb-5 text-center text-3xl font-bold text-black">
-            Register Form
-          </h1>
+        <h1 className="mb-5 w-full text-center text-3xl font-bold text-black">
+          Register Form
+        </h1>
+        <div className="flex w-3/5 flex-col">
           <Input
             type="email"
             label="Email"
@@ -91,7 +92,7 @@ function Signup() {
           />
           <Input
             type="text"
-            label="Nombre de usuario"
+            label="Username"
             id="user"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -112,6 +113,49 @@ function Signup() {
             value={confirmarContraseña}
             onChange={(e) => setConfirmarContraseña(e.target.value)}
           />
+          <Input
+            type="text"
+            label="Role"
+            id="role"
+            className="mt-5"
+            value={rol}
+            onChange={(e) => setRol(e.target.value)}
+          />
+        </div>
+        <Input
+          type="text"
+          label="Pet name"
+          id="role"
+          className="mt-5"
+          value={nombreMascota}
+          onChange={(e) => setnombreMascota(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Animal"
+          id="role"
+          className="mt-5"
+          value={animal}
+          onChange={(e) => setAnimal(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Edad animal"
+          id="role"
+          className="mt-5"
+          value={edad}
+          onChange={(e) => setEdad(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Descripcion"
+          id="role"
+          className="mt-5"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+        />
+        <div className="flex w-2/5 flex-col">
+          <User />
         </div>
 
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
