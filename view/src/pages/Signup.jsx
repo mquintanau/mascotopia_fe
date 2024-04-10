@@ -71,8 +71,16 @@ function Signup() {
         console.log("Hubo un error en el registro");
         const json = await response.json();
         if (json && json.body && typeof json.body.error === "string") {
-          setErrorResponse(json.body.error);
           // json tiene la estructura de AuthResponseError
+          if (json.body.error) {
+            Swal.fire({
+              title: "¡Error!",
+              text: json.body.error,
+              icon: "error",
+              confirmButtonText: "Continue",
+              confirmButtonColor: "#f27474",
+            });
+          }
         }
       }
     } catch (error) {
@@ -139,7 +147,7 @@ function Signup() {
         <Input
           type="text"
           label="Pet name"
-          id="role"
+          id="petName"
           className="mt-5"
           value={nombreMascota}
           onChange={(e) => setnombreMascota(e.target.value)}
@@ -147,7 +155,7 @@ function Signup() {
         <Input
           type="text"
           label="Animal Type"
-          id="role"
+          id="animalType"
           className="mt-5"
           value={animal}
           onChange={(e) => setAnimal(e.target.value)}
@@ -155,7 +163,7 @@ function Signup() {
         <Input
           type="text"
           label="Pet age"
-          id="role"
+          id="petAge"
           className="mt-5"
           value={edad}
           onChange={(e) => setEdad(e.target.value)}
