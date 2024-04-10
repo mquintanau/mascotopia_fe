@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
+import Swal from "sweetalert2";
 
 function Signup() {
   // Variables de estado formulario
@@ -22,6 +23,18 @@ function Signup() {
   const auth = useAuth();
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
+
+  // Seccion Alertas
+  // if (errorResponse) {
+  //   Swal.fire({
+  //     title: "¡Error!",
+  //     text: errorResponse,
+  //     icon: "error",
+  //     confirmButtonText: "Continue",
+  //     confirmButtonColor: "#f27474",
+  //   });
+  // }
+
 
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
@@ -43,7 +56,7 @@ function Signup() {
           animal,
           edad,
           descripcion,
-          rol,
+          rol
         }),
       });
 
@@ -54,6 +67,7 @@ function Signup() {
         goTo("/login"); //Se redirige a la página de login
       } else {
         console.log("Hubo un error en el registro");
+        const json = await response.json();
         if (json && json.body && typeof json.body.error === "string") {
           setErrorResponse(json.body.error);
           // json tiene la estructura de AuthResponseError
@@ -79,22 +93,22 @@ function Signup() {
         <Input
           type="email"
           label="Email"
-          id="user"
+          id="correo"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
         />
         <Input
           type="text"
           label="Nombre Completo"
-          id="user"
-          value={correo}
+          id="nombre"
+          value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
         <Input
           type="text"
           label="Nombre de usuario"
-          id="user"
-          value={correo}
+          id="username"
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
@@ -104,6 +118,14 @@ function Signup() {
           className="mt-5"
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Rol"
+          id="rol"
+          className="mt-5"
+          value={rol}
+          onChange={(e) => setRol(e.target.value)}
         />
         
 
