@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 // Componentes propios de la marca
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
@@ -6,7 +6,7 @@ import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
 import Swal from "sweetalert2";
 
 import { API_URL } from "../auth/constants";
-import { useNavigate, useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 
 function Login() {
@@ -34,7 +34,7 @@ function Login() {
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
       });
-    }else if(passwordReset){
+    } else if (passwordReset) {
       Swal.fire({
         title: "¡Success!",
         text: "Your password has been reset successfully",
@@ -42,7 +42,7 @@ function Login() {
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
       });
-    }else if(passwordSent){
+    } else if (passwordSent) {
       Swal.fire({
         title: "¡Ya casi!",
         text: "Hemos enviado un correo para que actualices tu contraseña",
@@ -51,7 +51,7 @@ function Login() {
         confirmButtonColor: "#f27474",
       });
     }
-  }, []);
+  }, [successfulRegister, passwordSent, passwordReset]);
 
   function showDataProtection() {
     Swal.fire({
@@ -88,7 +88,7 @@ function Login() {
           json.body.refreshToken
         ) {
           auth.saveUser(json);
-          goTo("/perfil");
+          goTo("/profile");
         }
       } else {
         console.log("Something went wrong");
@@ -100,11 +100,10 @@ function Login() {
               text: json.body.error,
               icon: "error",
               confirmButtonText: "Continue",
-              confirmButtonText: "Continue",
               confirmButtonColor: "#f27474",
             });
           }
-      
+
           // json tiene la estructura de AuthResponseError
         }
       }
@@ -115,7 +114,7 @@ function Login() {
 
   return (
     <>
-      <div className="h-full min-h-screen bg-login-background bg-cover py-28 lg:pl-[600px]">
+      <div className="bg-login-background h-full min-h-screen bg-cover py-28 lg:pl-[600px]">
         <form
           action=""
           onSubmit={handleSubmit}
@@ -177,7 +176,7 @@ function Login() {
 
           <hr className="my-5 border-black" />
           <p className="text-center text-black">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a
               href=""
               className="font-semibold text-black hover:text-greenLogo"

@@ -20,23 +20,11 @@ function Signup() {
   const [edad, setEdad] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [rol, setRol] = useState("");
-  // Se inicializa el estado de la respuesta de error
-  const [errorResponse, setErrorResponse] = useState("");
+
   // Se obtiene la función de autenticación
   const auth = useAuth();
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
-
-  // Seccion Alertas
-  // if (errorResponse) {
-  //   Swal.fire({
-  //     title: "¡Error!",
-  //     text: errorResponse,
-  //     icon: "error",
-  //     confirmButtonText: "Continue",
-  //     confirmButtonColor: "#f27474",
-  //   });
-  // }
 
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
@@ -64,8 +52,6 @@ function Signup() {
 
       if (response.ok) {
         console.log("El usuario se creo correctamente");
-        setErrorResponse(""); //Se limpia el estado de la respuesta de error
-
         goTo("/login?successfullRegister=true"); //Se redirige a la página de login
       } else {
         console.log("Hubo un error en el registro");
