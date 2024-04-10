@@ -7,7 +7,7 @@ const UserNavbarImage = ({ className, ...props }) => {
       console.log("Click en Perfil");
     }}>
       <img src="public\shared\EjemploImagenUsuario.jpg" className="w-10 h-10 rounded-full" alt="Avatar del usuario" />
-      <h1 className="text-24 font-semibold ml-2">Username</h1>
+      <h1 className="text-[17px] font-semibold ml-2">Username</h1>
     </a>
   );
 };
