@@ -10,7 +10,7 @@ function App() {
     <div className="h-screen w-screen bg-main text-black">
       <header>
         {/* Barra de navegación*/}
-         <NavbarExternal />
+        <NavbarExternal />
       </header>
       <main>
         {/* Contenido principal, manejando la navegacion con react-router-dom */}
