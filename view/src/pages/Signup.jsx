@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
+
+import { User } from "iconoir-react";
 import Swal from "sweetalert2";
+
 
 function Signup() {
   // Variables de estado formulario
@@ -12,6 +15,7 @@ function Signup() {
   const [nombre, setNombre] = useState("");
   const [username, setUsername] = useState("");
   const [contraseña, setContraseña] = useState("");
+  const [confirmarContraseña, setConfirmarContraseña] = useState("");
   const [nombreMascota, setnombreMascota] = useState("");
   const [animal, setAnimal] = useState("");
   const [edad, setEdad] = useState("");
@@ -78,19 +82,85 @@ function Signup() {
     }
   }
   return (
-    <div className="h-full min-h-screen bg-loginBackground bg-cover py-28 lg:pl-[600px]">
+    <div className="h-full min-h-screen bg-loginBackground bg-cover py-28 lg:pl-[100px] ">
       <form
         action=""
         onSubmit={handleSubmit}
-        className="z-50 mx-auto mt-6 flex max-w-sm flex-col rounded-xl bg-navbar p-10"
+        className="pr-50 z-50 mx-auto mt-6 flex max-w-xl flex-col rounded-xl bg-navbar p-10"
       >
-        
-        {!!errorResponse && (
-          <div className="errorMessage mb-4 rounded-md bg-red-400 p-2 text-white">
-            {errorResponse}
-          </div>
-        )}
+        <h1 className="mb-5 w-full text-center text-3xl font-bold text-black">
+          Register Form
+        </h1>
+        <div className="flex w-3/5 flex-col">
+          <Input
+            type="email"
+            label="Email"
+            id="email"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
+          <Input
+            type="text"
+            label="Full Name"
+            id="name"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+          <Input
+            type="text"
+            label="Username"
+            id="user"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="password"
+            label="Password"
+            id="pass"
+            className="mt-5"
+            value={contraseña}
+            onChange={(e) => setContraseña(e.target.value)}
+          />
+          <Input
+            type="password"
+            label="Confirm Password"
+            id="passConfirmation"
+            className="mt-5"
+            value={confirmarContraseña}
+            onChange={(e) => setConfirmarContraseña(e.target.value)}
+          />
+          <Input
+            type="text"
+            label="Role"
+            id="role"
+            className="mt-5"
+            value={rol}
+            onChange={(e) => setRol(e.target.value)}
+          />
+        </div>
         <Input
+          type="text"
+          label="Pet name"
+          id="role"
+          className="mt-5"
+          value={nombreMascota}
+          onChange={(e) => setnombreMascota(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Animal"
+          id="role"
+          className="mt-5"
+          value={animal}
+          onChange={(e) => setAnimal(e.target.value)}
+        />
+        <Input
+          type="text"
+          label="Edad animal"
+          id="role"
+          className="mt-5"
+          value={edad}
+          onChange={(e) => setEdad(e.target.value)}
           type="email"
           label="Email"
           id="correo"
@@ -112,30 +182,22 @@ function Signup() {
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
-          type="password"
-          label="Contraseña"
-          id="pass"
-          className="mt-5"
-          value={contraseña}
-          onChange={(e) => setContraseña(e.target.value)}
-        />
-        <Input
           type="text"
-          label="Rol"
-          id="rol"
+          label="Descripcion"
+          id="description"
           className="mt-5"
-          value={rol}
-          onChange={(e) => setRol(e.target.value)}
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
         />
-        
-
+        <div className="flex w-2/5 flex-col">
+          <User />
+        </div>
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
           Sign Up
         </Button>
-
         <hr className="my-5 border-black" />
         <p className="text-center text-black">
-          Do you have alredy an accound?{" "}
+          Do you have alredy an account?{" "}
           <a href="" className="font-semibold text-black hover:text-greenLogo">
             Login
           </a>
