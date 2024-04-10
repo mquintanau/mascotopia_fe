@@ -1,31 +1,57 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 // Componentes propios de la marca
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
-
-import { API_URL } from "../auth/constants";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthProvider";
 import Swal from "sweetalert2";
 
+import { API_URL } from "../auth/constants";
+import { useNavigate, useLocation} from "react-router-dom";
+import { useAuth } from "../auth/AuthProvider";
+
 function Login() {
-  // Variables de estado formulario
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const successfulRegister = queryParams.get("successfullRegister");
+  const passwordSent = queryParams.get("passwordSent");
+  const passwordReset = queryParams.get("passwordReset");
+
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
-  // Variable de estado para mostrar u ocultar la contraseña
   const [showPassword, setShowPassword] = useState(false);
-  // Variable de estado para mostrar si la tecla de mayúsculas está activada
   const [capsLockOn, setCapsLockOn] = useState(false);
 
-  // Se inicializa la variable de navegación
   const goTo = useNavigate();
-  // Se obtiene la función de autenticación
   const auth = useAuth();
 
-  // Seccion Alertas
-
-  
+  useEffect(() => {
+    // Codigo que se ejecuta al cargar el componente (solo una vez)
+    if (successfulRegister) {
+      Swal.fire({
+        title: "¡Registro exitoso!",
+        text: "Por favor inicia sesión",
+        icon: "success",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
+    }else if(passwordReset){
+      Swal.fire({
+        title: "¡Success!",
+        text: "Your password has been reset successfully",
+        icon: "success",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
+    }else if(passwordSent){
+      Swal.fire({
+        title: "¡Ya casi!",
+        text: "Hemos enviado un correo para que actualices tu contraseña",
+        icon: "success",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
+    }
+  }, []);
 
   function showDataProtection() {
     Swal.fire({
@@ -37,26 +63,22 @@ function Login() {
     });
   }
 
-  // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
     e.preventDefault();
- 
+
     try {
       const response = await fetch(`${API_URL}/login`, {
-        //Se realiza una petición POST al servidor y se espera la respuesta
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          //Se envian los datos del formulario en formato JSON al servidor
           correo,
           contraseña,
         }),
       });
       if (response.ok) {
-        console.log("Login successful"); // TODO Reemplazar por sweetaXlert
-        setErrorResponse(""); //Se limpia el estado de la respuesta de error
+        console.log("Login successful");
         const json = await response.json();
         if (
           json &&
@@ -77,6 +99,7 @@ function Login() {
               title: "¡Error!",
               text: json.body.error,
               icon: "error",
+              confirmButtonText: "Continue",
               confirmButtonText: "Continue",
               confirmButtonColor: "#f27474",
             });

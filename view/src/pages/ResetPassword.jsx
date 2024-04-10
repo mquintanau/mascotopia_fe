@@ -45,7 +45,7 @@ function ResetPassword() {
         }),
       });
       if (response.ok) {
-        goTo("/login")
+        goTo("/login?passwordReset=true")
       } else {
         console.log("Something went wrong");
         const json = await response.json();

@@ -6,7 +6,6 @@ import Signup from "./pages/Signup";
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 import ForgotPassword from "./pages/ForgotPassword";
-import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import ResetPassword from "./pages/ResetPassword";
 
 

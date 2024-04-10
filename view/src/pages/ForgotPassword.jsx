@@ -53,7 +53,7 @@ function ForgotPassword() {
         //   auth.saveUser(json);
         //   goTo("/perfil");
         // }
-        goTo("/login")
+        goTo("/login?passwordSent=true")
       } else {
         console.log("Something went wrong");
         const json = await response.json();

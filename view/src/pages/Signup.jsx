@@ -66,7 +66,7 @@ function Signup() {
         console.log("El usuario se creo correctamente");
         setErrorResponse(""); //Se limpia el estado de la respuesta de error
 
-        goTo("/login"); //Se redirige a la página de login
+        goTo("/login?successfullRegister=true"); //Se redirige a la página de login
       } else {
         console.log("Hubo un error en el registro");
         const json = await response.json();
