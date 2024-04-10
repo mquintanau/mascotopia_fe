@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="h-screen w-screen bg-main text-black">
       <header>
-        {/* Barra de navegación*/}
+        {/* Barra de navegación */}
         <NavbarExternal />
       </header>
       <main>
