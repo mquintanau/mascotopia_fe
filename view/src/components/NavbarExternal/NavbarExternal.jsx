@@ -18,7 +18,8 @@ const NavbarExternal = () => {
 
   const toggleDropdownMenu = () => {
     menuRef.current.classList.toggle("-top-80"); // clase que muestra el menú
-    menuRef.current.classList.toggle("top-[65px]"); // clase que esconde el menú
+    menuRef.current.classList.toggle("top-[50px]"); // clase que esconde el menú
+    menuRef.current.classList.toggle("py-3"); // clase que esconde el menú
   };
 
   return (
@@ -34,7 +35,7 @@ const NavbarExternal = () => {
           <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
             <NavbarLink to="/">Home</NavbarLink>
             <NavbarLink to="/">About Us</NavbarLink>
-            <NavbarLink to="/">
+            <NavbarLink to="/register">
               <Button className="bg-green1">Sign Up</Button>
             </NavbarLink>
             <NavbarLink to="/login">
