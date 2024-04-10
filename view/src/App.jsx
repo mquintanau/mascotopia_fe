@@ -4,13 +4,14 @@ import Login from "./pages/Login";
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import Profile from "./pages/Profile/Profile";
 import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
+import NavbarInternal from "./components/NavbarInternal/NavbarInternal";
 
 function App() {
   return (
     <div className="h-screen w-screen bg-main text-black">
       <header>
         {/* Barra de navegación */}
-        <NavbarExternal />
+        <NavbarInternal />
       </header>
       <main>
         {/* Contenido principal, manejando la navegacion con react-router-dom */}

@@ -35,8 +35,7 @@ const Profile = () => {
       className="mx-auto mb-10 max-w-screen-xl"
       style={{ backgroundImage: "url('public/shared/DecorationLine.svg')" }}
     >
-      <NavbarInternal />
-      <div className="flex justify-center scrollbar">
+      <div className="mt-3 flex justify-center scrollbar">
         <div className="mb-8 flex flex-col sm:flex-row">
           <div className="m-6">
             <UserView
@@ -74,7 +73,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <FooterRectangle />
     </div>
   );
 };
