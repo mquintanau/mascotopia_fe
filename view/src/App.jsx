@@ -1,15 +1,16 @@
-
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import Profile from "./pages/Profile/Profile";
+import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 
 function App() {
   return (
-    <div className="h-screen w-screen bg-main">
+    <div className="h-screen w-screen bg-main text-black">
       <header>
-        {/* Barra de navegación (Hay que agregarla en las paginas, para que no afecte la vista de la navbar cuando la sesion este iniciada)*/}
+        {/* Barra de navegación*/}
+         <NavbarExternal />
       </header>
       <main>
         {/* Contenido principal, manejando la navegacion con react-router-dom */}
@@ -19,9 +20,8 @@ function App() {
           <Route path="/profile" element={<Profile />} /> {/* Prueba perfil */}
         </Routes>
       </main>
-      <footer></footer>
+      <FooterRectangle />
     </div>
-
   );
 }
 
