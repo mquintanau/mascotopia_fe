@@ -64,7 +64,7 @@ function Login() {
   }
 
   return (
-    <div className="h-full min-h-screen bg-login-background bg-cover py-28 lg:pl-[600px]">
+    <div className="bg-loginBackground h-full min-h-screen bg-cover py-28 lg:pl-[600px]">
       <form
         action=""
         onSubmit={handleSubmit}

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
+import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
-      <footer></footer>
+      <FooterRectangle />
     </div>
   );
 }

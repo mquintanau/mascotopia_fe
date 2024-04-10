@@ -24,7 +24,7 @@ export default {
         serif: ["Merriweather", "serif"],
       },
       backgroundImage: {
-        "login-background": "url('./assets/loginBackground.png')",
+        loginBackground: "url('./assets/loginBackground.png')",
         welcome: "url('./assets/Group14.png')",
       },
     },
