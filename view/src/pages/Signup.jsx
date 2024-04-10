@@ -11,6 +11,7 @@ function Signup() {
   const [nombre, setNombre] = useState("");
   const [username, setUsername] = useState("");
   const [contraseña, setContraseña] = useState("");
+  const [confirmarContraseña, setConfirmarContraseña] = useState("");
   const [nombreMascota, setnombreMascota] = useState("");
   const [animal, setAnimal] = useState("");
   const [edad, setEdad] = useState("");
@@ -64,52 +65,55 @@ function Signup() {
     }
   }
   return (
-    <div className="h-full min-h-screen bg-loginBackground bg-cover py-28 lg:pl-[600px]">
+    <div className="h-full min-h-screen bg-loginBackground bg-cover py-28 lg:pl-[100px] ">
       <form
         action=""
         onSubmit={handleSubmit}
-        className="z-50 mx-auto mt-6 flex max-w-sm flex-col rounded-xl bg-navbar p-10"
+        className="pr-50 z-50 mx-auto mt-6 flex max-w-xl flex-col rounded-xl bg-navbar p-10"
       >
-        <h1 className="mb-5 text-center text-3xl font-bold text-black">
-          Register Form
-        </h1>
-        <Input
-          type="email"
-          label="Email"
-          id="email"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-        />
-        <Input
-          type="text"
-          label="Full Name"
-          id="name"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-        />
-        <Input
-          type="text"
-          label="Nombre de usuario"
-          id="user"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          type="password"
-          label="Password"
-          id="pass"
-          className="mt-5"
-          value={contraseña}
-          onChange={(e) => setContraseña(e.target.value)}
-        />
-        <Input
-          type="password"
-          label="Confirm Password"
-          id="passConfirmation"
-          className="mt-5"
-          value={contraseña}
-          onChange={(e) => setContraseña(e.target.value)}
-        />
+        <div className="flex flex-col">
+          <h1 className="mb-5 text-center text-3xl font-bold text-black">
+            Register Form
+          </h1>
+          <Input
+            type="email"
+            label="Email"
+            id="email"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
+          <Input
+            type="text"
+            label="Full Name"
+            id="name"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+          <Input
+            type="text"
+            label="Nombre de usuario"
+            id="user"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            type="password"
+            label="Password"
+            id="pass"
+            className="mt-5"
+            value={contraseña}
+            onChange={(e) => setContraseña(e.target.value)}
+          />
+          <Input
+            type="password"
+            label="Confirm Password"
+            id="passConfirmation"
+            className="mt-5"
+            value={confirmarContraseña}
+            onChange={(e) => setConfirmarContraseña(e.target.value)}
+          />
+        </div>
+
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
           Sign Up
         </Button>
