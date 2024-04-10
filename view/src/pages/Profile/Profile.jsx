@@ -77,9 +77,9 @@ const Profile = () => {
       style={{ backgroundImage: "url('public/shared/DecorationLine.svg')" }}
     >
       <div className="mt-3 flex justify-center scrollbar">
+      {data &&
         <div className="mb-8 flex flex-col sm:flex-row">
           <div className="m-6">
-          {data && 
             <UserView
               imageURL={user.imageURL}
               name={data.nombre}
@@ -88,15 +88,15 @@ const Profile = () => {
               username={data.username}
               number_pets={data.numMascotas}
             />
-          }
           </div>
           <div className="m-6">
             <div className="flex flex-col">
-              <PetList pets={petsData} />
+              <PetList pets={data.mascotas} />
               {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
             </div>
           </div>
         </div>
+      }
       </div>
     </div>
   );

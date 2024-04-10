@@ -17,9 +17,8 @@ const PetView = (props) => {
       <div className="border-l-4 border-primary flex-col justify-start px-4 text-[15px] font-light text-black">
         <div className="text-left leading-8">
           <p>Name: {petName}</p>
-          <p>Location: {petLocation}</p>
-          <p>Age: {petAge}</p>
           <p>Kind: {animalPet}</p>
+          <p>Age: {petAge}</p>
           <p>Description: {petDescription}</p>
         </div>
       </div>
