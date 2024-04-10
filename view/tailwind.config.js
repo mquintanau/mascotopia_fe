@@ -4,10 +4,13 @@ export default {
   theme: {
     extend: {
       animation: {
-        "spin-slow": "spin 1s linear", // Define una animación de giro lento
-        fadeIn: "fadeIn 0.3s ease-in", // Define una animación de fundido
-        fadeOut: "fadeOut 0.3s ease-out", // Define una animación de fundido
-        bounce: "bounce 1s",
+
+        'spin-slow': 'spin 1s linear', // Define una animación de giro lento
+        'fadeIn': 'fadeIn 0.3s ease-in', // Define una animación de fundido
+        'fadeOut': 'fadeOut 0.3s ease-out', // Define una animación de fundido
+        'bounce' : 'bounce 1s',
+        'in-out': 'ease-in-out 0.3s'
+
       },
       colors: {
         main: "#F1FFF2",
