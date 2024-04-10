@@ -14,13 +14,13 @@ router.post('/:id/:token', async (req, res) => {
 
     if (!!!contraseña || !!!contraseñaRev) { //verificamos si los campos estan vacios
         return res.status(400).json(jsonResponse(400, { //retornamos un json con el mensaje de error
-            error: "Los campos son requeridos"
+            error: "The fields are required"
         }));
     }
 
     if (contraseña !== contraseñaRev) {
         return res.status(400).json(jsonResponse(400, {
-            error: "Las contraseñas no coinciden"
+            error: "The passwords do not match"
         }));
     }
 
@@ -28,7 +28,7 @@ router.post('/:id/:token', async (req, res) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
             return res.status(403).json(jsonResponse(403, {
-                error: "Token invalido"
+                error: "Invalid token"
             }));
         } else {
             bcrypt.hash(contraseña, 10)
@@ -37,12 +37,12 @@ router.post('/:id/:token', async (req, res) => {
                     // Aquí va el código que deseas ejecutar después de hashear la contraseña
                     .then(u => {
                         return res.status(200).json(jsonResponse(200, {
-                            message: "Contraseña actualizada"
+                            message: "Password updated successfully"
                         }));
                     })
                     .catch(err => {
                         return res.status(400).json(jsonResponse(400, {
-                            error: "Error al actualizar la contraseña"
+                            error: "Error updating password"
                         }));
                     });
                 })

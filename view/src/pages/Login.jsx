@@ -29,7 +29,7 @@ function Login() {
     if (successfulRegister) {
       Swal.fire({
         title: "¡Registro exitoso!",
-        text: "Por favor inicia sesión",
+        text: "Please login to continue",
         icon: "success",
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
@@ -44,8 +44,8 @@ function Login() {
       });
     } else if (passwordSent) {
       Swal.fire({
-        title: "¡Ya casi!",
-        text: "Hemos enviado un correo para que actualices tu contraseña",
+        title: "Almost there!",
+        text: "We have sent an email for you to update your password",
         icon: "success",
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
