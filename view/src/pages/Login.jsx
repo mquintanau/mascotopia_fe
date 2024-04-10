@@ -88,7 +88,7 @@ function Login() {
           json.body.refreshToken
         ) {
           auth.saveUser(json);
-          goTo("/profile");
+          goTo(`/profile/${json.body.userId}`);
         }
       } else {
         console.log("Something went wrong");

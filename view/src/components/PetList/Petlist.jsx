@@ -5,11 +5,10 @@ const generatePetViews = (pets) => {
       <PetView
         key={index} // Asegúrate de usar un identificador único para la clave de React
         imageURL={pet.imageURL}
-        petLocation={pet.petLocation}
-        petName={pet.name}
-        petAge={pet.age}
-        animalPet={pet.kind}
-        petDescription={pet.description}
+        petName={pet.nombreMascota}
+        animalPet={pet.animal}
+        petAge={pet.edad}
+        petDescription={pet.descripcion}
       />
     ));
   };
