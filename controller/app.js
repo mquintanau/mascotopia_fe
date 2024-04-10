@@ -21,8 +21,8 @@ connectDB().catch(console.eror);
 
 //RUTAS
 app.use('/api/login', require('./routes/login'));
+app.use('/api/userProfile', require('./routes/userProfile'));
 app.use('/api/signup', require('./routes/signup')); 
-
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

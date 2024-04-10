@@ -35,7 +35,23 @@ router.post("/", async(req,res) => {
     }
 
     //Si el username y correo son validos se crea el usuario
-    const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
+    const newUser = new UserModel({
+        correo,
+        nombre,
+        username,
+        contraseña,
+        rol
+    });
+
+    // Agrega la mascota proporcionada al array de mascotas del usuario
+    newUser.mascotas.push({
+        nombreMascota,
+        animal,
+        edad,
+        descripcion
+    });
+
+    //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
 
     newUser.save();
     res.status(200).json(jsonResponse(200, {message: "Registro exitoso"}));

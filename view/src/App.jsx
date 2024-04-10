@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
+import Perfil from "./pages/Perfil/Perfil";
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
 import Profile from "./pages/Profile/Profile";
 import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} /> {/* Prueba perfil */}
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
       </main>
       <FooterRectangle />
