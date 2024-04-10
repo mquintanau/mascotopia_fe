@@ -21,11 +21,11 @@ const LandingPage = () => {
       <section className="flex justify-center">
         <img src={DecorationLine} className="absolute -z-10 -mt-60" />
       </section>
-      <section>
+      <section className="mx-5 mb-20">
         <img
           src={SignUpInvitation}
           alt=""
-          className="m-auto w-screen max-w-[700px]"
+          className="m-auto w-11/12 max-w-[700px]"
         />
       </section>
     </div>
