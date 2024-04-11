@@ -26,6 +26,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Modelo para la colección usuario
+
 // const UserModel = mongoose.model('User', UserSchema);
 
 

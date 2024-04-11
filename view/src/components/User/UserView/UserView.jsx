@@ -1,13 +1,9 @@
 const UserView = (props) => {
   const {
-    imageURL,
     name,
     email,
     username,
     role,
-    birthday,
-    contact_number,
-    description,
     number_pets
   } = props;
   return (
@@ -17,7 +13,7 @@ const UserView = (props) => {
         <div className="flex flex-col items-center justify-center my-2">
           <div className="relative mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
             <img
-              src={imageURL}
+              src={"https://via.placeholder.com/150"}
               className="h-full w-full rounded-full object-cover my-2"
             />
           </div>
@@ -26,10 +22,7 @@ const UserView = (props) => {
               <p>Name: {name}</p>
               <p>Email: {email}</p>
               <p>Username: {username}</p>
-              <p>Birthday: {birthday}</p>
-              <p>Number: {contact_number}</p>
-              <p>Description: {description}</p>
-              <p># of pets: {number_pets}</p>
+              <p>Pets: {number_pets}</p>
               <p> &gt; {role} </p>
             </div>
           </div>

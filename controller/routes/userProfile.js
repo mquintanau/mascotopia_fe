@@ -3,11 +3,11 @@ const User = require("../schema/user")//importamos el modelo de usuario (archivo
 const router = require("express").Router()//importamos el router de express 
 const getUserInfo = require("../lib/getUserInfo");//importamos la funcion para obtener la informacion del usuario
 
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
+    const {id} = req.params; //Obtén el ID del usuario de los parámetros de la URL
     // Obtener la información del usuario desde la base de datos             
-    try{
-        const userId = req.params.userId; //Obtén el ID del usuario de los parámetros de la URL
-        const user = await User.findOne(userId);// Busca el usuario en la base de datos por su ID
+    try{ 
+        const user = await User.findOne({ _id: id });// Busca el usuario en la base de datos por su ID
         // Verifica si se encontró el usuario
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
