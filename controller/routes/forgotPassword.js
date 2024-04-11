@@ -47,7 +47,6 @@ router.post('/', async (req, res) => {
         subject: 'Reset Your Password',//asunto del correo
         text: `http://localhost:5173/resetPassword/${user._id}/${token}`//Texto del correo
       };
-      
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);

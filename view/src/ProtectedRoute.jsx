@@ -5,6 +5,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const ProtectedRoute = () => {
     const token = localStorage.getItem('token');// Obtiene el token de autenticación del local storage
+    const tokenRestPassword = localStorage.getItem('tokenReset');// Obtiene el token de autenticación del local storage
     const location = useLocation(); // Obtiene la ubicación actual de la aplicación
     // Verifica si la ubicación actual es /perfil
 
@@ -21,6 +22,10 @@ const ProtectedRoute = () => {
     
     if ((isLogin||isResetPassword||isForgotPassword||isRegister)){
         return token ? <Navigate to="/profile" /> : <Outlet />;//Si la ubicación actual es /login y el token existe, redirige al usuario a la página de perfil
+    }
+    
+    if(isResetPassword){
+        return tokenRestPassword ? <Outlet /> : <Navigate to="/login" />;//Si la ubicación actual es /resetPassword y el token de reseteo de contraseña existe, redirige al usuario a la página de login
     }
     return token ? <Outlet /> : <Navigate to="/login" />; //Si el token no existe, redirige al usuario a la página de login
 
