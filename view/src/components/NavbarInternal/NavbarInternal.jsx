@@ -27,6 +27,7 @@ const NavbarInternal = () => {
 
   const signOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("idUser");
     goTo('/login');
   }
 
