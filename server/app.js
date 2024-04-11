@@ -19,7 +19,7 @@ async function connectDB(){
     console.log('DB connected')
 }
 
-connectDB().catch(console.eror);
+connectDB().catch(console.error);
 
 //RUTAS
 app.use('/api/login', require('./routes/login'));
