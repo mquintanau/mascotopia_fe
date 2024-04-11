@@ -1,5 +1,4 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
 
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -12,7 +11,7 @@ import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import PrivateRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
@@ -36,12 +35,12 @@ function App() {
         {/* Contenido principal, manejando la navegacion con react-router-dom */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Signup />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/" element={<PrivateRoute/>}>  
-            <Route path="/profile" element={<Profile /> } />
-            <Route path="resetPassword/:id/:token" element={<ResetPassword />} />
+          <Route path="/" element={<ProtectedRoute/>}> {/* Se protege la ruta de perfil y resetPassword */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile /> } /> {/* Se muestra el perfil */}
+            <Route path="resetPassword/:id/:token" element={<ResetPassword />} /> {/* Se muestra el formulario de reseteo de contraseña */}
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/register" element={<Signup />} />
           </Route>
         </Routes>
       </main>
