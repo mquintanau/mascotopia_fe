@@ -45,6 +45,18 @@ function Signup() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    // Verifica que el campo confirmar contraseña coincide
+    if (contraseña !== confirmarContraseña) {
+      Swal.fire({
+        title: "¡Error!",
+        text: "Your passwords do not match. Please try again.",
+        icon: "error",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
