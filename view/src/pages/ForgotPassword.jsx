@@ -52,6 +52,7 @@ function ForgotPassword() {
         //   auth.saveUser(json);
         //   goTo("/perfil");
         // }
+        localStorage.setItem("tokenReset", "Resse&tPassword"); //Se guarda el token de refresco en el local storage
         goTo("/login?passwordSent=true");
       } else {
         console.log("Something went wrong");

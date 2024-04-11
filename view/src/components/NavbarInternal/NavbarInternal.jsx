@@ -1,7 +1,10 @@
 import { useState } from "react";
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 import NavbarLink from "../NavbarExternal/NavbarLink";
+import Button from "../Button/Button";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -20,6 +23,13 @@ const NavbarInternal = () => {
     setShowMenu(!showMenu);
   };
 
+  const goTo = useNavigate();
+
+  const signOut = () => {
+    localStorage.removeItem("token");
+    goTo('/login');
+  }
+
   const user = {
     name: "AAAaaaA css",
     email: "aaa@gmail.com",
@@ -32,6 +42,7 @@ const NavbarInternal = () => {
     description: ":3",
     number_pets: 2,
   };
+
 
   return (
     <header className="sticky top-0 z-50 flex h-[50px] w-screen items-center justify-center bg-[#D6FEDA] text-black">
@@ -47,7 +58,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] text-black hover:text-[#424a49] ${
+              className={`pb-[18px] text-black hover:text-[#424a49] ${
                 activeLink === 0 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(0)}
@@ -63,7 +74,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] text-black hover:text-[#424a49] ${
+              className={`pb-[18px] text-black hover:text-[#424a49] ${
                 activeLink === 1 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(1)}
@@ -79,7 +90,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] text-black hover:text-[#424a49] ${
+              className={`pb-[18px] text-black hover:text-[#424a49] ${
                 activeLink === 2 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(2)}
@@ -91,6 +102,7 @@ const NavbarInternal = () => {
               Calendar
             </a>
           </div>
+          <Button className="mr-5" onClick={signOut}>Sign Out</Button>
         </div>
         <div className="absolute right-0 px-2 lg:hidden">
           <button onClick={toggleMenu}>
@@ -130,6 +142,12 @@ const NavbarInternal = () => {
                 onClick={() => console.log("Click en Calendario")}
               >
                 Calendar
+              </a>
+              <a
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100 font-bold hover:cursor-pointer"
+                onClick={signOut}
+              >
+                Sign Out
               </a>
             </div>
           )}

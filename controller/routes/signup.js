@@ -21,7 +21,7 @@ router.post("/", async(req,res) => {
         if(exists){ //Se revisa si existe el username
             return res.status(400).json(
                 jsonResponse(400,{
-                    error: "El username indicado ya existe"
+                    error: "The username is already taken"
                 })
             )
         }
@@ -29,7 +29,7 @@ router.post("/", async(req,res) => {
         if(existsCorreo){ //Se revisa si el correo esta asociado a otro cuenta
             return res.status(400).json(
                 jsonResponse(400,{
-                    error: "El correo indicado ya esta asociado con una cuenta"
+                    error: "The email is already taken"
                 })
             )
         }
@@ -54,10 +54,10 @@ router.post("/", async(req,res) => {
         //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
 
         newUser.save();
-        res.status(200).json(jsonResponse(200, {message: "Registro exitoso"}));
+        res.status(200).json(jsonResponse(200, {message: "User created successfully"}));
 
     } catch (error) {
-        console.log("Hubo un problema al crear el usuario");
+        console.log("Error creating user");
         console.log({error})
     }
 

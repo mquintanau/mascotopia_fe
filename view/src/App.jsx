@@ -12,6 +12,7 @@ import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
@@ -35,12 +36,13 @@ function App() {
         {/* Contenido principal, manejando la navegacion con react-router-dom */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile/:id" element={<Profile />} /> {/* Prueba perfil */}
-          <Route path="/register" element={<Signup />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="resetPassword/:id/:token" element={<ResetPassword />} />
-
+          <Route path="/" element={<ProtectedRoute/>}> {/* Se protege la ruta de perfil y resetPassword */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile/:id" element={<Profile />} /> {/* Prueba perfil */}
+            <Route path="resetPassword/:id/:token" element={<ResetPassword />} /> {/* Se muestra el formulario de reseteo de contraseña */}
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/register" element={<Signup />} />
+          </Route>
         </Routes>
       </main>
       <FooterRectangle />

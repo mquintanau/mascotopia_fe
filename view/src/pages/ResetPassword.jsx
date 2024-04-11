@@ -45,6 +45,7 @@ function ResetPassword() {
         }),
       });
       if (response.ok) {
+        localStorage.removeItem('tokenReset');
         goTo("/login?passwordReset=true")
       } else {
         console.log("Something went wrong");

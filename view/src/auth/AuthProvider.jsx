@@ -16,7 +16,11 @@ export function AuthProvider({ children }) {
   //Este componente se encarga de proveer el contexto a los componentes hijos
   //para saber si el usuario esta autenticado o no y asi poder mostrar las rutas protegidas
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false); //Se inicializa el estado de autenticación en falso
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem('isAuthenticated') || false
+  ); //Se inicializa el estado de autenticación en falso
+  
+
   const [accessToken, setAccessToken] = useState(""); //Se inicializa el estado del token de acceso en nulo
 
   function getAccessToken() {
@@ -39,7 +43,6 @@ export function AuthProvider({ children }) {
     setAccessToken(userData.body.accesToken); //Se guarda el token de acceso en el estado de autenticación
 
     localStorage.setItem("token", JSON.stringify(userData.body.refreshToken)); //Se guarda el token de refresco en el local storage
-    setIsAuthenticated(true); //Se cambia el estado de autenticación a verdadero
   }
 
   return (

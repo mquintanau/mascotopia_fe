@@ -10,7 +10,7 @@ router.get('/:id', async (req, res) => {
         const user = await User.findOne({ _id: id });// Busca el usuario en la base de datos por su ID
         // Verifica si se encontró el usuario
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'User not found' });
         }
 
         // Devuelve los datos del perfil del usuario en formato JSON
@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
         
     } catch (error) {
         res.status(500).json(jsonResponse(500,{//retornamos un json con el mensaje de error
-            error: 'Error interno del servidor'
+            error: 'Internal Server Error'
         }));
     }
 

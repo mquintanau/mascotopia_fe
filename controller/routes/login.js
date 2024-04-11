@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
     const {correo, contraseña} = req.body;//obtenemos los datos del body
     if(!!!correo ||  !!!contraseña) {//verificamos si los campos estan vacios
         return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error
-            error: "Los campos son requeridos"
+            error: "The fields are required"
         })
         );
     }
@@ -27,12 +27,12 @@ router.post('/', async (req, res) => {
             }));
         }else{//si la contraseña es incorrecta
             return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error
-                error: "El correo o la contraseña es incorrecto"
+                error: "The email or password is incorrect"
             }));
         }
     }else{//si el usuario no existe
         return res.status(404).json(jsonResponse(404,{//retornamos un json con el mensaje de error
-            error: "Correo o contraseña  no encontrados"
+            error: "Email or password not found"
         }));
     }
 });

@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     const {correo, nombre} = req.body;
     if(!!!correo ||  !!!nombre) {//verificamos si los campos estan vacios
         return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error
-            error: "Los campos son requeridos"
+            error: "The fields are required"
         })
         );
     }
@@ -19,13 +19,13 @@ router.post('/', async (req, res) => {
 
     if(!user){//si el correo no existe
         return res.status(404).json(jsonResponse(404,{
-            error: "Correo no encontrado"
+            error: "Email not found"
         }));
     }
     const name = await User.findOne({nombre});
     if(!name){//si el nombre no existe
         return res.status(404).json(jsonResponse(404,{
-            error: "Nombre no encontrado"
+            error: "Name not found"
         }));
     }
 
@@ -47,7 +47,6 @@ router.post('/', async (req, res) => {
         subject: 'Reset Your Password',//asunto del correo
         text: `http://localhost:5173/resetPassword/${user._id}/${token}`//Texto del correo
       };
-      
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
