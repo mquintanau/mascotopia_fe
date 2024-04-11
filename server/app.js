@@ -9,12 +9,12 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const port = process.env.PORT || 4000;//puerto del servidor
-//app.use(cors());//permite que el servidor acepte peticiones de cualquier origen
-app.use(cors({
-    origin: 'https://mascotopia-fe.onrender.com',
-    credentials: true,
-    methods : ['GET', 'POST', 'PUT', 'DELETE']
-}));
+app.use(cors());//permite que el servidor acepte peticiones de cualquier origen
+// app.use(cors({
+//     origin: 'https://mascotopia-fe.onrender.com',
+//     credentials: true,
+//     methods : ['GET', 'POST', 'PUT', 'DELETE']
+// }));
 app.use(express.json());//permite que el servidor pueda recibir y enviar datos en formato JSON
 
 
