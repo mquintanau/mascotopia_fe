@@ -97,7 +97,6 @@ const Profile = () => {
             <div className="flex flex-col">
               <PetList 
               pets={data.mascotas}
-              userNumberPets={data.numMascotas}
                />
               {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
             </div>
