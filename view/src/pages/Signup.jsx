@@ -83,7 +83,7 @@ function Signup() {
         <h1 className="mb-5 w-full text-center text-3xl font-bold text-black">
           Register Form
         </h1>
-        <div className="flex flex-row-reverse flex-wrap">
+        <section className="flex flex-row-reverse flex-wrap">
           <div className="flex w-full flex-col items-center justify-around lg:w-2/5">
             <div className="flex h-36 w-36 items-center justify-center rounded-full bg-white">
               <User
@@ -101,6 +101,7 @@ function Signup() {
               id="email"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
+              required={true}
             />
             <Input
               type="text"
@@ -108,6 +109,7 @@ function Signup() {
               id="name"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
+              required={true}
             />
             <Input
               type="text"
@@ -115,6 +117,7 @@ function Signup() {
               id="user"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required={true}
             />
             <Input
               type="password"
@@ -123,6 +126,7 @@ function Signup() {
               className="mt-5"
               value={contraseña}
               onChange={(e) => setContraseña(e.target.value)}
+              required={true}
             />
             <Input
               type="password"
@@ -131,29 +135,23 @@ function Signup() {
               className="mt-5"
               value={confirmarContraseña}
               onChange={(e) => setConfirmarContraseña(e.target.value)}
-            />
-            <Input
-              type="text"
-              label="Role"
-              id="role"
-              className="mt-5"
-              value={rol}
-              onChange={(e) => setRol(e.target.value)}
+              required={true}
             />
           </div>
-        </div>
-        <div className="mt-10 flex flex-row-reverse flex-wrap lg:mt-0">
+        </section>
+        <section className="mt-10 flex flex-row-reverse flex-wrap lg:mt-4">
           <div className="flex w-full flex-col items-center justify-around lg:w-2/5">
             <div className="flex h-36 w-36 items-center justify-center rounded-full bg-white">
               <Wolf
-                className=""
-                width="120px"
-                height="120px"
+                className="flex h-[120px] w-[120px] lg:mb-0"
                 strokeWidth="1px"
               />
             </div>
           </div>
           <div className="flex w-full flex-col lg:w-3/5">
+            <p className="mt-5 text-center lg:mt-0">
+              Do you have a pet? Add its information:
+            </p>
             <Input
               type="text"
               label="Pet name"
@@ -179,7 +177,7 @@ function Signup() {
               onChange={(e) => setEdad(e.target.value)}
             />
           </div>
-        </div>
+        </section>
         <Input
           type="text"
           label="Description"
@@ -188,13 +186,53 @@ function Signup() {
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
         />
+        <section>
+          <p className="mb-4 text-center lg:mt-4">
+            Select your role in the community:
+          </p>
+          <div className="flex flex-col justify-center">
+            <label className="text-center">
+              <input
+                type="radio"
+                id="petOwner"
+                name="role"
+                value="petOwner"
+                onChange={(e) => setRol(e.target.value)}
+                required={true}
+              />{" "}
+              Pet Owner
+            </label>
+            <label className="text-center">
+              <input
+                type="radio"
+                id="organization"
+                name="role"
+                value="organization"
+                onChange={(e) => setRol(e.target.value)}
+                required={true}
+              />{" "}
+              Organization
+            </label>
+            <label className="text-center">
+              <input
+                type="radio"
+                id="volunteer"
+                name="role"
+                value="volunteer"
+                onChange={(e) => setRol(e.target.value)}
+                required={true}
+              />{" "}
+              Volunteer
+            </label>
+          </div>
+        </section>
 
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
           Sign Up
         </Button>
         <hr className="my-5 border-black" />
         <p className="text-center text-black">
-          Do you have alredy an account?{" "}
+          Do you have already an account?{" "}
           <a href="" className="font-semibold text-black hover:text-greenLogo">
             Login
           </a>
