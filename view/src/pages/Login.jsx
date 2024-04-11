@@ -15,6 +15,7 @@ function Login() {
   const successfulRegister = queryParams.get("successfullRegister");
   const passwordSent = queryParams.get("passwordSent");
   const passwordReset = queryParams.get("passwordReset");
+  const noPermission = queryParams.get("noPermission");
 
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
@@ -47,6 +48,14 @@ function Login() {
         title: "Almost there!",
         text: "We have sent an email for you to update your password",
         icon: "success",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
+    }else if (noPermission) {
+      Swal.fire({
+        title: "¡Error!",
+        text: "You need to login to access this page",
+        icon: "error",
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
       });

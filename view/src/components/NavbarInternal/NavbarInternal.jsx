@@ -42,7 +42,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] mt-5 text-black hover:text-[#424a49] ${
+              className={`pb-[18px] text-black hover:text-[#424a49] ${
                 activeLink === 0 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(0)}
@@ -58,7 +58,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] text-black hover:text-[#424a49] ${
+              className={`pb-[18px] text-black hover:text-[#424a49] ${
                 activeLink === 1 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(1)}
@@ -74,7 +74,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] text-black hover:text-[#424a49] ${
+              className={`pb-[18px] text-black hover:text-[#424a49] ${
                 activeLink === 2 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(2)}
@@ -126,6 +126,12 @@ const NavbarInternal = () => {
                 onClick={() => console.log("Click en Calendario")}
               >
                 Calendar
+              </a>
+              <a
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100 font-bold hover:cursor-pointer"
+                onClick={signOut}
+              >
+                Sign Out
               </a>
             </div>
           )}
