@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
+
+import { API_URL } from "../auth/constants";
 import { useAuth } from "../auth/AuthProvider";
+
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 
 import { User, Wolf } from "iconoir-react";
 import Swal from "sweetalert2";
+
+import { registerDecorationLine } from "../assets/decorationLineRegister.svg";
 
 function Signup() {
   function showDataProtection() {
