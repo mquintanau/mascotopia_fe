@@ -20,7 +20,7 @@ const ProtectedRoute = () => {
     // Si no, redirige al usuario a la página de login
     
     
-    if ((isLogin||isResetPassword||isForgotPassword||isRegister)){
+    if ((isLogin||isForgotPassword||isRegister)){
         return token ? <Navigate to="/profile" /> : <Outlet />;//Si la ubicación actual es /login y el token existe, redirige al usuario a la página de perfil
     }
     
