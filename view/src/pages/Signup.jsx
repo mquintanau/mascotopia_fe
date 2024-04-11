@@ -9,6 +9,16 @@ import { User, Wolf } from "iconoir-react";
 import Swal from "sweetalert2";
 
 function Signup() {
+  function showDataProtection() {
+    Swal.fire({
+      title: "Data Protection",
+      text: "We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.",
+      icon: "info",
+      confirmButtonText: "Continue",
+      confirmButtonColor: "#f27474",
+    });
+  }
+
   // Variables de estado formulario
   const [correo, setCorreo] = useState("");
   const [nombre, setNombre] = useState("");
@@ -225,6 +235,18 @@ function Signup() {
               Volunteer
             </label>
           </div>
+        </section>
+        <section>
+          <p className="mt-4 text-center text-black">
+            Please, read and accept the
+            <a
+              onClick={showDataProtection}
+              className="cursor-pointer text-center font-bold"
+            >
+              {" "}
+              terms and conditions of use
+            </a>
+          </p>
         </section>
 
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
