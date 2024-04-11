@@ -1,7 +1,10 @@
 import { useState } from "react";
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 import NavbarLink from "../NavbarExternal/NavbarLink";
+import Button from "../Button/Button";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -20,6 +23,13 @@ const NavbarInternal = () => {
     setShowMenu(!showMenu);
   };
 
+  const goTo = useNavigate();
+
+  const signOut = () => {
+    localStorage.removeItem("token");
+    goTo('/login');
+  }
+
   return (
     <header className="sticky top-0 z-50 flex h-[50px] w-screen items-center justify-center bg-[#D6FEDA] text-black">
       <div className="flex w-full items-center justify-between">
@@ -32,7 +42,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[13px] text-black hover:text-[#424a49] ${
+              className={`pb-[13px] mt-5 text-black hover:text-[#424a49] ${
                 activeLink === 0 ? "border-b-2 border-primary text-primary" : ""
               }`}
               onMouseEnter={() => handleMouseEnter(0)}
@@ -76,6 +86,7 @@ const NavbarInternal = () => {
               Calendar
             </a>
           </div>
+          <Button className="mr-5" onClick={signOut}>Sign Out</Button>
         </div>
         <div className="absolute right-0 px-2 lg:hidden">
           <button onClick={toggleMenu}>
