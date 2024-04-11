@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
         from: 'mascotopiapp@gmail.com',//correo de donde se envia
         to: 'juandamadrid7@gmail.com',//correo a donde se envia
         subject: 'Reset Your Password',//asunto del correo
-        text: `http://localhost:5173/resetPassword/${user._id}/${token}`//Texto del correo
+        text: `https://mascotopia-fe.onrender.com/resetPassword/${user._id}/${token}`//Texto del correo
       };
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
