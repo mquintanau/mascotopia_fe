@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
+
+import { API_URL } from "../auth/constants";
 import { useAuth } from "../auth/AuthProvider";
+
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 
 import { User, Wolf } from "iconoir-react";
 import Swal from "sweetalert2";
+
+import registerDecorationLine from "../assets/decorationLineRegister.svg";
+import registerCat from "../assets/registerCat.png";
 
 function Signup() {
   function showDataProtection() {
@@ -84,7 +89,15 @@ function Signup() {
     }
   }
   return (
-    <div className="h-full min-h-screen bg-loginBackground bg-cover py-28 lg:pl-[100px] ">
+    <div
+      className="mx-5 h-full min-h-screen bg-cover py-28 lg:mx-0 lg:pl-[100px]"
+      style={{
+        backgroundImage: ` url(${registerCat}),url(${registerDecorationLine})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center, center",
+        backgroundSize: "contain, contain",
+      }}
+    >
       <form
         action=""
         onSubmit={handleSubmit}

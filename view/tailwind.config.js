@@ -4,13 +4,11 @@ export default {
   theme: {
     extend: {
       animation: {
-
-        'spin-slow': 'spin 1s linear', // Define una animación de giro lento
-        'fadeIn': 'fadeIn 0.3s ease-in', // Define una animación de fundido
-        'fadeOut': 'fadeOut 0.3s ease-out', // Define una animación de fundido
-        'bounce' : 'bounce 1s',
-        'in-out': 'ease-in-out 0.3s'
-
+        "spin-slow": "spin 1s linear", // Define una animación de giro lento
+        fadeIn: "fadeIn 0.3s ease-in", // Define una animación de fundido
+        fadeOut: "fadeOut 0.3s ease-out", // Define una animación de fundido
+        bounce: "bounce 1s",
+        "in-out": "ease-in-out 0.3s",
       },
       colors: {
         main: "#F1FFF2",
@@ -31,7 +29,8 @@ export default {
         welcome: "url('./assets/Group14.png')",
         "login-background": "url('./assets/loginBackground.png')",
         "line-background": "url('./assets/lineForgotPassword.svg')",
-//         TODO: Arreglar duplicados
+        decorationLineRegister: "url('./assets/decorationLineRegister.svg')",
+        //         TODO: Arreglar duplicados
       },
     },
   },
