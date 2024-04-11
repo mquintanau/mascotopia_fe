@@ -1,5 +1,6 @@
 import PetList from "../../components/PetList/Petlist";
 import UserView from "../../components/User/UserView/UserView";
+import DecorationLine from "../../assets/decorationLine.svg";
 import React, { useState, useEffect } from 'react';
 import { API_URL } from "../../auth/constants";
 import {useParams} from "react-router-dom";
@@ -74,11 +75,14 @@ const Profile = () => {
   return (
     <div
       className="mx-auto mb-10 max-w-screen-xl"
-      style={{ backgroundImage: "url('public/shared/DecorationLine.svg')" }}
+      style={{ backgroundImage: "url('view/public/shared/DecorationLine.svg')" }}
     >
+      <section className="flex justify-center">
+        <img src={DecorationLine} className="absolute py-[320px] z-0 -mt-60" />
+      </section>
       <div className="mt-3 flex justify-center scrollbar">
       {data &&
-        <div className="mb-8 flex flex-col sm:flex-row">
+        <div className="mb-8 flex flex-col z-10 sm:flex-row">
           <div className="m-6">
             <UserView
               imageURL={user.imageURL}
@@ -91,7 +95,10 @@ const Profile = () => {
           </div>
           <div className="m-6">
             <div className="flex flex-col">
-              <PetList pets={data.mascotas} />
+              <PetList 
+              pets={data.mascotas}
+              userNumberPets={data.numMascotas}
+               />
               {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
             </div>
           </div>

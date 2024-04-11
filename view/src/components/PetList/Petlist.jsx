@@ -1,6 +1,9 @@
 import PetView from "../Pet/PetView/PetView";
 
-const generatePetViews = (pets) => {
+const generatePetViews = (pets, userNumberPets) => {
+  if (isNaN(userNumberPets)) {
+    return null; // Devuelve null si no hay mascotas
+  }else{
     return pets.map((pet, index) => (
       <PetView
         key={index} // Asegúrate de usar un identificador único para la clave de React
@@ -11,7 +14,9 @@ const generatePetViews = (pets) => {
         petDescription={pet.descripcion}
       />
     ));
-  };
+  }
+};
+
   
   const PetList = ({ pets }) => {
     return (
