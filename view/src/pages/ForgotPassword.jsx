@@ -6,7 +6,7 @@ import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
 
 import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/AuthProvider";
+// import { useAuth } from "../auth/AuthProvider";
 
 function ForgotPassword() {
   // Variables de estado formulario
@@ -19,7 +19,7 @@ function ForgotPassword() {
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
   // Se obtiene la función de autenticación
-  const auth = useAuth();
+  // const auth = useAuth();
 
   // Función que se ejecuta al enviar el formulario
   async function handleSubmit(e) {
@@ -68,7 +68,7 @@ function ForgotPassword() {
   }
 
   return (
-    <div className="bg-line-background  flex h-screen items-center justify-center bg-cover bg-right">
+    <div className="flex  h-screen items-center justify-center bg-line-background bg-cover bg-right">
       <form
         action=""
         onSubmit={handleSubmit}

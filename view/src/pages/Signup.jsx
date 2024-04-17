@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../auth/constants";
-import { useAuth } from "../auth/AuthProvider";
+//import { useAuth } from "../auth/AuthProvider";
 
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
@@ -37,7 +37,7 @@ function Signup() {
   const [rol, setRol] = useState("");
 
   // Se obtiene la función de autenticación
-  const auth = useAuth();
+  // const auth = useAuth();
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
 

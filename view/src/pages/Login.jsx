@@ -51,7 +51,7 @@ function Login() {
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
       });
-    }else if (noPermission) {
+    } else if (noPermission) {
       Swal.fire({
         title: "¡Error!",
         text: "You need to login to access this page",
@@ -60,7 +60,7 @@ function Login() {
         confirmButtonColor: "#f27474",
       });
     }
-  }, [successfulRegister, passwordSent, passwordReset]);
+  }, [successfulRegister, passwordSent, passwordReset, noPermission]);
 
   function showDataProtection() {
     Swal.fire({
@@ -123,7 +123,7 @@ function Login() {
 
   return (
     <>
-      <div className="bg-login-background h-full min-h-screen bg-cover py-28 lg:pl-[600px]">
+      <div className="h-full min-h-screen bg-login-background bg-cover py-28 lg:pl-[600px]">
         <form
           action=""
           onSubmit={handleSubmit}
