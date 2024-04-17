@@ -1,7 +1,7 @@
 import PetView from "../Pet/PetView/PetView";
 
 const generatePetViews = (pets) => {
-    return pets.map((pet, index) => (
+    return pets.map((pet, index) => (// Mapea cada mascota a un componente de vista de mascota
       <PetView
         key={index} // Asegúrate de usar un identificador único para la clave de React
         imageURL={pet.imageURL}
