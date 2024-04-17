@@ -8,6 +8,8 @@ import { API_URL } from "../auth/constants";
 import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../auth/AuthProvider";
 
+import Swal from "sweetalert2";
+
 function ForgotPassword() {
   // Variables de estado formulario
   const [correo, setCorreo] = useState("");
@@ -39,19 +41,6 @@ function ForgotPassword() {
         }),
       });
       if (response.ok) {
-        // console.log("Login successful"); // TODO Reemplazar por sweetaXlert
-        // setErrorResponse(""); //Se limpia el estado de la respuesta de error
-        // const json = await response.json();
-        // if (
-        //   json &&
-        //   json.body &&
-        //   json.body.user &&
-        //   json.body.accessToken &&
-        //   json.body.refreshToken
-        // ) {
-        //   auth.saveUser(json);
-        //   goTo("/perfil");
-        // }
         localStorage.setItem("tokenReset", "Resse&tPassword"); //Se guarda el token de refresco en el local storage
         goTo("/login?passwordSent=true");
       } else {
@@ -64,6 +53,12 @@ function ForgotPassword() {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: "¡Error!",
+        text: "Something went wrong",
+        icon: "error",
+        confirmButtonText: "Continue",
+      });
     }
   }
 
