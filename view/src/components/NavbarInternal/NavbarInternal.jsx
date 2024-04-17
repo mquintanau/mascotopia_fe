@@ -7,16 +7,6 @@ import { useNavigate } from "react-router-dom";
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const [activeLink, setActiveLink] = useState(null);
-
-  const handleMouseEnter = (index) => {
-    setActiveLink(index);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveLink(null);
-  };
-
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -54,11 +44,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[18px] text-black hover:text-[#424a49] ${
-                activeLink === 0 ? "border-b-2 border-primary text-primary" : ""
-              }`}
-              onMouseEnter={() => handleMouseEnter(0)}
-              onMouseLeave={handleMouseLeave}
+              className="hover:text-[#424a49 pb-[18px] text-black hover:border-b-2 hover:border-primary hover:font-semibold"
               onClick={() => {
                 console.log("Click en Noticias");
               }}
@@ -70,11 +56,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[18px] text-black hover:text-[#424a49] ${
-                activeLink === 1 ? "border-b-2 border-primary text-primary" : ""
-              }`}
-              onMouseEnter={() => handleMouseEnter(1)}
-              onMouseLeave={handleMouseLeave}
+              className="hover:text-[#424a49 pb-[18px] text-black hover:border-b-2 hover:border-primary hover:font-semibold"
               onClick={() => {
                 console.log("Click en Foros");
               }}
@@ -86,11 +68,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[18px] text-black hover:text-[#424a49] ${
-                activeLink === 2 ? "border-b-2 border-primary text-primary" : ""
-              }`}
-              onMouseEnter={() => handleMouseEnter(2)}
-              onMouseLeave={handleMouseLeave}
+              className="hover:text-[#424a49 pb-[18px] text-black hover:border-b-2 hover:border-primary hover:font-semibold"
               onClick={() => {
                 console.log("Click en Calendario");
               }}
