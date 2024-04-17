@@ -17,6 +17,8 @@ export default {
         black: "#0E1918",
         green1: "#A4F3B3",
         green2: "#78D8AB",
+        green3: "#C1DCC7",
+        green4: "#D2F9D3",
         navbar: "#D6FEDA",
         greenLogo: "#387f49",
       },
