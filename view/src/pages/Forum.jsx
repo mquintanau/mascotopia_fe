@@ -14,7 +14,7 @@ function Forum() {
                     className= "rounded-sm"
                 />
                 
-            <ol className="mt-2">
+                <ol className="mt-2">
                     <li><Topic name="Topic 1 >"/></li>
                     <li><Topic name="Topic 2 >"/></li>
                     <li><Topic name="Topic 3 >"/></li>
@@ -22,7 +22,7 @@ function Forum() {
                     <li><Topic name="Topic 5 >"/></li>
                     <li><Topic name="Topic 6 >"/></li>
                     <li><Topic name="Topic 7 >"/></li>
-            </ol>
+                </ol>
             </div>
 
             <div className="bg-green3 p-6 rounded-xl flex-grow h-[35rem] mr-28">
