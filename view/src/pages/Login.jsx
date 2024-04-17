@@ -117,7 +117,13 @@ function Login() {
         }
       }
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: "¡Error!",
+        text: "Something went wrong",
+        icon: "error",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
     }
   }
 
