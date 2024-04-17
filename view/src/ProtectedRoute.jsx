@@ -14,6 +14,8 @@ const ProtectedRoute = () => {
     const isResetPassword = location.pathname.startsWith("/resetPassword"); // Verifica si la ubicación actual es /resetPassword    
     const isForgotPassword = location.pathname === "/forgotPassword"; // Verifica si la ubicación actual es /forgotPassword
     const isRegister = location.pathname === "/register"; // Verifica si la ubicación actual es /register
+    const isForum = location.pathname === "/forum"; // Verifica si la ubicación actual es /forum
+    
     // Si el token existe, retorna el componente Outlet
     // Si no, redirige al usuario a la página de login
 
@@ -30,6 +32,11 @@ const ProtectedRoute = () => {
     if(isResetPassword){
         return tokenRestPassword ? <Outlet /> : <Navigate to="/login" />;//Si la ubicación actual es /resetPassword y el token de reseteo de contraseña existe, redirige al usuario a la página de login
     }
+    
+    if(isForum){
+        return <Outlet/>
+    }
+    
     return token ? <Outlet /> : <Navigate to="/login?noPermission=true" />; //Si el token no existe, redirige al usuario a la página de login
 
    
