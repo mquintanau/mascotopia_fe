@@ -1,4 +1,4 @@
-import PetList from "../components/PetList/Petlist";
+import PetList from "../components/Pet/PetList/Petlist";
 import UserView from "../components/User/UserView/UserView";
 import { useState, useEffect } from "react";
 import { API_URL } from "../auth/constants";
