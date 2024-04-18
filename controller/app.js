@@ -11,11 +11,15 @@ app.use(express.json()); //permite que el servidor pueda recibir y enviar datos 
 
 //CONEXIÓN CON LA BASE DE DATOS
 async function connectDB() {
-  await mongoose.connect(process.env.DB_CONNECTION_STRING);
-  console.log("DB connected");
+  try {
+    await mongoose.connect(process.env.DB_CONNECTION_STRING);
+    console.log("DB connected");
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-connectDB().catch(console.error);
+connectDB();
 
 //RUTAS
 app.use("/api/login", require("./routes/login"));
