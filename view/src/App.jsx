@@ -38,7 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/" element={<ProtectedRoute/>}> {/* Se protege la ruta de perfil y resetPassword */}
-            <Route path= "/forum" element={<Forum />} /> {/* Prueba foro */}
+            <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<Profile />} /> {/* Prueba perfil */}
             <Route path="resetPassword/:id/:token" element={<ResetPassword />} /> {/* Se muestra el formulario de reseteo de contraseña */}
