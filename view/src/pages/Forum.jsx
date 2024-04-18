@@ -4,7 +4,6 @@ import Topic from '../components/Topic/Topic';
 import QuestionList from '../components/QuestionList/QuestionList';
 import Search from "../assets/Search.png";
 
-
 const questionTest = [
     {
     name : "Pablo",
@@ -24,12 +23,9 @@ const questionTest = [
     },
 ];
 
-
-
 function Forum() {
     const [activeWindow, setActiveWindow] = useState(null);
     
-
     const handleButtonClick = (topicName) => {
         setActiveWindow(topicName);
     }
