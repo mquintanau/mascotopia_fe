@@ -1,59 +1,75 @@
 const { jsonResponse } = require("../lib/jsonResponse");
-const User = require("../schema/user")//importamos el modelo de usuario
-const router = require("express").Router()//importamos el router de express
-const getUserInfo = require("../lib/getUserInfo");//importamos la funcion para obtener la informacion del usuario
-const jwt = require('jsonwebtoken');//importamos la libreria de jwt
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const User = require("../schema/user"); //importamos el modelo de usuario
+const router = require("express").Router(); //importamos el router de express
+const getUserInfo = require("../lib/getUserInfo"); //importamos la funcion para obtener la informacion del usuario
+const jwt = require("jsonwebtoken"); //importamos la libreria de jwt
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
-router.post('/', async (req, res) => {
-    const {correo, nombre} = req.body;
-    if(!!!correo ||  !!!nombre) {//verificamos si los campos estan vacios
-        return res.status(400).json(jsonResponse(400,{//retornamos un json con el mensaje de error
-            error: "The fields are required"
+router.post("/", async (req, res) => {
+  const { correo, nombre } = req.body;
+  if (!!!correo || !!!nombre) {
+    //verificamos si los campos estan vacios
+    return res.status(400).json(
+      jsonResponse(400, {
+        //retornamos un json con el mensaje de error
+        error: "The fields are required",
+      })
+    );
+  }
+
+  const user = await User.findOne({ correo });
+
+  if (!user) {
+    //si el correo no existe
+    return res.status(404).json(
+      jsonResponse(404, {
+        error: "Email not found",
+      })
+    );
+  }
+  const name = await User.findOne({ nombre });
+  if (!name) {
+    //si el nombre no existe
+    return res.status(404).json(
+      jsonResponse(404, {
+        error: "Name not found",
+      })
+    );
+  }
+
+  //generamos un token
+  const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1d",
+  });
+
+  var transporter = nodemailer.createTransport({
+    service: "gmail", //servicio de correo
+    auth: {
+      //autenticacion
+      user: "mascotopiapp@gmail.com", //correo de donde se envia
+      pass: "eopm wamh nfvx fpii", //controller de donde se envia esta contraseña es especifica de la aplicación
+      //y se obtiene en gmail
+    },
+  });
+
+  var mailOptions = {
+    from: "mascotopiapp@gmail.com", //correo de donde se envia
+    to: "juandamadrid7@gmail.com", //correo a donde se envia
+    subject: "Reset Your Password", //asunto del correo
+    text: `http://localhost:5173/resetPassword/${user._id}/${token}`, //Texto del correo
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      return res.status(500).json(
+        jsonResponse(500, {
+          error: "Error sending email",
         })
-        );
+      );
+    } else {
+      return res.send({ Status: "Correo enviado" });
     }
-
-    const user= await User.findOne({correo});
-
-    if(!user){//si el correo no existe
-        return res.status(404).json(jsonResponse(404,{
-            error: "Email not found"
-        }));
-    }
-    const name = await User.findOne({nombre});
-    if(!name){//si el nombre no existe
-        return res.status(404).json(jsonResponse(404,{
-            error: "Name not found"
-        }));
-    }
-
-    //generamos un token
-    const token = jwt.sign({id: user._id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'});
-
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',//servicio de correo
-        auth: {//autenticacion
-          user: 'mascotopiapp@gmail.com',//correo de donde se envia
-          pass: 'eopm wamh nfvx fpii'//controller de donde se envia esta contraseña es especifica de la aplicación
-          //y se obtiene en gmail
-        }
-      });
-      
-      var mailOptions = {
-        from: 'mascotopiapp@gmail.com',//correo de donde se envia
-        to: 'juandamadrid7@gmail.com',//correo a donde se envia
-        subject: 'Reset Your Password',//asunto del correo
-        text: `http://localhost:5173/resetPassword/${user._id}/${token}`//Texto del correo
-      };
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          return res.send({Status: "Correo enviado"})
-        }
-      });
+  });
 });
 
 module.exports = router;
