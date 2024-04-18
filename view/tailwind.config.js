@@ -20,6 +20,7 @@ export default {
         green2: "#78D8AB",
         green3: "#C1DCC7",
         green4: "#D2F9D3",
+        green5: "#B4F2C2",
         teal: "#0A8D85",
         navbar: "#D6FEDA",
         greenLogo: "#387f49",
