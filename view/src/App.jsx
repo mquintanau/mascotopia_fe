@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 
 import Signup from "./pages/Signup";
+import Forum from "./pages/Forum";
 import Profile from "./pages/Profile";
 
 import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute />}>
             {" "}
             {/* Se protege la ruta de perfil y resetPassword */}
+            <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<Profile />} />{" "}
             {/* Prueba perfil */}
