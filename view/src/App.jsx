@@ -44,7 +44,7 @@ function App() {
             <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<Profile />} />{" "}
-            <Route path="/questionView" element={<QuestionView />} /> 
+            <Route path="/questionView/:id" element={<QuestionView />} /> 
             {/* Prueba perfil */}
             <Route
               path="resetPassword/:id/:token"
