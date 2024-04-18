@@ -9,8 +9,6 @@ const Question = (props) => {
             <p className="font-light">{description}</p>
         </div>
     );
-
-
 }
 
 export default Question;
