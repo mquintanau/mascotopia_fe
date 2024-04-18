@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../auth/constants";
-import { useAuth } from "../auth/AuthProvider";
+//import { useAuth } from "../auth/AuthProvider";
 
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
@@ -37,7 +37,7 @@ function Signup() {
   const [rol, setRol] = useState("");
 
   // Se obtiene la función de autenticación
-  const auth = useAuth();
+  // const auth = useAuth();
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
 
@@ -98,16 +98,19 @@ function Signup() {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: "¡Error!",
+        text: "Something went wrong",
+        icon: "error",
+        confirmButtonText: "Continue",
+      });
     }
   }
   return (
     <div
-      className="mx-5 h-full min-h-screen bg-cover py-28 lg:mx-0 lg:pl-[100px]"
+      className="mx-5 h-full min-h-screen bg-contain bg-center bg-no-repeat py-28 lg:mx-0 lg:pl-[100px]"
       style={{
         backgroundImage: ` url(${registerCat}),url(${registerDecorationLine})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center, center",
-        backgroundSize: "contain, contain",
       }}
     >
       <form

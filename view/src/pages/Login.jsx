@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import RectangularLogo from "../components/RectangularLogo/RectangularLogo";
-import Swal from "sweetalert2";
-
+import registerDecorationLine from "../assets/decorationLine.svg";
+import loginDog from "../assets/loginDog.png";
+// Compomente de mavegación
 import { API_URL } from "../auth/constants";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
+// Componentes de Alertas
+import Swal from "sweetalert2";
 
 function Login() {
   const location = useLocation();
@@ -26,7 +29,7 @@ function Login() {
   const auth = useAuth();
 
   useEffect(() => {
-    // Codigo que se ejecuta al cargar el componente (solo una vez)
+    // Codigo que se ejecuta al cargar el componente o al cambiar parametros get
     if (successfulRegister) {
       Swal.fire({
         title: "¡Registro exitoso!",
@@ -51,7 +54,7 @@ function Login() {
         confirmButtonText: "Continue",
         confirmButtonColor: "#f27474",
       });
-    }else if (noPermission) {
+    } else if (noPermission) {
       Swal.fire({
         title: "¡Error!",
         text: "You need to login to access this page",
@@ -60,7 +63,7 @@ function Login() {
         confirmButtonColor: "#f27474",
       });
     }
-  }, [successfulRegister, passwordSent, passwordReset]);
+  }, [successfulRegister, passwordSent, passwordReset, noPermission]);
 
   function showDataProtection() {
     Swal.fire({
@@ -118,90 +121,95 @@ function Login() {
       }
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: "¡Error!",
+        text: "Something went wrong",
+        icon: "error",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#f27474",
+      });
     }
   }
 
   return (
-    <>
-      <div className="bg-login-background h-full min-h-screen bg-cover py-28 lg:pl-[600px]">
-        <form
-          action=""
-          onSubmit={handleSubmit}
-          className="z-50 mx-auto mt-6 flex max-w-sm flex-col rounded-xl bg-navbar p-10"
+    <div
+      className="h-full min-h-screen bg-contain bg-center bg-no-repeat py-28 lg:pl-[600px]"
+      style={{
+        backgroundImage: ` url(${loginDog}),url(${registerDecorationLine})`,
+        backgroundPositionX: "left",
+      }}
+    >
+      <form
+        action=""
+        onSubmit={handleSubmit}
+        className="z-50 mx-auto mt-6 flex max-w-sm flex-col rounded-xl bg-navbar p-10"
+      >
+        <RectangularLogo className="m-auto mb-5 w-3/4 translate-x-3" />
+        <Input
+          type="text"
+          label="Email/Username"
+          id="user"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+          onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
+          style={{ color: "black" }}
+        />
+        {capsLockOn && <p style={{ color: "red" }}>Mayusculas activadas.</p>}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+          }}
         >
-          <RectangularLogo className="m-auto mb-5 w-3/4 translate-x-3" />
           <Input
-            type="text"
-            label="Email/Username"
-            id="user"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            id="pass"
+            className="mt-5"
+            value={contraseña}
+            onChange={(e) => setContraseña(e.target.value)}
             onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
-            style={{ color: "black" }}
+            style={{ color: "black", flex: 1 }}
           />
-          {capsLockOn && <p style={{ color: "red" }}>Mayusculas activadas.</p>}
-          <div
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
             style={{
-              display: "flex",
-              alignItems: "center",
-              position: "relative",
+              position: "absolute",
+              right: "10px",
+              color: "black",
+              top: "calc(50% - -3px)", // Ajusta este valor
+              transform: "translateY(-50%)",
             }}
           >
-            <Input
-              type={showPassword ? "text" : "password"}
-              label="Password"
-              id="pass"
-              className="mt-5"
-              value={contraseña}
-              onChange={(e) => setContraseña(e.target.value)}
-              onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
-              style={{ color: "black", flex: 1 }}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              style={{
-                position: "absolute",
-                right: "10px",
-                color: "black",
-                top: "calc(50% - -3px)", // Ajusta este valor
-                transform: "translateY(-50%)",
-              }}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
 
-          <a
-            href="/forgotPassword"
-            className="text-center font-light text-black hover:text-greenLogo active:font-normal"
-          >
-            Forgot Password?
+        <a
+          href="/forgotPassword"
+          className="text-center font-light text-black hover:text-greenLogo active:font-normal"
+        >
+          Forgot Password?
+        </a>
+
+        <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
+          Login
+        </Button>
+
+        <hr className="my-5 border-black" />
+        <p className="text-center text-black">
+          Don&apos;t have an account?{" "}
+          <a href="" className="font-semibold text-black hover:text-greenLogo">
+            Sign Up
           </a>
-
-          <Button type="submit" className="mx-auto my-5 whitespace-nowrap">
-            Login
-          </Button>
-
-          <hr className="my-5 border-black" />
-          <p className="text-center text-black">
-            Don&apos;t have an account?{" "}
-            <a
-              href=""
-              className="font-semibold text-black hover:text-greenLogo"
-            >
-              Sign Up
-            </a>
-          </p>
-          <a
-            onClick={showDataProtection}
-            className="cursor-pointer text-center"
-          >
-            <p className="mt-4 text-black">Terms & Conditions</p>
-          </a>
-        </form>
-      </div>
-    </>
+        </p>
+        <a onClick={showDataProtection} className="cursor-pointer text-center">
+          <p className="mt-4 text-black">Terms & Conditions</p>
+        </a>
+      </form>
+    </div>
   );
 }
 

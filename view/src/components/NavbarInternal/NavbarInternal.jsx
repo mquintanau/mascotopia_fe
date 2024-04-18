@@ -1,23 +1,11 @@
 import { useState } from "react";
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
-import NavbarLink from "../NavbarExternal/NavbarLink";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
-
-  const [activeLink, setActiveLink] = useState(null);
-
-  const handleMouseEnter = (index) => {
-    setActiveLink(index);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveLink(null);
-  };
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -28,8 +16,8 @@ const NavbarInternal = () => {
   const signOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("idUser");
-    goTo('/login');
-  }
+    goTo("/login");
+  };
 
   const user = {
     name: "AAAaaaA css",
@@ -44,26 +32,19 @@ const NavbarInternal = () => {
     number_pets: 2,
   };
 
-
   return (
     <header className="sticky top-0 z-50 flex h-[50px] w-screen items-center justify-center bg-[#D6FEDA] text-black">
       <div className="flex w-full items-center justify-between">
         <Link to="/profile">
           <div className="ml-[22px]">
-            <UserNavbarImage 
-              username={user.username}
-            />
+            <UserNavbarImage username={user.username} />
           </div>
         </Link>
         <div className="hidden lg:flex">
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[18px] text-black hover:text-[#424a49] ${
-                activeLink === 0 ? "border-b-2 border-primary text-primary" : ""
-              }`}
-              onMouseEnter={() => handleMouseEnter(0)}
-              onMouseLeave={handleMouseLeave}
+              className="hover:text-[#424a49 pb-[18px] text-black hover:border-b-2 hover:border-primary hover:font-semibold"
               onClick={() => {
                 console.log("Click en Noticias");
               }}
@@ -75,11 +56,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[18px] text-black hover:text-[#424a49] ${
-                activeLink === 1 ? "border-b-2 border-primary text-primary" : ""
-              }`}
-              onMouseEnter={() => handleMouseEnter(1)}
-              onMouseLeave={handleMouseLeave}
+              className="hover:text-[#424a49 pb-[18px] text-black hover:border-b-2 hover:border-primary hover:font-semibold"
               onClick={() => {
                 console.log("Click en Foros");
               }}
@@ -91,11 +68,7 @@ const NavbarInternal = () => {
           <div className="mr-[25px]">
             <a
               href="#"
-              className={`pb-[18px] text-black hover:text-[#424a49] ${
-                activeLink === 2 ? "border-b-2 border-primary text-primary" : ""
-              }`}
-              onMouseEnter={() => handleMouseEnter(2)}
-              onMouseLeave={handleMouseLeave}
+              className="hover:text-[#424a49 pb-[18px] text-black hover:border-b-2 hover:border-primary hover:font-semibold"
               onClick={() => {
                 console.log("Click en Calendario");
               }}
@@ -103,7 +76,9 @@ const NavbarInternal = () => {
               Calendar
             </a>
           </div>
-          <Button className="mr-5" onClick={signOut}>Sign Out</Button>
+          <Button className="mr-5" onClick={signOut}>
+            Sign Out
+          </Button>
         </div>
         <div className="absolute right-0 px-2 lg:hidden">
           <button onClick={toggleMenu}>
@@ -145,7 +120,7 @@ const NavbarInternal = () => {
                 Calendar
               </a>
               <a
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-100 font-bold hover:cursor-pointer"
+                className="block px-4 py-2 font-bold text-gray-800 hover:cursor-pointer hover:bg-gray-100"
                 onClick={signOut}
               >
                 Sign Out
