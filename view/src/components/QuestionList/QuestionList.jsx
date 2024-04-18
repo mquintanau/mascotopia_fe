@@ -5,6 +5,7 @@ const generateQuestionViews = (questions) => {
       <Question
         name = {question.name}
         description = {question.description}
+        index = {index}
         key = {index}
       />
     ));
