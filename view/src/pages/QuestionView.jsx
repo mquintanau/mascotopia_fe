@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import QuestionList from '../components/QuestionList/QuestionList';
 import { useState } from 'react';
 import Button from '../components/Button/Button'
-import Input from '../components/Input/Input'
+import Blob from "../assets/Blob.png";
 
 
 const QuestionView = () => {
@@ -31,7 +31,12 @@ const handleQuestionSelect = (question) => {
   };
 
   return (
-    <div className=" flex flex-row items-start h-screen p-5">
+    <div className=" flex flex-row items-start h-screen p-5"
+    style={{
+      backgroundImage: `url(${Blob})`,
+      backgroundPosition: '50%', 
+      backgroundRepeat: 'no-repeat', 
+    }}>
       <div className="bg-green3 p-6 rounded-xl h-[35rem] ml-28 w-[40rem] overflow-auto">
       <Link to="/forum">
         <h1 className="text-4xl mt-2 mb-3 hover:text-teal">{'<'} Questions</h1>

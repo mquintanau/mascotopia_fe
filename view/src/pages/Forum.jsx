@@ -4,6 +4,7 @@ import Topic from '../components/Topic/Topic';
 import QuestionList from '../components/QuestionList/QuestionList';
 import Search from "../assets/Search.png";
 import Form from '../components/Form/Form';
+import Blob from "../assets/Blob.png";
 
 const questionTest = [
     {
@@ -32,7 +33,12 @@ function Forum() {
     }
 
     return (
-        <div className="h-screen flex flex-row items-start p-5">
+        <div className="h-screen flex flex-row items-start p-5"
+        style={{
+            backgroundImage: `url(${Blob})`,
+            backgroundPosition: '50%', 
+            backgroundRepeat: 'no-repeat', 
+          }}>
             <div className="bg-secondary p-6 rounded-xl h-[35rem] ml-28 w-96 overflow-auto">
                 <h1 className="text-4xl mt-2 mb-3">Last Topics {'>'} </h1>
                 <hr className="border-black mr-[-1.5rem]"></hr>
