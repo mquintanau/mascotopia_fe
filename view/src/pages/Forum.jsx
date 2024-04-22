@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Topic from '../components/Topic/Topic';
 import QuestionList from '../components/QuestionList/QuestionList';
 import Search from "../assets/Search.png";
+import Form from '../components/Form/Form';
 
 const questionTest = [
     {
@@ -105,9 +106,7 @@ function Forum() {
                 <h1 className="text-4xl mt-2 mb-12">{activeWindow}</h1>
                 <QuestionList questions={questionTest} />
                 <div className="flex justify-center items-center">
-                    <button className="w-60 text-center bg-white rounded-xl py-2">
-                        Ask a question
-                    </button>
+                    <Form />
                 </div>
             </div>
         </div>
