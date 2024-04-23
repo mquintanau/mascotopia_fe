@@ -6,13 +6,13 @@ const jwt = require("jsonwebtoken"); //importamos la libreria de jwt
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
+//verificamos si los campos estan vacios
 router.post("/", async (req, res) => {
   const { correo, nombre } = req.body;
-  if (!!!correo || !!!nombre) {
-    //verificamos si los campos estan vacios
+  if (!correo || !nombre) {
+    //retornamos un json con el mensaje de error
     return res.status(400).json(
       jsonResponse(400, {
-        //retornamos un json con el mensaje de error
         error: "The fields are required",
       })
     );

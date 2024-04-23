@@ -32,7 +32,7 @@ function Login() {
     // Codigo que se ejecuta al cargar el componente o al cambiar parametros get
     if (successfulRegister) {
       Swal.fire({
-        title: "¡Registro exitoso!",
+        title: "¡Successful Register!",
         text: "Please login to continue",
         icon: "success",
         confirmButtonText: "Continue",

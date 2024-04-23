@@ -17,7 +17,6 @@ const MascotaSchema = new mongoose.Schema({
 
 // Esquema para la colección usuario que incluye la subcolección mascota
 const UserSchema = new mongoose.Schema({
-  id: { type: Object },
   correo: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   contraseña: { type: String, required: true },

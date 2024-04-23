@@ -15,6 +15,7 @@ import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import QuestionView from "./pages/QuestionView";
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
@@ -44,6 +45,7 @@ function App() {
             <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<Profile />} />{" "}
+            <Route path="/questionView/:id" element={<QuestionView />} /> 
             {/* Prueba perfil */}
             <Route
               path="resetPassword/:id/:token"
