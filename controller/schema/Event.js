@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const Eventschema = mongoose.Schema({
     start: Date,
     end: Date,
-    title: String
+    title: String,
+    description: String
 
 })
 
-const Event= mongoose.model("Event", Eventschema);
 
-module. exports = Event;
+
+module. exports = mongoose.model("Event", Eventschema) ;
