@@ -33,7 +33,6 @@ app.use("/api/resetPassword", require("./routes/resetPassword"));
 // FORO
 app.use("/api/forum", require("./routes/forum")); // Ruta get de los foros
 app.use("/api/sendQuestion", require("./routes/sendQuestion")); // Ruta para post de las preguntas
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
