@@ -60,6 +60,9 @@ function App() {
             {/* Se muestra el formulario de reseteo de contraseña */}
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/register" element={<Signup />} />
+
+            {/* Se muestra el calendario */}
+            <Route path="/calendar" element={<Calendar />} />
           </Route>
         </Routes>
       </main>
