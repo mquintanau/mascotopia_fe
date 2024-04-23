@@ -16,6 +16,12 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import QuestionView from "./pages/QuestionView";
+import Calendar from "./pages/calendar";
+import Modal from 'react-modal';
+
+
+
+Modal.setAppElement('#root')
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
