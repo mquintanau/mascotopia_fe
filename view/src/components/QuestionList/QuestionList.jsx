@@ -10,6 +10,7 @@ const generateQuestionViews = (questions, onQuestionSelect) => {
       key={index}
       onSelect={onQuestionSelect}
       id={question._id}
+      autor = {question.autor}
     />
   ));
 };

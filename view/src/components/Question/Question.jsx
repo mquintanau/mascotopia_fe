@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Question = (props) => {
-  const { titulo, descripcion, onSelect, id } = props;
+  const { titulo, descripcion, onSelect, id, autor } = props;
   return (
     <Link to={`/questionView/${id}`}>
       <div
@@ -10,7 +10,7 @@ const Question = (props) => {
         onClick={() => onSelect({ titulo, descripcion })}
       >
         <h3>{titulo}</h3>
-        <h3>Question: ...</h3>
+        <h3>Question: {autor}</h3>
         <p className="font-light">{descripcion}</p>
       </div>
     </Link>
