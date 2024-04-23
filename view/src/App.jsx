@@ -7,7 +7,7 @@ import Signup from "./pages/Signup";
 import Forum from "./pages/Forum";
 import Profile from "./pages/Profile";
 
-import NavbarExternal from "./components/NavbarExternal/NavbarExternal";
+import NavbarExternal from "./components/NavbarExternal/NavbarExternal" ;
 import NavbarInternal from "./components/NavbarInternal/NavbarInternal";
 import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 
