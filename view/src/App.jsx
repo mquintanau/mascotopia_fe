@@ -1,8 +1,6 @@
 // Pull back calendar
 import { Route, Routes, useLocation } from "react-router-dom";
-import Model from 'react-model';
 
-import calendar from "./pages/calendar";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 
