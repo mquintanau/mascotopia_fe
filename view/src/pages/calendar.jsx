@@ -3,7 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import AddEventModal from "./AddEventModal";
 import axios from "axios";
-import moment from "moment"
+import moment from "moment";
 
 export default function () {
     const [modalOpen, setModalOpen] = useState(false);
@@ -21,8 +21,15 @@ export default function () {
         });
     };
 
-    async function handleEventAdd(data){
-        await axios.post("http://localhost:4000/api/calendar/create-event", data.event);
+    async function handleEventAdd(info) {
+        const { event } = info;
+        const eventData = {
+            start: moment(event.start).toISOString(),
+            end: moment(event.end).toISOString(),
+            title: event.title,
+            description: event.extendedProps.description
+        };
+        await axios.post("http://localhost:4000/api/calendar/create-event", eventData);
     }
     async function handleDatesSet(data){
         const response = await axios.get("http://localhost:4000/api/calendar/get-events?start="+moment(data.start).toISOString()+"&end="+moment(data.end).toISOString())

@@ -11,9 +11,10 @@ export default function ({isOpen, onClose,onEventAdded}){
         event.preventDefault();
 
         onEventAdded({
-            title,
+
             start,
             end,
+            title,
             description
         })
         onClose();
