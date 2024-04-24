@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 
 export default function ({ isOpen, onClose, onEventAdded }) {
     const [title, setTitle] = useState("");
@@ -20,6 +21,20 @@ export default function ({ isOpen, onClose, onEventAdded }) {
         onClose();
     };
 
+    // Función para renderizar los días del calendario personalizado
+    const renderDay = (props, currentDate, selectedDate) => {
+        return (
+            <td
+                {...props}
+                onClick={() => props.onClick(currentDate)}
+                className={props.className}
+                style={{ ...props.style, cursor: 'pointer', color: 'black' }} // Cambia el color de los números de los días a negro
+            >
+                {currentDate.date()}
+            </td>
+        );
+    };
+
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
             <form onSubmit={onSubmit}>
@@ -33,11 +48,31 @@ export default function ({ isOpen, onClose, onEventAdded }) {
                 </div>
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>Start Date</label>
-                    <Datetime className="form-control" value={start} onChange={date => setStart(date)} />
+                    <Datetime
+                        value={start}
+                        onChange={date => setStart(date)}
+                        renderDay={renderDay} // Usa la función renderDay para personalizar la apariencia de los días del calendario
+                        inputProps={{ placeholder: 'Select start date', style: { ...inputStyle, color: 'black' } }}
+                        timeFormat={true}
+                        // Estilos adicionales para el calendario
+                        style={{ ...inputStyle, color: 'black', width: '100%' }} // Cambia el color del texto del calendario a negro
+                        next2Label={<span style={{ color: 'black' }}>»</span>} // Cambia el color de la flecha de avanzar dos meses a negro
+                        prev2Label={<span style={{ color: 'black' }}>«</span>} // Cambia el color de la flecha de retroceder dos meses a negro
+                    />
                 </div>
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>End Date</label>
-                    <Datetime className="form-control" value={end} onChange={date => setEnd(date)} />
+                    <Datetime
+                        value={end}
+                        onChange={date => setEnd(date)}
+                        renderDay={renderDay} // Usa la función renderDay para personalizar la apariencia de los días del calendario
+                        inputProps={{ placeholder: 'Select end date', style: { ...inputStyle, color: 'black' } }}
+                        timeFormat={true}
+                        // Estilos adicionales para el calendario
+                        style={{ ...inputStyle, color: 'black', width: '100%' }} // Cambia el color del texto del calendario a negro
+                        next2Label={<span style={{ color: 'black' }}>»</span>} // Cambia el color de la flecha de avanzar dos meses a negro
+                        prev2Label={<span style={{ color: 'black' }}>«</span>} // Cambia el color de la flecha de retroceder dos meses a negro
+                    />
                 </div>
                 <button style={buttonStyle}>Add event</button>
             </form>
@@ -61,7 +96,8 @@ const formGroupStyle = {
 
 const labelStyle = {
     display: 'block',
-    marginBottom: '5px'
+    marginBottom: '5px',
+    color: 'black' // Cambia el color del texto de la etiqueta a negro
 };
 
 const inputStyle = {
