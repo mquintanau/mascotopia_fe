@@ -34,6 +34,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
             padding: 8px;
             margin-bottom: 10px;
             background-color: white; /* Fondo blanco */
+            color: black; /* Texto negro */
         }
 
         .event-textarea {
@@ -44,6 +45,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
             background-color: white; /* Fondo blanco */
             resize: vertical; /* Permite redimensionar verticalmente */
             min-height: 100px; /* Altura mínima */
+            color: black; /* Texto negro */
         }
         
         .event-button {
@@ -76,6 +78,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
             border-radius: 10px; /* Bordes redondos */
             background-color: white; /* Fondo blanco */
             padding: 8px;
+            color: black; /* Texto negro */
         }
 
         .event-title {
