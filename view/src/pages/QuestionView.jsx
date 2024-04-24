@@ -56,7 +56,7 @@ const handleQuestionSelect = (question) => {
       <div  className="bg-gray1 p-6 rounded-xl flex-grow h-[35rem] mr-28 overflow-auto"  >
         {/*Si existe selectedQuestion muestra un div con el formato de la pregunta al lado derecho de la lista de preguntas*/}
         {selectedQuestion && (
-          <div className='flex flex-col h-full '> {/* Este es el nuevo elemento padre */}
+          <div className='flex flex-col h-full '> 
             <div className="bg-white mb-4 rounded-xl px-5 pb-6 pt-2 basis-3/5">
               <h3>{selectedQuestion.name}</h3>
               <h3>Question:   ...</h3>
