@@ -5,9 +5,11 @@ import AddEventModal from "./AddEventModal";
 import axios from "axios";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
+import DescriptionModal from "./descriptionModal";
 
 export default function () {
     const [modalOpen, setModalOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
     const [events, setEvents] = useState([]);
     const calendarRef = useRef(null);
 
@@ -37,6 +39,11 @@ export default function () {
         await axios.post("http://localhost:4000/api/calendar/create-event", eventData);
     }
 
+    function handleEventClick(info) {
+        setSelectedEvent(info.event);
+        setAddModalOpen(false); // Cerrar modal de agregar evento si está abierto
+    }
+
     return (
         <section>
             <button onClick={() => setModalOpen(true)} style={styles.addButton}>Add event</button>
@@ -54,9 +61,11 @@ export default function () {
                     )}
                     eventClassNames="custom-event"
                     datesSet={(date) => handleDatesSet(date)}
+                    eventClick={handleEventClick}
                 />
             </div>
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} />
+            {selectedEvent && <DescriptionModal isOpen={!!selectedEvent} onClose={() => setSelectedEvent(null)} event={selectedEvent} />}
         </section>
     )
 }
