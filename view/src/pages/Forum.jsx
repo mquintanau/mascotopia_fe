@@ -7,6 +7,7 @@ import Form from "../components/Form/Form";
 import Blob from "../assets/Blob.png";
 import Swal from "sweetalert2";
 
+// Lista de preguntas de prueba
 const questionTest = [
   {
     name: "Pablo",
@@ -26,10 +27,13 @@ const questionTest = [
   },
 ];
 
+// Componente que muestra el foro
 function Forum() {
+  // Se almacenan los foros y el id del foro actual en las siguientes constantes
   const [forums, setForums] = useState([]);
   const [currentForumId, setCurrentForumId] = useState(undefined);
 
+  // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
     setCurrentForumId(forumId);
     console.log(forumId);
@@ -46,6 +50,7 @@ function Forum() {
         console.log("primer id de un foro:", data[0]._id);
       })
       .catch((error) =>
+        // Muestra un mensaje de error si no se pueden cargar los foros
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -54,14 +59,10 @@ function Forum() {
         }),
       );
   }, []);
-
-  console.log(
-    forums.length > 0
-      ? forums.filter((forum) => forum._id === currentForumId)[0].preguntas
-      : "",
-  );
-
+  
+  // Se retorna un div con los foros y preguntas    
   return (
+    // Se muestra un div con los foros y preguntas
     <div
       className="flex h-screen flex-row items-start p-5"
       style={{
@@ -70,6 +71,7 @@ function Forum() {
         backgroundRepeat: "no-repeat",
       }}
     >
+      {/* Se muestra un div con los foros */}
       <div className="ml-28 h-[35rem] w-96 overflow-auto rounded-xl bg-secondary p-6">
         <h1 className="mb-3 mt-2 text-4xl">Last Topics {">"} </h1>
         <hr className="mr-[-1.5rem] border-black"></hr>
@@ -86,6 +88,7 @@ function Forum() {
           />
         </div>
 
+        {/* Se muestra una lista de foros con sus titulos y se establece el currentId de la pregunta que se selecciona*/}
         <ol className="mt-0">
           {forums.length > 0 &&
             forums.map((forum) => (
@@ -100,21 +103,28 @@ function Forum() {
               </li>
             ))}
         </ol>
+
+
+
       </div>
 
+      {/* Se muestra un div con las preguntas del foro seleccionado */}
       <div className="mr-28 h-[35rem] flex-grow overflow-auto rounded-xl bg-green3 p-6">
         <h1 className="mb-12 mt-2 text-4xl">
+          {/* Se muestra el titulo del foro seleccionado */}
           {forums.length > 0
             ? forums.filter((forum) => forum._id === currentForumId)[0].titulo
             : ""}
         </h1>
         <QuestionList
           questions={
+            // Se envian a QuestionList las preguntas del foro seleccionado y se filtran por el id del foro seleccionado
             forums.length > 0
               ? forums.filter((forum) => forum._id === currentForumId)[0]
                   .preguntas
               : ""
           }
+          //TODO: Agregar función para seleccionar pregunta y que no salga error.
         />
         <div className="flex items-center justify-center">
           <Form />

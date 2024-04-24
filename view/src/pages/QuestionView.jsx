@@ -6,7 +6,10 @@ import Blob from "../assets/Blob.png";
 
 
 const QuestionView = () => {
+  // Se almacena la pregunta seleccionada en la constante selectedQuestion
   const [selectedQuestion , setSelectedQuestion] = useState(null);
+
+  // Preguntas de prueba
   const questionTest = [
     {
     name : "Pablo",
@@ -26,10 +29,12 @@ const QuestionView = () => {
     },
 ];
 
+// Funcion que establece la pregunta seleccionada con sus atributos de titulo y descripcion
 const handleQuestionSelect = (question) => {
     setSelectedQuestion(question);
   };
 
+  // Se retorna un div con la lista de preguntas y la pregunta seleccionada
   return (
     <div className=" flex flex-row items-start h-screen p-5"
     style={{
@@ -37,6 +42,8 @@ const handleQuestionSelect = (question) => {
       backgroundPosition: '50%', 
       backgroundRepeat: 'no-repeat', 
     }}>
+      
+      {/* Se muestra un div con la lista de preguntas y establece que pasa cuando se da click en Questions */}
       <div className="bg-green3 p-6 rounded-xl h-[35rem] ml-28 w-[40rem] overflow-auto">
       <Link to="/forum">
         <h1 className="text-4xl mt-2 mb-3 hover:text-teal">{'<'} Questions</h1>
@@ -45,7 +52,9 @@ const handleQuestionSelect = (question) => {
       <QuestionList questions={questionTest} onQuestionSelect={handleQuestionSelect} />
       </div>
 
+      {/* Se muestra un div con la pregunta seleccionada */}
       <div  className="bg-gray1 p-6 rounded-xl flex-grow h-[35rem] mr-28 overflow-auto"  >
+        {/*Si existe selectedQuestion muestra un div con el formato de la pregunta al lado derecho de la lista de preguntas*/}
         {selectedQuestion && (
           <div className='flex flex-col h-full '> {/* Este es el nuevo elemento padre */}
             <div className="bg-white mb-4 rounded-xl px-5 pb-6 pt-2 basis-3/5">
