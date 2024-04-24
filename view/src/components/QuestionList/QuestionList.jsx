@@ -1,7 +1,7 @@
 import Question from "../Question/Question";
 
 // Funcion que genera todas las preguntas en la lista de preguntas llamada questions
-const generateQuestionViews = (questions, onQuestionSelect) => {
+const generateQuestionViews = (questions, onQuestionSelect = () => {}, idTopic) => {
   // Si no hay preguntas, se muestra un mensaje de carga
   if (!questions) return <h1>Loading...</h1>;
   // Se mapean todas las preguntas en la lista de preguntas
@@ -13,16 +13,17 @@ const generateQuestionViews = (questions, onQuestionSelect) => {
       index={index}
       key={index}
       onSelect={onQuestionSelect}
-      id={question._id}
+      id={question.id}
       autor = {question.autor}
+      idTopic = {idTopic}
     />
   ));
 };
 
 // Componente que muestra una lista de preguntas
-const QuestionList = ({ questions, onQuestionSelect }) => {
+const QuestionList = ({ questions, onQuestionSelect, idTopic }) => {
   // Se retorna un div con todas las preguntas generadas por la funcion generateQuestionViews
-  return <div>{generateQuestionViews(questions, onQuestionSelect)}</div>;
+  return <div>{generateQuestionViews(questions, onQuestionSelect, idTopic)}</div>;
 };
 
 export default QuestionList;

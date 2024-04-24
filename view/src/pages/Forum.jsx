@@ -124,7 +124,7 @@ function Forum() {
                   .preguntas
               : ""
           }
-          //TODO: Agregar función para seleccionar pregunta y que no salga error.
+          idTopic={currentForumId}
         />
         <div className="flex items-center justify-center">
           <Form />
