@@ -25,7 +25,7 @@ const NavbarExternal = () => {
 
   return (
     <>
-      <nav className="sticky left-0 top-0 z-50 flex h-[50px] w-screen items-center justify-between bg-navbar px-5 pr-10 lg:gap-8">
+      <nav className="fixed left-0 top-0 z-50 flex h-[50px] w-screen items-center justify-between bg-navbar px-5 pr-10 lg:gap-8">
         <Link to="/" className="h-20">
           <RectangularLogo className="h-20 hover:cursor-pointer" />
         </Link>
