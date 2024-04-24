@@ -7,6 +7,7 @@ import RectangularLogo from "../RectangularLogo/RectangularLogo";
 import { Menu } from "iconoir-react";
 import { Link } from "react-router-dom";
 import NavbarLink from "./NavbarLink";
+import handleLinkClick from "../../utils/HandleLinkClick";
 
 const NavbarExternal = () => {
   // Referencia el elemento de menu y el boton de toggle
@@ -34,7 +35,9 @@ const NavbarExternal = () => {
         >
           <ul className="flex flex-col items-center gap-6 lg:flex-row lg:gap-8">
             <NavbarLink to="/">Home</NavbarLink>
-            <NavbarLink to="/">About Us</NavbarLink>
+            <a href="#about-us" onClick={(e) => handleLinkClick(e, "about-us")}>
+              About Us
+            </a>
             <NavbarLink to="/register">
               <Button className="bg-green1">Sign Up</Button>
             </NavbarLink>
