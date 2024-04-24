@@ -1,6 +1,5 @@
 // Esto es un componente funcional que representa la página de inicio de la aplicación.
 
-import VisuallyHidden from "../components/VisuallyHidden/VisuallyHidden";
 import DecorationLine from "../assets/decorationLine.svg";
 import SignUpInvitation from "../assets/signUpInvitation.png";
 import AboutUs from "../assets/aboutUs.png";
@@ -14,17 +13,19 @@ const LandingPage = () => {
         </p>
       </section>
       <section>
-        <VisuallyHidden></VisuallyHidden>
         <img src={AboutUs} alt="" className="m-auto w-screen max-w-[700px]" />
-        {/* TODO: Create an image alt label */}
       </section>
       <section className="flex justify-center">
-        <img src={DecorationLine} className="absolute -z-10 -mt-60" />
+        <img
+          src={DecorationLine}
+          className="absolute -z-10 -mt-60"
+          alt="Decoration line"
+        />
       </section>
       <section className="mx-5 mb-20">
         <img
           src={SignUpInvitation}
-          alt=""
+          alt="Sign Up Invitation Image"
           className="m-auto w-11/12 max-w-[700px]"
         />
       </section>
