@@ -1,8 +1,9 @@
 import PetList from "../components/Pet/PetList/Petlist";
 import UserView from "../components/User/UserView/UserView";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { API_URL } from "../auth/constants";
 import { useParams } from "react-router-dom";
+import DataContext from '../auth/DataContext'
 
 //Ejemplos para la pagina mientras union
 //Revisar como unir pet y user
@@ -56,7 +57,7 @@ const user = {
 };
 
 const Profile = () => {
-  const [data, setData] = useState(null); //Variable de estado para guardar los datos del usuario
+  const {data, setData} = useContext(DataContext); //Variable de estado para guardar los datos del usuario
   const { id } = useParams();
 
   useEffect(() => {
@@ -79,24 +80,24 @@ const Profile = () => {
     >
       <div className="mt-3 flex justify-center scrollbar">
         {data && (
-          <div className="mb-8 flex flex-col sm:flex-row">
-            <div className="m-6">
-              <UserView
-                imageURL={user.imageURL}
-                name={data.nombre}
-                email={data.correo}
-                role={data.rol}
-                username={data.username}
-                number_pets={data.numMascotas}
-              />
-            </div>
-            <div className="m-6">
-              <div className="flex flex-col">
-                <PetList pets={data.mascotas} />
-                {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
+            <div className="mb-8 flex flex-col sm:flex-row">
+              <div className="m-6">
+                <UserView
+                  imageURL={user.imageURL}
+                  name={data.nombre}
+                  email={data.correo}
+                  role={data.rol}
+                  username={data.username}
+                  number_pets={data.numMascotas}
+                />
+              </div>
+              <div className="m-6">
+                <div className="flex flex-col">
+                  <PetList pets={data.mascotas} />
+                  {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
+                </div>
               </div>
             </div>
-          </div>
         )}
       </div>
     </div>

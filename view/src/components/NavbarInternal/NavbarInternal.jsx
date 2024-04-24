@@ -3,6 +3,8 @@ import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import React, {useContext} from "react";
+import DataContext from "../../auth/DataContext";
 
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -19,25 +21,29 @@ const NavbarInternal = () => {
     goTo("/login");
   };
 
-  const user = {
-    name: "AAAaaaA css",
-    email: "aaa@gmail.com",
-    username: "aa123",
-    role: "Volunteer",
-    imageURL: "/shared/EjemploImagenUsuario.jpg",
-    user_id: 20,
-    birthday: "1990-06-15",
-    contact_number: 1111111111,
-    description: ":3",
-    number_pets: 2,
-  };
+  // const user = {
+  //   name: "AAAaaaA css",
+  //   email: "aaa@gmail.com",
+  //   username: "aa123",
+  //   role: "Volunteer",
+  //   imageURL: "/shared/EjemploImagenUsuario.jpg",
+  //   user_id: 20,
+  //   birthday: "1990-06-15",
+  //   contact_number: 1111111111,
+  //   description: ":3",
+  //   number_pets: 2,
+  // };
 
+
+  const {data} = useContext(DataContext); 
+   
+  console.log("Data", data);
   return (
     <header className="sticky top-0 z-50 flex h-[50px] w-screen items-center justify-center bg-[#D6FEDA] text-black">
       <div className="flex w-full items-center justify-between">
         <Link to="/profile">
           <div className="ml-[22px]">
-            <UserNavbarImage username={user.username} />
+            <UserNavbarImage username={data ? data.username :""} />
           </div>
         </Link>
         <div className="hidden lg:flex">
