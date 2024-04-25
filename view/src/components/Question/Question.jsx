@@ -12,7 +12,7 @@ const Question = (props) => {
       <div
         className="mb-4 rounded-xl bg-white px-5 pb-6 pt-2 text-sm hover:cursor-pointer hover:bg-gray-200 lg:text-xl"
         // Se llama a la funcion onSelect con el titulo y descripcion de la pregunta
-        onClick={() => onSelect({ titulo, descripcion })}
+        onClick={() => onSelect({ titulo, descripcion, autor })}
       >
         {/* Se muestra el titulo, descripcion y autor de la pregunta */}
         <h3 className="capitalize">{titulo}</h3>

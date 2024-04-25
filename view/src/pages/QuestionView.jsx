@@ -12,6 +12,7 @@ const QuestionView = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [forum, setForum] = useState([]);
   const { id, idTopic } = useParams();
+  const numericId = parseInt(id, 10);
   // Preguntas de prueba
   const questionTest = [
     {
@@ -42,6 +43,15 @@ const QuestionView = () => {
       .then((response) => response.json())
       .then((data) => {
         setForum(data);
+        // console.log(data.preguntas);
+        const defaultQuestion = data.preguntas.filter(
+          (pregunta) => pregunta.id === numericId,
+        )[0];
+
+        if (defaultQuestion) {
+          console.log(defaultQuestion);
+          setSelectedQuestion(defaultQuestion);
+        }
       })
       .catch((error) =>
         // Muestra un mensaje de error si no se puede cargar el foro
@@ -49,7 +59,7 @@ const QuestionView = () => {
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
-          description: error,
+          footer: error.message,
         }),
       );
   }, []);
@@ -77,6 +87,7 @@ const QuestionView = () => {
             forum.preguntas && forum.preguntas.length > 0 ? forum.preguntas : ""
           }
           onQuestionSelect={handleQuestionSelect}
+          idTopic={idTopic}
         />
       </div>
 
@@ -86,9 +97,13 @@ const QuestionView = () => {
         {selectedQuestion && (
           <div className="flex h-full flex-col ">
             <div className="mb-4 basis-3/5 rounded-xl bg-white px-5 pb-6 pt-2">
-              <h3>{selectedQuestion.name}</h3>
-              <h3 className="text-sm lg:text-xl">Question: ...</h3>
-              <p className="font-light">{selectedQuestion.description}</p>
+              <h3 className="text-sm lg:text-xl">{selectedQuestion.titulo}</h3>
+              <h3 className="text-sm lg:text-xl">
+                Question: {selectedQuestion.autor}
+              </h3>
+              <p className="text-sm font-light lg:text-xl">
+                {selectedQuestion.descripcion}
+              </p>
             </div>
             <div className="basis-2/5 rounded-xl bg-green5 px-5">
               <form>
