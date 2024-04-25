@@ -19,13 +19,22 @@ export default function () {
     }
 
     const onEventAdded = event => {
-        let calendarApi = calendarRef.current.getApi()
-        calendarApi.addEvent({
-            start: moment(event.start).toDate(),
-            end: moment(event.end).toDate(),
-            title: event.title,
-            description: event.description
-        });
+        let calendarApi = calendarRef.current.getApi();
+        let currentDate = moment(event.start);
+        const endDate = moment(event.end);
+    
+        // Agregar eventos para cada día del evento
+        while (currentDate <= endDate) {
+            calendarApi.addEvent({
+                start: currentDate.toDate(),
+                end: currentDate.clone().endOf('day').toDate(),
+                title: event.title,
+                description: event.description,
+                color: '#98FB98', // Color verde pastel
+                rendering: 'background' // Renderizar como fondo
+            });
+            currentDate.add(1, 'days');
+        }
     };
 
     async function handleEventAdd(info) {
@@ -41,8 +50,10 @@ export default function () {
 
     function handleEventClick(info) {
         setSelectedEvent(info.event);
-        setAddModalOpen(false); // Cerrar modal de agregar evento si está abierto
+        setModalOpen(false); // Cerrar modal de agregar evento si está abierto
     }
+
+    
 
     return (
         <section>
