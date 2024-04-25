@@ -76,7 +76,7 @@ function Forum() {
   return (
     // Se muestra un div con los foros y preguntas
     <div
-      className="flex h-screen flex-row items-start p-5"
+      className="flex min-h-screen flex-col items-start p-5 lg:flex-row"
       style={{
         backgroundImage: `url(${Blob})`,
         backgroundPosition: "50%",
@@ -84,8 +84,8 @@ function Forum() {
       }}
     >
       {/* Se muestra un div con los foros */}
-      <div className="ml-28 h-[35rem] w-96 overflow-auto rounded-xl bg-secondary p-6">
-        <h1 className="mb-3 mt-2 text-4xl">Last Topics {">"} </h1>
+      <div className="mb-7 h-screen max-h-[400px] w-full overflow-auto rounded-xl bg-secondary p-6 lg:ml-28 lg:max-h-full lg:w-[35rem]">
+        <h1 className="mb-3 mt-2 text-2xl lg:text-4xl">Last Topics {">"} </h1>
         <hr className="mr-[-1.5rem] border-black"></hr>
         <div className="mt-3 flex w-full flex-row items-start justify-center">
           <button
@@ -115,7 +115,9 @@ function Forum() {
                   name={forum.titulo}
                   onClick={() => handleButtonClick(forum._id)}
                   className={
-                    currentForumId === forum._id ? "bg-teal text-white " : ""
+                    currentForumId === forum._id
+                      ? "my-2 bg-teal text-sm text-white lg:text-2xl"
+                      : "my-2 text-sm lg:text-2xl"
                   }
                 />
               </li>
@@ -124,8 +126,8 @@ function Forum() {
       </div>
 
       {/* Se muestra un div con las preguntas del foro seleccionado */}
-      <div className="mr-28 h-[35rem] flex-grow overflow-auto rounded-xl bg-green3 p-6">
-        <h1 className="mb-12 mt-2 text-4xl">
+      <div className="h-screen max-h-[500px] w-full overflow-auto rounded-xl bg-green3 p-6 lg:mr-28 lg:max-h-full lg:flex-grow ">
+        <h1 className="mb-12 mt-2 text-2xl lg:text-4xl">
           {/* Se muestra el titulo del foro seleccionado */}
           {forums.length > 0
             ? forums.filter((forum) => forum._id === currentForumId)[0].titulo

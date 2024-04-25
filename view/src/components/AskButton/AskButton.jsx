@@ -72,7 +72,7 @@ function AskButton({ forumId, refreshQuestions }) {
   return (
     <>
       <button
-        className="rounded-xl bg-white px-6 py-2 font-normal text-black"
+        className="rounded-xl bg-white px-6 py-2 font-normal text-black lg:text-lg"
         onClick={() => setShowForm(true)}
       >
         Ask a Question
@@ -80,11 +80,11 @@ function AskButton({ forumId, refreshQuestions }) {
 
       {showForm && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur hover:cursor-pointer"
           onClick={() => setShowForm(false)}
         >
           <div
-            className="flex w-96 flex-col gap-5 rounded-xl bg-navbar p-5"
+            className="mx-5 flex w-96 flex-col gap-5 rounded-xl bg-navbar p-5 md:mx-0"
             onClick={(e) => e.stopPropagation()}
           >
             <form onSubmit={handleSubmit}>
@@ -96,6 +96,7 @@ function AskButton({ forumId, refreshQuestions }) {
                   inputClassName="rounded-xl"
                   maxLength={30}
                   onChange={(e) => setTitle(e.target.value)}
+                  required={true}
                 />
                 <p className="mt-5">Add a Description: </p>
                 <textarea
@@ -104,16 +105,19 @@ function AskButton({ forumId, refreshQuestions }) {
                   placeholder="Write Here"
                   maxLength={200}
                   onChange={(e) => setDescription(e.target.value)}
+                  required={true}
                 />
               </div>
-              <Button
-                type="button"
-                className="mr-3"
-                onClick={() => setShowForm(false)}
-              >
-                Close
-              </Button>
-              <Button type="submit">Send</Button>
+              <div className="mt-2 flex justify-center">
+                <Button
+                  type="button"
+                  className="mr-3 bg-red-400 hover:bg-black hover:text-red-400"
+                  onClick={() => setShowForm(false)}
+                >
+                  Close
+                </Button>
+                <Button type="submit">Send</Button>
+              </div>
             </form>
           </div>
         </div>
