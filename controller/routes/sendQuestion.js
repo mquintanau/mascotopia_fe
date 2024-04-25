@@ -5,8 +5,8 @@ const getUserInfo = require("../lib/getUserInfo"); //importamos la funcion para 
 
 router.post("/", async (req, res) => {
   try {
-    const { id, titulo, descripcion, fecha, autor, respuestas, numRespuestas } =
-      req.body; //obtenemos los datos del body
+    const { title, description } = req.body; //obtenemos los datos del body
+
     ForumModel.findByIdAndUpdate(id).then((forum) => {
       //buscamos el foro por id
       if (forum) {

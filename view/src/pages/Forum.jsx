@@ -5,7 +5,7 @@ import Input from "../components/Input/Input";
 import Topic from "../components/Topic/Topic";
 import QuestionList from "../components/QuestionList/QuestionList";
 import Search from "../assets/Search.png";
-import Form from "../components/Form/Form";
+import AskButton from "../components/AskButton/AskButton";
 import Blob from "../assets/Blob.png";
 
 // Componente que muestra el foro
@@ -80,7 +80,7 @@ function Forum() {
         <hr className="mr-[-1.5rem] border-black"></hr>
         <div className="mt-3 flex w-full flex-row items-start justify-center">
           <button
-            className="mx-2 my-8 h-5 w-5"
+            className="mx-2 mt-8 h-5 w-5"
             onClick={() => searchInputRef.current.focus()}
           >
             <img src={Search} />
@@ -133,7 +133,7 @@ function Forum() {
           idTopic={currentForumId}
         />
         <div className="flex items-center justify-center">
-          <Form />
+          <AskButton />
         </div>
       </div>
     </div>
