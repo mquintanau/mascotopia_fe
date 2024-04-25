@@ -18,16 +18,25 @@ function Forum() {
   // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
     setCurrentForumId(forumId);
+    // coloca el foro seleccionado en primer lugar
+    setShownForums((currentShownForums) =>
+      currentShownForums
+        .filter((forum) => forum._id === forumId)
+        .concat(currentShownForums.filter((forum) => forum._id !== forumId)),
+    );
   };
 
   const handleForumSearch = (search) => {
-    console.log(forums.map((forum) => forum._id));
     setShownForums(
-      forums.filter(
-        (forum) =>
-          forum.titulo.toLowerCase().includes(search.toLowerCase()) ||
-          forum._id === currentForumId,
-      ),
+      forums
+        .filter((forum) => forum._id === currentForumId)
+        .concat(
+          forums.filter(
+            (forum) =>
+              forum.titulo.toLowerCase().includes(search.toLowerCase()) &&
+              forum._id !== currentForumId,
+          ),
+        ),
     );
   };
 
