@@ -45,7 +45,7 @@ const QuestionView = () => {
         // console.log(data.preguntas);
 
         const defaultQuestion = data.preguntas.filter(
-          (pregunta) => pregunta.id.toString() === id,
+          (pregunta) => pregunta.id == id,
         )[0];
 
         if (defaultQuestion) {
