@@ -12,7 +12,6 @@ const QuestionView = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [forum, setForum] = useState([]);
   const { id, idTopic } = useParams();
-  const numericId = parseInt(id, 10);
   // Preguntas de prueba
   const questionTest = [
     {
@@ -44,8 +43,9 @@ const QuestionView = () => {
       .then((data) => {
         setForum(data);
         // console.log(data.preguntas);
+
         const defaultQuestion = data.preguntas.filter(
-          (pregunta) => pregunta.id === numericId,
+          (pregunta) => pregunta.id.toString() === id,
         )[0];
 
         if (defaultQuestion) {
