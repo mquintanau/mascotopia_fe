@@ -2,14 +2,17 @@ const { jsonResponse } = require("../lib/jsonResponse"); //Generar respuestas JS
 const ForumModel = require("../schema/forum"); //importamos el modelo de usuario (archivo contiene la definición del esquema del modelo de usuario con Mongoose.)
 const router = require("express").Router(); //importamos el router de express
 const getUserInfo = require("../lib/getUserInfo"); //importamos la funcion para obtener la informacion del usuario
+const { v4: uuidv4 } = require("uuid"); //importamos la libreria uuid para generar un id unico
 
 router.post("/", async (req, res) => {
   try {
-    const { title, description } = req.body; //obtenemos los datos del body
+    const { forumId, titulo, descripcion } = req.body; //obtenemos los datos del body
 
-    ForumModel.findByIdAndUpdate(id).then((forum) => {
+    ForumModel.findByIdAndUpdate(forumId).then((forum) => {
       //buscamos el foro por id
       if (forum) {
+        const id = uuidv4(); //generamos un id unico
+        const fecha = new Date(); //obtenemos la fecha actual
         //si existe el foro
         forum.preguntas.push({
           //agregamos una pregunta al foro
@@ -17,9 +20,9 @@ router.post("/", async (req, res) => {
           titulo,
           descripcion,
           fecha,
-          autor,
-          respuestas,
-          numRespuestas,
+          autor: "GeniusUser",
+          respuestas: [],
+          numRespuestas: 0,
         });
         forum.numPreguntas = forum.preguntas.length; //actualizamos el numero de preguntas
         forum.save(); //guardamos el foro

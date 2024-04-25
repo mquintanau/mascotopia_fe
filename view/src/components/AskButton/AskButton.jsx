@@ -25,9 +25,9 @@ function AskButton({ forumId }) {
         },
         body: JSON.stringify({
           //Se envian los datos del formulario en formato JSON al servidor
-          title,
-          description,
           forumId,
+          titulo: title,
+          descripcion: description,
         }),
       });
 
@@ -105,7 +105,7 @@ function AskButton({ forumId }) {
                 />
               </div>
               <Button
-                type="submit"
+                type="button"
                 className="mr-3"
                 onClick={() => setShowForm(false)}
               >
@@ -121,7 +121,7 @@ function AskButton({ forumId }) {
 }
 
 AskButton.propTypes = {
-  forumId: PropTypes.number.isRequired,
+  forumId: PropTypes.string.isRequired,
 };
 
 export default AskButton;

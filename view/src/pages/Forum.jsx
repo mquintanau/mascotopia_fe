@@ -13,7 +13,7 @@ function Forum() {
   // Se almacenan los foros y el id del foro actual en las siguientes constantes
   const [forums, setForums] = useState([]);
   const [shownForums, setShownForums] = useState([]);
-  const [currentForumId, setCurrentForumId] = useState(undefined);
+  const [currentForumId, setCurrentForumId] = useState("");
 
   // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
@@ -133,7 +133,7 @@ function Forum() {
           idTopic={currentForumId}
         />
         <div className="flex items-center justify-center">
-          <AskButton />
+          <AskButton forumId={currentForumId} />
         </div>
       </div>
     </div>
