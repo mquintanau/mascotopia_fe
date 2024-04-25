@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 
 import Input from "../components/Input/Input";
@@ -12,6 +12,7 @@ import Blob from "../assets/Blob.png";
 function Forum() {
   // Se almacenan los foros y el id del foro actual en las siguientes constantes
   const [forums, setForums] = useState([]);
+  const [shownForums, setShownForums] = useState([]);
   const [currentForumId, setCurrentForumId] = useState(undefined);
 
   // Funcion que establece el foro actual
@@ -19,12 +20,26 @@ function Forum() {
     setCurrentForumId(forumId);
   };
 
+  const handleForumSearch = (search) => {
+    console.log(forums.map((forum) => forum._id));
+    setShownForums(
+      forums.filter(
+        (forum) =>
+          forum.titulo.toLowerCase().includes(search.toLowerCase()) ||
+          forum._id === currentForumId,
+      ),
+    );
+  };
+
+  const searchInputRef = useRef(); // Referencia al input de búsqueda
+
   //   Carga los foros disponibles
   useEffect(() => {
     fetch("http://localhost:4000/api/forum")
       .then((response) => response.json())
       .then((data) => {
         setForums(data);
+        setShownForums(data);
         // Establece primer foro como seleccionado al cargar la pagina
         setCurrentForumId(data[0]._id);
       })
@@ -55,7 +70,10 @@ function Forum() {
         <h1 className="mb-3 mt-2 text-4xl">Last Topics {">"} </h1>
         <hr className="mr-[-1.5rem] border-black"></hr>
         <div className="mt-3 flex w-full flex-row items-start justify-center">
-          <button className="mx-2 my-8 h-5 w-5">
+          <button
+            className="mx-2 my-8 h-5 w-5"
+            onClick={() => searchInputRef.current.focus()}
+          >
             <img src={Search} />
           </button>
           <Input
@@ -63,16 +81,17 @@ function Forum() {
             id="search"
             label="Search Forum"
             inputClassName="rounded-md"
-            labelClassName="text-black"
+            labelClassName="text-black peer-focus:text-black"
             className="mt-5"
-            onChange={(e) => console.log(e.target.value)}
+            ref={searchInputRef}
+            onChange={(e) => handleForumSearch(e.target.value)}
           />
         </div>
 
         {/* Se muestra una lista de foros con sus titulos y se establece el currentId de la pregunta que se selecciona*/}
         <ol className="mt-0">
           {forums.length > 0 &&
-            forums.map((forum) => (
+            shownForums.map((forum) => (
               <li key={forum._id}>
                 <Topic
                   name={forum.titulo}
