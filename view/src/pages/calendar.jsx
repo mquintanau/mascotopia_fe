@@ -35,6 +35,16 @@ export default function () {
             });
             currentDate.add(1, 'days');
         }
+    
+        // Agregar evento para el último día (end)
+        calendarApi.addEvent({
+            start: endDate.toDate(),
+            end: endDate.clone().endOf('day').toDate(),
+            title: event.title,
+            description: event.description,
+            color: '#98FB98', // Color verde pastel
+            rendering: 'background' // Renderizar como fondo
+        });
     };
 
     async function handleEventAdd(info) {
