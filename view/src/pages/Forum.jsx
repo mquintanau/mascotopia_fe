@@ -1,31 +1,12 @@
-import Input from "../components/Input/Input";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+
+import Input from "../components/Input/Input";
 import Topic from "../components/Topic/Topic";
 import QuestionList from "../components/QuestionList/QuestionList";
 import Search from "../assets/Search.png";
 import Form from "../components/Form/Form";
 import Blob from "../assets/Blob.png";
-import Swal from "sweetalert2";
-
-// Lista de preguntas de prueba
-const questionTest = [
-  {
-    name: "Pablo",
-    description: "Hola, como estas?",
-  },
-  {
-    name: "Juan",
-    description: "Bien, gracias y tu?",
-  },
-  {
-    name: "Pablo",
-    description: "Bien, gracias",
-  },
-  {
-    name: "Pablo",
-    description: "Bien, gracias",
-  },
-];
 
 // Componente que muestra el foro
 function Forum() {
@@ -36,7 +17,6 @@ function Forum() {
   // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
     setCurrentForumId(forumId);
-    console.log(forumId);
   };
 
   //   Carga los foros disponibles
@@ -47,7 +27,6 @@ function Forum() {
         setForums(data);
         // Establece primer foro como seleccionado al cargar la pagina
         setCurrentForumId(data[0]._id);
-        console.log("primer id de un foro:", data[0]._id);
       })
       .catch((error) =>
         // Muestra un mensaje de error si no se pueden cargar los foros
@@ -59,8 +38,8 @@ function Forum() {
         }),
       );
   }, []);
-  
-  // Se retorna un div con los foros y preguntas    
+
+  // Se retorna un div con los foros y preguntas
   return (
     // Se muestra un div con los foros y preguntas
     <div
@@ -75,16 +54,18 @@ function Forum() {
       <div className="ml-28 h-[35rem] w-96 overflow-auto rounded-xl bg-secondary p-6">
         <h1 className="mb-3 mt-2 text-4xl">Last Topics {">"} </h1>
         <hr className="mr-[-1.5rem] border-black"></hr>
-        <div className="mt-3 flex w-full flex-row items-start">
-          <button className="mx-2 h-5 w-5 translate-y-3.5">
+        <div className="mt-3 flex w-full flex-row items-start justify-center">
+          <button className="mx-2 my-8 h-5 w-5">
             <img src={Search} />
           </button>
           <Input
             type="text"
             id="search"
             label="Search Forum"
-            inputClassName="py-0 rounded-md"
-            labelClassName="translate-y-[-35%]"
+            inputClassName="rounded-md"
+            labelClassName="text-black"
+            className="mt-5"
+            onChange={(e) => console.log(e.target.value)}
           />
         </div>
 
@@ -103,9 +84,6 @@ function Forum() {
               </li>
             ))}
         </ol>
-
-
-
       </div>
 
       {/* Se muestra un div con las preguntas del foro seleccionado */}

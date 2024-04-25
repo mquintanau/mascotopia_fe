@@ -3,9 +3,9 @@ import RectangularLogo from "../RectangularLogo/RectangularLogo";
 
 const FooterRectangle = () => {
   return (
-    <footerRectangle className=" h-[50px] w-full items-center bg-[#ffffff] py-4 text-sm font-light text-black">
-      <div className=" grid w-screen flex-none grid-cols-1 items-center md:grid-cols-3">
-        <div className="justify-left flex items-center p-4 ">
+    <div className="w-full items-center bg-white text-sm font-light text-black">
+      <div className="grid w-screen flex-none grid-cols-1 items-center md:grid-cols-3">
+        <div className="justify-left flex items-center p-4">
           <div className="hidden md:flex">
             © 2024 Mascotopia. All rights reserved
           </div>
@@ -47,7 +47,7 @@ const FooterRectangle = () => {
           </Link>
         </div>
       </div>
-    </footerRectangle>
+    </div>
   );
 };
 
