@@ -1,10 +1,22 @@
 import React from "react";
 import moment from "moment";
 
-export default function DescriptionModal({ isOpen, onClose, event }) {
+export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
     if (!isOpen || !event) {
         return null;
     }
+
+    const handleDelete = () => {
+        console.log("Evento a eliminar:", event);
+        // Confirmar antes de eliminar
+        const confirmDelete = window.confirm("¿Estás seguro de que quieres borrar este evento?");
+        if (confirmDelete) {
+            console.log("Eliminando evento...");
+            // Llamar a onDelete con el evento a eliminar
+            onDelete(event);
+        }
+    };
+    
 
     // Formatear la fecha y la hora en el formato deseado
     const formattedStartDate = moment(event.start).format("YYYY-MM-DD HH:mm");
@@ -17,6 +29,7 @@ export default function DescriptionModal({ isOpen, onClose, event }) {
                 <p><strong>Descripción:</strong> {event.extendedProps.description}</p>
                 <p><strong>Start:</strong> {formattedStartDate}</p>
                 <p><strong>End:</strong> {formattedEndDate}</p>
+                <button onClick={handleDelete} style={styles.deleteButton}>Borrar evento</button>
                 <button onClick={onClose} style={styles.closeButton}>Cerrar</button>
             </div>
         </div>
@@ -47,5 +60,14 @@ const styles = {
         padding: '10px',
         borderRadius: '5px',
         cursor: 'pointer',
+        marginRight: '10px',
+    },
+    deleteButton: {
+        backgroundColor: '#ff9999',
+        border: 'none',
+        padding: '10px',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        marginRight: '10px',
     },
 };

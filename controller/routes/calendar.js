@@ -17,4 +17,16 @@ router.get("/get-events", async(req,res)=> {
     res.send(events);
 })
 
+router.delete("/delete-event/:title", async (req, res) => {
+    try {
+        const title = req.params.title;
+        // Buscar y eliminar el evento por título
+        await Event.findOneAndDelete({ title: title });
+        res.sendStatus(200);
+    } catch (error) {
+        console.error("Error al borrar el evento:", error);
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;

@@ -18,6 +18,16 @@ export default function () {
         setEvents(response.data);
     }
 
+    async function handleEventDelete(eventToDelete) {
+        try {
+            await axios.delete(`http://localhost:4000/api/calendar/delete-event/${eventToDelete.title}`);
+            setEvents(events.filter(event => event !== eventToDelete)); // Eliminar el evento de la lista local
+            setSelectedEvent(null); // Cerrar el modal después de eliminar el evento
+        } catch (error) {
+            console.error("Error al eliminar el evento:", error);
+        }
+    }
+
     const onEventAdded = event => {
         let calendarApi = calendarRef.current.getApi();
         let currentDate = moment(event.start);
@@ -87,14 +97,22 @@ export default function () {
             </div>
             <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} />
             {selectedEvent && <DescriptionModal isOpen={!!selectedEvent} onClose={() => setSelectedEvent(null)} event={selectedEvent} />}
+            {selectedEvent && (
+                <DescriptionModal
+                    isOpen={!!selectedEvent}
+                    onClose={() => setSelectedEvent(null)}
+                    event={selectedEvent}
+                    onDelete={handleEventDelete} // Pasar la función onDelete al componente hijo
+                />
+            )}
         </section>
     )
 }
 
 const styles = {
     addButton: {
-        backgroundColor: 'green',
-        color: 'white',
+        backgroundColor: '#f1fff2',
+        color: 'black',
         border: 'none',
         padding: '10px',
         borderRadius: '5px',

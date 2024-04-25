@@ -8,6 +8,13 @@ const Eventschema = mongoose.Schema({
 
 })
 
+Eventschema.methods.eventExist = async function (title) {
+    // Verificar si existe un evento con el título proporcionado
+    const result = await this.model("Event").findOne({ title });
+    return !!result; // Retornar true si existe, false si no
+};
+
 
 
 module. exports = mongoose.model("Event", Eventschema) ;
+
