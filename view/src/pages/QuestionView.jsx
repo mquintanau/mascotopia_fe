@@ -3,11 +3,15 @@ import QuestionList from "../components/QuestionList/QuestionList";
 import { useState } from "react";
 import Button from "../components/Button/Button";
 import Blob from "../assets/Blob.png";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const QuestionView = () => {
   // Se almacena la pregunta seleccionada en la constante selectedQuestion
   const [selectedQuestion, setSelectedQuestion] = useState(null);
-
+  const [forum, setForum] = useState([]);
+  const { id, idTopic } = useParams();
   // Preguntas de prueba
   const questionTest = [
     {
@@ -33,10 +37,27 @@ const QuestionView = () => {
     setSelectedQuestion(question);
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:4000/api/forum/${idTopic}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setForum(data);
+      })
+      .catch((error) =>
+        // Muestra un mensaje de error si no se puede cargar el foro
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          description: error,
+        }),
+      );
+  }, []);
+
   // Se retorna un div con la lista de preguntas y la pregunta seleccionada
   return (
     <div
-      className=" flex min-h-screen flex-col items-start p-5 lg:flex-row"
+      className="flex min-h-screen flex-col items-start p-5 lg:flex-row"
       style={{
         backgroundImage: `url(${Blob})`,
         backgroundPosition: "50%",
@@ -52,7 +73,9 @@ const QuestionView = () => {
         </Link>
         <hr className="mb-5 border-black"></hr>
         <QuestionList
-          questions={questionTest}
+          questions={
+            forum.preguntas && forum.preguntas.length > 0 ? forum.preguntas : ""
+          }
           onQuestionSelect={handleQuestionSelect}
         />
       </div>
