@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 import PropTypes from "prop-types";
 
-function AskButton({ forumId }) {
+function AskButton({ forumId, refreshQuestions }) {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -38,8 +38,10 @@ function AskButton({ forumId }) {
           text: "Question added successfully",
           icon: "success",
           confirmButtonText: "Continue",
-          confirmButtonColor: "#f27474",
+          confirmButtonColor: "#4caf50",
         });
+        setShowForm(false);
+        refreshQuestions();
       } else {
         console.log("Hubo un error en el registro");
         const json = await response.json();
@@ -122,6 +124,7 @@ function AskButton({ forumId }) {
 
 AskButton.propTypes = {
   forumId: PropTypes.string.isRequired,
+  refreshQuestions: PropTypes.func.isRequired,
 };
 
 export default AskButton;

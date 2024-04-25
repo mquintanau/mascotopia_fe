@@ -40,6 +40,15 @@ function Forum() {
     );
   };
 
+  const refreshQuestions = () => {
+    fetch("http://localhost:4000/api/forum")
+      .then((response) => response.json())
+      .then((data) => {
+        setForums(data);
+        handleButtonClick(currentForumId);
+      });
+  };
+
   const searchInputRef = useRef(); // Referencia al input de búsqueda
 
   //   Carga los foros disponibles
@@ -133,7 +142,10 @@ function Forum() {
           idTopic={currentForumId}
         />
         <div className="flex items-center justify-center">
-          <AskButton forumId={currentForumId} />
+          <AskButton
+            forumId={currentForumId}
+            refreshQuestions={refreshQuestions}
+          />
         </div>
       </div>
     </div>
