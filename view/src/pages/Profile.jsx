@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { API_URL } from "../auth/constants";
 import { useParams } from "react-router-dom";
 import FormPet from "../components/FormPet/FormPet";
-import DataContext from '../auth/DataContext'
+import DataContext from "../auth/DataContext";
 
 //Ejemplos para la pagina mientras union
 //Revisar como unir pet y user
@@ -59,8 +59,10 @@ const user = {
 };
 
 const Profile = () => {
-  const {data, setData} = useContext(DataContext); //Variable de estado para guardar los datos del usuario
+  const { data, setData } = useContext(DataContext); //Variable de estado para guardar los datos del usuario
   const { id } = useParams();
+  const [showForm, setShowForm] = useState(false); 
+  const [buttonText, setButtonText] = useState('+');
 
   useEffect(() => {
     fetch(`${API_URL}/userProfile/${id}`)
@@ -75,6 +77,11 @@ const Profile = () => {
       });
   }, [id]);
 
+  const handleButtonClick = () => {
+    setShowForm(prevState => !prevState);
+    setButtonText(prevText => prevText === '+' ? 'x' : '+');
+  };
+
   return (
     <div
       className="mx-auto mb-10 max-w-screen-xl"
@@ -82,30 +89,32 @@ const Profile = () => {
     >
       <div className="mt-3 flex justify-center scrollbar">
         {data && (
-            <div className="mb-8 flex flex-col sm:flex-row">
-              <div className="m-6">
-                <UserView
-                  imageURL={user.imageURL}
-                  name={data.nombre}
-                  email={data.correo}
-                  role={data.rol}
-                  username={data.username}
-                  number_pets={data.numMascotas}
-                />
-              </div>
-              <div className="m-6">
-                <div className="flex flex-col">
-                  <PetList pets={data.mascotas} />
-                <Button className="text-bold mx-[200px] mt-[30px] text-black text-[20px] rounded-full"
-                 onClick={console.log("click")}
-                 >
-                  +
+          <div className="mb-8 flex flex-col sm:flex-row">
+            <div className="m-6">
+              <UserView
+                imageURL={user.imageURL}
+                name={data.nombre}
+                email={data.correo}
+                role={data.rol}
+                username={data.username}
+                number_pets={data.numMascotas}
+              />
+            </div>
+            <div className="m-6">
+              <div className="flex flex-col">
+                <PetList pets={data.mascotas} />
+                {showForm && <FormPet />}{" "}
+                <Button
+                  className="text-bold mx-[200px] mt-[30px] rounded-full text-[20px] text-black"
+                  onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
+                >
+                  {buttonText}
                 </Button>
-              
-                  {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
-                </div>
+                {/* Se muestra el formulario si showForm es true */}
+                {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
               </div>
             </div>
+          </div>
         )}
       </div>
     </div>
