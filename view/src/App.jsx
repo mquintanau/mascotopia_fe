@@ -15,8 +15,11 @@ import FooterRectangle from "./components/FooterRectangle/FooterRectangle";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import DataContext from "./auth/DataContext";
+import { useState } from "react";
 
 function App() {
+  const [data, setData] = useState(null);
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
   console.log("Pathname", location.pathname);
@@ -29,6 +32,7 @@ function App() {
     location.pathname.startsWith("/resetPassword");
 
   return (
+    <DataContext.Provider value={{ data, setData }}>
     <div className="h-screen w-screen bg-main text-black">
       <header>
         {showExternalNavbar && <NavbarExternal />}
@@ -57,6 +61,7 @@ function App() {
       </main>
       <FooterRectangle />
     </div>
+    </DataContext.Provider>
   );
 }
 
