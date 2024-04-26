@@ -20,7 +20,11 @@ const generatePetViews = (pets) => {
 };
 
 const PetList = ({ pets }) => {
-  return <div>{generatePetViews(pets)}</div>;
+  console.log(pets.animal);
+  if (pets.animal !== ''){ 
+    return <div>{generatePetViews(pets)}</div>;
+  }
+  
 };
 
 PetList.propTypes = {

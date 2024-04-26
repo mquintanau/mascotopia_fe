@@ -1,8 +1,10 @@
 import PetList from "../components/Pet/PetList/Petlist";
 import UserView from "../components/User/UserView/UserView";
+import Button from "../components/Button/Button";
 import { useState, useEffect } from "react";
 import { API_URL } from "../auth/constants";
 import { useParams } from "react-router-dom";
+import FormPet from "../components/FormPet/FormPet";
 
 //Ejemplos para la pagina mientras union
 //Revisar como unir pet y user
@@ -93,6 +95,12 @@ const Profile = () => {
             <div className="m-6">
               <div className="flex flex-col">
                 <PetList pets={data.mascotas} />
+                <Button className="text-bold mx-[200px] mt-[30px] text-black text-[20px] rounded-full"
+                 onClick={console.log("click")}
+                 >
+                  +
+                </Button>
+              
                 {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
               </div>
             </div>
