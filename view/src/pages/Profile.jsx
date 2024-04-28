@@ -6,6 +6,7 @@ import { API_URL } from "../auth/constants";
 import { useParams } from "react-router-dom";
 import FormPet from "../components/FormPet/FormPet";
 import DataContext from "../auth/DataContext";
+import axios from 'axios';
 
 //Ejemplos para la pagina mientras union
 //Revisar como unir pet y user
@@ -63,6 +64,7 @@ const Profile = () => {
   const { id } = useParams();
   const [showForm, setShowForm] = useState(false); 
   const [buttonText, setButtonText] = useState('+');
+  const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
 
   useEffect(() => {
     fetch(`${API_URL}/userProfile/${id}`)
@@ -81,6 +83,32 @@ const Profile = () => {
     setShowForm(prevState => !prevState);
     setButtonText(prevText => prevText === '+' ? 'x' : '+');
   };
+
+//Función para manejar el cambio de la imagen seleccionada por el usuario
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+// Función para manejar el envío del formulario
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    // Creacion del objeto FormData 
+    const formData = new FormData();
+
+    // Agregar el archivo seleccionado al objeto FormData
+    formData.append('profileImage', selectedFile);
+
+    // Envíar FormData al servidor
+    try {
+      const response = await axios.post(`${API_URL}/uploadProfileImage`, formData);
+      // Actualizar
+      setData(prevData => ({ ...prevData, imageURL: response.data.imageURL }));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };  
+
 
   return (
     <div
@@ -112,6 +140,10 @@ const Profile = () => {
                 </Button>
                 {/* Se muestra el formulario si showForm es true */}
                 {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
+                <form onSubmit={handleFormSubmit}>
+                 <input type="file" onChange={handleFileChange} />
+                 <button type="submit">Upload New Profile Image</button>
+               </form>      
               </div>
             </div>
           </div>
