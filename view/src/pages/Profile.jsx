@@ -46,18 +46,18 @@ import axios from 'axios';
 //   },
 // ];
 
-const user = {
-  name: "AAAaaaA css",
-  email: "aaa@gmail.com",
-  username: "aa123",
-  role: "Volunteer",
-  imageURL: "/shared/EjemploImagenUsuario.jpg",
-  user_id: 20,
-  birthday: "1990-06-15",
-  contact_number: 1111111111,
-  description: ":3",
-  number_pets: 2,
-};
+// const user = {
+//   name: "AAAaaaA css",
+//   email: "aaa@gmail.com",
+//   username: "aa123",
+//   role: "Volunteer",
+//   imageURL: "/shared/EjemploImagenUsuario.jpg",
+//   user_id: 20,
+//   birthday: "1990-06-15",
+//   contact_number: 1111111111,
+//   description: ":3",
+//   number_pets: 2,
+// };
 
 const Profile = () => {
   const { data, setData } = useContext(DataContext); //Variable de estado para guardar los datos del usuario
@@ -97,17 +97,19 @@ const Profile = () => {
     const formData = new FormData();
 
     // Agregar el archivo seleccionado al objeto FormData
-    formData.append('profileImage', selectedFile);
+    formData.append('image', selectedFile);
 
     // Envíar FormData al servidor
     try {
-      const response = await axios.post(`${API_URL}/uploadProfileImage`, formData);
+      const response = await axios.post(`${API_URL}/imageProfile/${id}`, formData);
       // Actualizar
       setData(prevData => ({ ...prevData, imageURL: response.data.imageURL }));
+      //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error('Error:', error);
     }
-  };  
+  }; 
+  console.log(data);
 
 
   return (
@@ -120,7 +122,7 @@ const Profile = () => {
           <div className="mb-8 flex flex-col sm:flex-row">
             <div className="m-6">
               <UserView
-                imageURL={user.imageURL}
+                imageURL={data.imageURL}
                 name={data.nombre}
                 email={data.correo}
                 role={data.rol}
