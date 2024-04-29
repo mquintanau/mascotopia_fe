@@ -31,7 +31,7 @@ router.post('/:id', upload.single('image'), async (req, res) => {
         return res.status(404).send({ error: 'User not found' });
       }
       
-      user.imageURL = './controller/routes/uploads/' + req.file.filename; // Aquí se guarda la ruta de la imagen
+      user.imageURL = '../../../controller/routes/uploads/' + req.file.filename; // Aquí se guarda la ruta de la imagen
       await user.save();
       //console.log({ message: 'Image uploaded successfully', user });
     } catch (error) {
