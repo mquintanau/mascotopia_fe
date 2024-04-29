@@ -13,7 +13,7 @@ if (!fs.existsSync(dirPath)) {
 // Configuración de Multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './routes/uploads/') // Ubicación de la carpeta donde se guardarán las imágenes
+      cb(null, path.join(__dirname, '/uploads')) // Ubicación de la carpeta donde se guardarán las imágenes
     },
     filename: function (req, file, cb) {
       cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname) // Nombre del archivo
@@ -31,7 +31,7 @@ router.post('/:id', upload.single('image'), async (req, res) => {
         return res.status(404).send({ error: 'User not found' });
       }
       
-      user.imageURL = '../../../controller/routes/uploads/' + req.file.filename; // Aquí se guarda la ruta de la imagen
+      user.imageURL = '/uploads/' + req.file.filename; // Aquí se guarda la ruta de la imagen
       await user.save();
       //console.log({ message: 'Image uploaded successfully', user });
     } catch (error) {

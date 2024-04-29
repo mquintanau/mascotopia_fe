@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 const UserView = (props) => {
   const { name, email, username, role, number_pets, imageURL } = props;
   return (
@@ -9,7 +8,7 @@ const UserView = (props) => {
         <div className="my-2 flex flex-col items-center justify-center">
           <div className="relative mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
             <img
-              src={"UserView"+imageURL}
+              src={`http://localhost:4000${imageURL}`}
               className="my-2 h-full w-full rounded-full object-cover"
             />
           </div>
