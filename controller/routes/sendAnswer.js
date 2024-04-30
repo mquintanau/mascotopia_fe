@@ -56,3 +56,5 @@ router.get("/answers/:questionId", async (req, res) => {
         return jsonResponse(res, 500, "Internal server error");
     }
 });
+
+module.exports = router;
