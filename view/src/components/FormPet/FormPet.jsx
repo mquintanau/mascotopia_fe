@@ -100,28 +100,28 @@ const FormPet = ({ loadUser }) => {
                 type="text"
                 value={nombreMascotaNueva}
                 onChange={(e) => setNombreMascotaNueva(e.target.value)}
-                className="mb-2 rounded-lg bg-navbar  py-2  text-white placeholder-gray-400"
+                className="mb-2 rounded-lg bg-navbar  py-2  text-black placeholder-gray-400"
                 placeholder=" Name"
               />
               <input
                 type="text"
                 value={animalNueva}
                 onChange={(e) => setAnimalNueva(e.target.value)}
-                className="mb-2 rounded-lg bg-navbar py-2  text-white placeholder-gray-400"
+                className="mb-2 rounded-lg bg-navbar py-2  text-black placeholder-gray-400"
                 placeholder=" Animal"
               />
               <input
                 type="text"
                 value={edadNueva}
                 onChange={(e) => setEdadNueva(e.target.value)}
-                className="mb-2 rounded-lg bg-navbar py-2  text-white placeholder-gray-400"
+                className="mb-2 rounded-lg bg-navbar py-2  text-black placeholder-gray-400"
                 placeholder=" Age"
               />
               <input
                 type="text"
                 value={descripcionNueva}
                 onChange={(e) => setDescripcionNueva(e.target.value)}
-                className="mb-2 rounded-lg bg-navbar py-2  text-white placeholder-gray-400"
+                className="mb-2 rounded-lg bg-navbar py-2  text-black placeholder-gray-400"
                 placeholder=" Description"
               />
               <div className="justify-center">
