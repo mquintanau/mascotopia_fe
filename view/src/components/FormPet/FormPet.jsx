@@ -24,6 +24,9 @@ const FormPet = () => {
   async function submitNewPetForm(e) {
     e.preventDefault();
     try {
+      // Obtiene id del usuario actual
+      const id = localStorage.getItem("idUser");
+
       const response = await fetch(`${API_URL}/signup/addPet`, {
         method: "POST",
         headers: {
@@ -35,6 +38,7 @@ const FormPet = () => {
           animalNueva,
           descripcionNueva,
           edadNueva,
+          idUsuario: id,
         }),
       });
 
