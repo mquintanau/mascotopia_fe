@@ -58,6 +58,16 @@ router.post("/", async (req, res) => {
       rol,
     });
 
+    // Solo agregamos la mascota si se proporciona al menos su nombre
+    if (nombreMascota) {
+      newUser.mascotas.push({
+        nombreMascota,
+        animal,
+        edad,
+        descripcion,
+      });
+    }
+/*
     // Agrega la mascota proporcionada al array de mascotas del usuario
     newUser.mascotas.push({
       nombreMascota,
@@ -65,7 +75,7 @@ router.post("/", async (req, res) => {
       edad,
       descripcion,
     });
-
+*/
     //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
 
     newUser.save();
