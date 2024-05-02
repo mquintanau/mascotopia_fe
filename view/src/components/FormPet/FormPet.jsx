@@ -128,9 +128,6 @@ const FormPet = ({ loadUser }) => {
                 <Button className="mx-4 mt-4" onClick={submitNewPetForm}>
                   ✓
                 </Button>
-                <Button onClick={handleCloseClick} className="mx-4 mt-4">
-                  ✖
-                </Button>
               </div>
             </div>
           </div>
