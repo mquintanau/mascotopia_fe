@@ -2,8 +2,9 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import { API_URL } from "../../auth/constants";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
 
-const FormPet = () => {
+const FormPet = ({ loadUser }) => {
   // Estados para la nueva mascota
   const [nombreMascotaNueva, setNombreMascotaNueva] = useState("");
   const [animalNueva, setAnimalNueva] = useState("");
@@ -50,6 +51,7 @@ const FormPet = () => {
           icon: "success",
           confirmButtonText: "Continue",
         });
+        loadUser();
       } else {
         console.log(
           "There was an unexpected error! Please contact an administrator.",
@@ -136,6 +138,10 @@ const FormPet = () => {
       </form>
     </div>
   );
+};
+
+FormPet.propTypes = {
+  loadUser: PropTypes.func.isRequired,
 };
 
 export default FormPet;
