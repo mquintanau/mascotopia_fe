@@ -77,4 +77,43 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/addPet", async (req, res) => {
+  const { username, nombreMascota, animal, edad, descripcion } = req.body;
+
+  if (!!!username || !!!nombreMascota || !!!animal || !!!edad) {
+    return res.status(400).json(
+      jsonResponse(400, {
+        error: "Los campos son requeridos",
+      })
+    );
+  }
+
+  try {
+    const user = new User();
+    const exists = await user.usernameExist(username);
+
+    if (!exists) {
+      return res.status(400).json(
+        jsonResponse(400, {
+          error: "The username does not exist",
+        })
+      );
+    }
+
+    const newUser = new User();
+    newUser.mascotas.push({
+      nombreMascota,
+      animal,
+      edad,
+      descripcion,
+    });
+
+    newUser.save();
+    res
+      .status(200)
+      .json(jsonResponse(200, { message: "Pet added successfully" }));
+  } catch (error) {
+    console.log("Error adding pet", { error });
+  }
+});
 module.exports = router;
