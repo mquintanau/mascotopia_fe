@@ -16,6 +16,12 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import QuestionView from "./pages/QuestionView";
+import Calendar from "./pages/calendar";
+import Modal from 'react-modal';
+
+
+
+Modal.setAppElement('#root')
 
 function App() {
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
@@ -54,6 +60,9 @@ function App() {
             {/* Se muestra el formulario de reseteo de contraseña */}
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/register" element={<Signup />} />
+
+            {/* Se muestra el calendario */}
+            <Route path="/calendar" element={<Calendar />} />
           </Route>
         </Routes>
       </main>
