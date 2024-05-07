@@ -20,6 +20,7 @@
     "mongoose": "^8.2.4",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
+    "uuid": "^9.0.1"
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/react": "^6.1.11",
     "react-datetime": "^3.2.0",

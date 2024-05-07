@@ -1,9 +1,12 @@
 // Esto es un componente funcional que representa la página de inicio de la aplicación.
 
-import VisuallyHidden from "../components/VisuallyHidden/VisuallyHidden";
+// Importa imágenes
 import DecorationLine from "../assets/decorationLine.svg";
 import SignUpInvitation from "../assets/signUpInvitation.png";
 import AboutUs from "../assets/aboutUs.png";
+
+// Importa componentes de React
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -13,20 +16,28 @@ const LandingPage = () => {
           Welcome to Mascotopia: Your All-In-One Hub for Pet Care & Community!
         </p>
       </section>
-      <section>
-        <VisuallyHidden></VisuallyHidden>
-        <img src={AboutUs} alt="" className="m-auto w-screen max-w-[700px]" />
-        {/* TODO: Create an image alt label */}
+      <section id="about-us">
+        <img
+          src={AboutUs}
+          alt="About Us Image"
+          className="m-auto w-screen max-w-[700px]"
+        />
       </section>
       <section className="flex justify-center">
-        <img src={DecorationLine} className="absolute -z-10 -mt-60" />
+        <img
+          src={DecorationLine}
+          className="absolute -z-10 -mt-60"
+          alt="Decoration line"
+        />
       </section>
       <section className="mx-5 mb-20">
-        <img
-          src={SignUpInvitation}
-          alt=""
-          className="m-auto w-11/12 max-w-[700px]"
-        />
+        <Link to="/register">
+          <img
+            src={SignUpInvitation}
+            alt="Sign Up Invitation Image"
+            className="m-auto w-11/12 max-w-[700px]"
+          />
+        </Link>
       </section>
     </div>
   );
