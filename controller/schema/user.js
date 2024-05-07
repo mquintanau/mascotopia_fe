@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
   mascotas: [MascotaSchema], // Referencia al esquema de la subcolección
   numMascotas: { type: Number, required: false },
   rol: { type: String, required: true },
+  imageURL: { type: String, required: false },
 });
 
 // Modelo para la colección usuario

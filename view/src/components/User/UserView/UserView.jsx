@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
-
 const UserView = (props) => {
-  const { name, email, username, role, number_pets } = props;
+  const { name, email, username, role, number_pets, imageURL } = props;
   return (
     <div className="items-start font-semibold text-black">
       <p className="flex justify-start px-4 py-1">User</p>
@@ -9,7 +8,7 @@ const UserView = (props) => {
         <div className="my-2 flex flex-col items-center justify-center">
           <div className="relative mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
             <img
-              src={"https://via.placeholder.com/150"}
+              src={`http://localhost:4000${imageURL}`}
               className="my-2 h-full w-full rounded-full object-cover"
             />
           </div>
@@ -34,6 +33,7 @@ UserView.propTypes = {
   username: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
   number_pets: PropTypes.number.isRequired,
+  imageURL: PropTypes.string.isRequired,
 };
 
 export default UserView;

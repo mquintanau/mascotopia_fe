@@ -58,6 +58,16 @@ router.post("/", async (req, res) => {
       rol,
     });
 
+    // Solo agregamos la mascota si se proporciona al menos su nombre
+    if (nombreMascota) {
+      newUser.mascotas.push({
+        nombreMascota,
+        animal,
+        edad,
+        descripcion,
+      });
+    }
+/*
     // Agrega la mascota proporcionada al array de mascotas del usuario
     newUser.mascotas.push({
       nombreMascota,
@@ -65,7 +75,7 @@ router.post("/", async (req, res) => {
       edad,
       descripcion,
     });
-
+*/
     //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
 
     newUser.save();
@@ -77,4 +87,61 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/addPet", async (req, res) => {
+  const {
+    nombreMascotaNueva,
+    animalNueva,
+    edadNueva,
+    descripcionNueva,
+    idUsuario,
+  } = req.body;
+
+  if (
+    !!!nombreMascotaNueva ||
+    !!!animalNueva ||
+    !!!edadNueva ||
+    !!!descripcionNueva ||
+    !!!idUsuario
+  ) {
+    return res.status(400).json(
+      jsonResponse(400, {
+        error: "Los campos son requeridos",
+      })
+    );
+  }
+
+  try {
+    // verifica si el idUsuario corresponde a un usuario valido
+    const userExists = await User.exists({ _id: idUsuario });
+
+    if (!userExists) {
+      return res.status(404).json(
+        jsonResponse(404, {
+          error: "Usuario no encontrado",
+        })
+      );
+    }
+
+    const pet = {
+      nombreMascota: nombreMascotaNueva,
+      animal: animalNueva,
+      edad: edadNueva,
+      descripcion: descripcionNueva,
+    };
+
+    // Encuentra el usuario y actualiza su array de mascotas
+    await User.findByIdAndUpdate(
+      idUsuario,
+      { $push: { mascotas: pet } },
+      { new: true }
+    );
+
+    res
+      .status(200)
+      .json(jsonResponse(200, { message: "Pet added successfully" }));
+  } catch (error) {
+    console.log("Error adding pet", { error });
+    res;
+  }
+});
 module.exports = router;

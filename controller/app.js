@@ -2,8 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-
+const path = require("path");
 app.use(bodyParser.json());
 
 require("dotenv").config();
@@ -11,6 +10,7 @@ require("dotenv").config();
 const port = process.env.PORT || 4000; //puerto del servidor
 app.use(cors()); //permite que el servidor acepte peticiones de cualquier origen
 app.use(express.json()); //permite que el servidor pueda recibir y enviar datos en formato JSON
+app.use("/uploads", express.static(path.join(__dirname, "/routes/uploads"))); //Permite manejo de archivos estáticos
 
 //CONEXIÓN CON LA BASE DE DATOS
 async function connectDB() {
@@ -35,6 +35,7 @@ app.use("/api/userProfile", require("./routes/userProfile"));
 app.use("/api/signup", require("./routes/signup"));
 app.use("/api/forgotPassword", require("./routes/forgotPassword"));
 app.use("/api/resetPassword", require("./routes/resetPassword"));
+app.use("/api/imageProfile", require("./routes/imageProfile"));
 
 // FORO
 app.use("/api/forum", require("./routes/forum")); // Ruta get de los foros

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // Funciones de la lógica de la app
 import { Route, Routes, useLocation } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop";
@@ -14,17 +16,17 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import DataContext from "./auth/DataContext";
 import Profile from "./pages/Profile";
 import Forum from "./pages/Forum";
 import QuestionView from "./pages/QuestionView";
 import Calendar from "./pages/calendar";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
-
-
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
 function App() {
+  const [data, setData] = useState(null);
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
   console.log("Pathname", location.pathname);
@@ -37,42 +39,43 @@ function App() {
     location.pathname.startsWith("/resetPassword");
 
   return (
-    <div className="h-screen w-screen bg-main text-black">
-      {/* Se ejecuta el componente para hacer scroll al inicio de la página */}
-      <ScrollToTop />{" "}
-      <header>
-        {showExternalNavbar && <NavbarExternal />}
-        {!showExternalNavbar && <NavbarInternal />}
-      </header>
-      <main>
-        {/* Contenido principal, manejando la navegacion con react-router-dom */}
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/" element={<ProtectedRoute />}>
-            {/* Se protege la ruta de perfil y resetPassword */}
-            <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route
-              path="/questionView/:id/:idTopic"
-              element={<QuestionView />}
-            />
-            {/* Prueba perfil */}
-            <Route
-              path="resetPassword/:id/:token"
-              element={<ResetPassword />}
-            />
-            {/* Se muestra el formulario de reseteo de contraseña */}
-            <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route path="/register" element={<Signup />} />
-
-            {/* Se muestra el calendario */}
-            <Route path="/calendar" element={<Calendar />} />
-          </Route>
-        </Routes>
-      </main>
-      <FooterRectangle />
-    </div>
+    <DataContext.Provider value={{ data, setData }}>
+      <div className="h-screen w-screen bg-main text-black">
+        {/* Se ejecuta el componente para hacer scroll al inicio de la página */}
+        <ScrollToTop />{" "}
+        <header>
+          {showExternalNavbar && <NavbarExternal />}
+          {!showExternalNavbar && <NavbarInternal />}
+        </header>
+        <main>
+          {/* Contenido principal, manejando la navegacion con react-router-dom */}
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<ProtectedRoute />}>
+              {/* Se protege la ruta de perfil y resetPassword */}
+              <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route
+                path="/questionView/:id/:idTopic"
+                element={<QuestionView />}
+              />
+              {/* Prueba perfil */}
+              <Route
+                path="resetPassword/:id/:token"
+                element={<ResetPassword />}
+              />
+              {/* Se muestra el formulario de reseteo de contraseña */}
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+              <Route path="/register" element={<Signup />} />
+              {/* Se muestra el calendario */}
+              <Route path="/calendar" element={<Calendar />} />
+            </Route>
+          </Routes>
+        </main>
+        <FooterRectangle />
+      </div>
+    </DataContext.Provider>
   );
 }
 
