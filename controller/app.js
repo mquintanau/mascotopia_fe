@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.json());
 
 require("dotenv").config();
 
@@ -22,6 +25,9 @@ async function connectDB() {
 connectDB();
 
 // RUTAS
+
+// CALENDARIO
+app.use("/api/calendar", require("./routes/calendar"));
 
 // USUARIO
 app.use("/api/login", require("./routes/login"));
