@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
-app.use(bodyParser.json());
+const bodyParser = require("body-parser"); // Import the body-parser package
 
 require("dotenv").config();
 
@@ -11,6 +11,7 @@ const port = process.env.PORT || 4000; //puerto del servidor
 app.use(cors()); //permite que el servidor acepte peticiones de cualquier origen
 app.use(express.json()); //permite que el servidor pueda recibir y enviar datos en formato JSON
 app.use("/uploads", express.static(path.join(__dirname, "/routes/uploads"))); //Permite manejo de archivos estáticos
+app.use(bodyParser.json());
 
 //CONEXIÓN CON LA BASE DE DATOS
 async function connectDB() {

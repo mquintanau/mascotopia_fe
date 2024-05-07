@@ -3,10 +3,10 @@ import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import DataContext from "../../auth/DataContext";
 
-const NavbarInternal = () => {
+const NavbarInternal = ({ data }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -34,16 +34,15 @@ const NavbarInternal = () => {
   //   number_pets: 2,
   // };
 
+  const { data } = useContext(DataContext);
 
-  const {data} = useContext(DataContext); 
-   
   console.log("Data", data);
   return (
     <header className="sticky top-0 z-50 flex h-[50px] w-screen items-center justify-center bg-[#D6FEDA] text-black">
       <div className="flex w-full items-center justify-between">
         <Link to="/profile">
           <div className="ml-[22px]">
-            <UserNavbarImage username={data ? data.username :""} />
+            <UserNavbarImage username={data ? data.username : ""} />
           </div>
         </Link>
         <div className="hidden lg:flex">
