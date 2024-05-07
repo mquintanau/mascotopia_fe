@@ -16,8 +16,6 @@ function ForgotPassword() {
   const [nombre, setNombre] = useState("");
   // Variable de estado para mostrar si la tecla de mayúsculas está activada
   const [capsLockOn, setCapsLockOn] = useState(false);
-  // Se inicializa el estado de la respuesta de error
-  const [errorResponse, setErrorResponse] = useState("");
   // Se inicializa la variable de navegación
   const goTo = useNavigate();
   // Se obtiene la función de autenticación
@@ -47,8 +45,12 @@ function ForgotPassword() {
         console.log("Something went wrong");
         const json = await response.json();
         if (json && json.body && typeof json.body.error === "string") {
-          setErrorResponse(json.body.error);
-          // json tiene la estructura de AuthResponseError
+          Swal.fire({
+            title: "¡Error!",
+            text: json.body.error,
+            icon: "error",
+            confirmButtonText: "Continue",
+          });
         }
       }
     } catch (error) {
@@ -75,11 +77,6 @@ function ForgotPassword() {
           Full name to
           <br></br>recover your password
         </p>
-        {!!errorResponse && (
-          <div className="errorMessage mb-4 rounded-md bg-red-400 p-2 text-white">
-            {errorResponse}
-          </div>
-        )}
         <Input
           type="text"
           label="Email"
@@ -88,6 +85,7 @@ function ForgotPassword() {
           onChange={(e) => setCorreo(e.target.value)}
           onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
           style={{ color: "black" }}
+          required={true}
         />
         {capsLockOn && <p style={{ color: "red" }}>Mayusculas activadas.</p>}
 
@@ -99,6 +97,7 @@ function ForgotPassword() {
           onChange={(e) => setNombre(e.target.value)}
           onKeyDown={(e) => setCapsLockOn(e.getModifierState("CapsLock"))}
           style={{ color: "black" }}
+          required={true}
         />
 
         <Button type="submit" className="mx-auto my-5 whitespace-nowrap">

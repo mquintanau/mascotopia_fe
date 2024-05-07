@@ -13,12 +13,14 @@ export default {
       colors: {
         main: "#F1FFF2",
         primary: "#80ED99",
+        gray1: "#E0E3E2",
         secondary: "#6FC2BD",
         black: "#0E1918",
         green1: "#A4F3B3",
         green2: "#78D8AB",
         green3: "#C1DCC7",
         green4: "#D2F9D3",
+        green5: "#B4F2C2",
         teal: "#0A8D85",
         navbar: "#D6FEDA",
         greenLogo: "#387f49",
@@ -28,14 +30,11 @@ export default {
         serif: ["Merriweather", "serif"],
       },
       backgroundImage: {
-        loginBackground: "url('./assets/loginBackground.png')",
         welcome: "url('./assets/Group14.png')",
-        "login-background": "url('./assets/loginBackground.png')",
         "line-background": "url('./assets/lineForgotPassword.svg')",
-        decorationLineRegister: "url('./assets/decorationLineRegister.svg')",
-        //         TODO: Arreglar duplicados
       },
     },
   },
+  // eslint-disable-next-line no-undef
   plugins: [require("tailwind-scrollbar")],
 };
