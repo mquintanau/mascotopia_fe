@@ -40,7 +40,7 @@ const FooterRectangle = () => {
           </a>
         </div>
         <div className="flex items-center justify-end p-4">
-          <Link to="/">
+          <Link to="/" target="_BLANK">
             <div className="hidden md:flex">
               <RectangularLogo className="ml-[25px]" />
             </div>

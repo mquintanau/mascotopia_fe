@@ -29,7 +29,7 @@ function App() {
   const [data, setData] = useState(null);
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
-  console.log("Pathname", location.pathname);
+  // console.log("Pathname", location.pathname);
 
   let showExternalNavbar =
     location.pathname === "/" ||
@@ -45,9 +45,9 @@ function App() {
         <ScrollToTop />{" "}
         <header>
           {showExternalNavbar && <NavbarExternal />}
-          {!showExternalNavbar && <NavbarInternal data={data} />}
+          {!showExternalNavbar && <NavbarInternal />}
         </header>
-        <main>
+        <main className="mt-[50px]">
           {/* Contenido principal, manejando la navegacion con react-router-dom */}
           <Routes>
             <Route path="/" element={<LandingPage />} />
