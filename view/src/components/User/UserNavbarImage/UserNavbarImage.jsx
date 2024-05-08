@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 const UserNavbarImage = ({ className, ...props }) => {
   const { username } = props;
   return (
-    <a
-      href="#"
+    <div
       className={`flex items-center justify-center text-black hover:text-[#424a49] ${className}`}
-      {...props}
       onClick={() => {
         console.log("Click en Perfil");
       }}
+      {...props}
     >
       <img
         src="https://via.placeholder.com/150"
@@ -17,7 +16,7 @@ const UserNavbarImage = ({ className, ...props }) => {
         alt="Avatar del usuario"
       />
       <h1 className="ml-2 text-[17px] font-semibold">{username}</h1>
-    </a>
+    </div>
   );
 };
 

@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
-import DataContext from "../../auth/DataContext";
+
 import { Link, useNavigate } from "react-router-dom";
+
+import DataContext from "../../auth/DataContext";
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 import Button from "../Button/Button";
 
@@ -11,13 +13,14 @@ const NavbarInternal = () => {
     setShowMenu(!showMenu);
   };
 
-  const goTo = useNavigate();
-
   const signOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("idUser");
     goTo("/login");
   };
+
+  const goTo = useNavigate();
+  const { data, setData } = useContext(DataContext);
 
   // const user = {
   //   name: "AAAaaaA css",
@@ -31,8 +34,6 @@ const NavbarInternal = () => {
   //   description: ":3",
   //   number_pets: 2,
   // };
-
-  const { data } = useContext(DataContext);
 
   console.log("Data", data);
   return (

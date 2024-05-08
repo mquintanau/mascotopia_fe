@@ -45,7 +45,7 @@ function App() {
         <ScrollToTop />{" "}
         <header>
           {showExternalNavbar && <NavbarExternal />}
-          {!showExternalNavbar && <NavbarInternal data={data} />}
+          {!showExternalNavbar && <NavbarInternal />}
         </header>
         <main>
           {/* Contenido principal, manejando la navegacion con react-router-dom */}
