@@ -163,7 +163,7 @@ const Profile = () => {
                 <PetList pets={data.mascotas} />
                 {showForm && <FormPet loadUser={loadUser} />}{" "}
                 <Button
-                  className="text-bold mx-[200px] mt-[30px] rounded-full text-[20px] text-black"
+                  className="text-bold mx-auto mb-5 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
                 >
                   {buttonText}
