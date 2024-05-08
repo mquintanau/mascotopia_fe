@@ -1,11 +1,17 @@
+import { useState, useEffect, useContext } from "react";
+
+// Componentes
 import PetList from "../components/Pet/PetList/Petlist";
 import UserView from "../components/User/UserView/UserView";
 import Button from "../components/Button/Button";
-import { useState, useEffect, useContext } from "react";
-import { API_URL } from "../auth/constants";
-import { useParams } from "react-router-dom";
 import FormPet from "../components/FormPet/FormPet";
+
+// Logica de la pagina
+import { API_URL } from "../auth/constants";
 import DataContext from "../auth/DataContext";
+
+// Librerias Externas
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 //Ejemplos para la pagina mientras union
@@ -94,7 +100,7 @@ const Profile = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [id]);
+  }, [id, setData]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);

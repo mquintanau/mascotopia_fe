@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import DataContext from "../../auth/DataContext";
+import { Link, useNavigate } from "react-router-dom";
 import UserNavbarImage from "../User/UserNavbarImage/UserNavbarImage";
 import Button from "../Button/Button";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import React, { useContext } from "react";
-import DataContext from "../../auth/DataContext";
 
 const NavbarInternal = () => {
   const [showMenu, setShowMenu] = useState(false);
