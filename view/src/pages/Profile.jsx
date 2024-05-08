@@ -13,6 +13,7 @@ import DataContext from "../auth/DataContext";
 // Librerias Externas
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 //Ejemplos para la pagina mientras union
 //Revisar como unir pet y user
@@ -100,7 +101,7 @@ const Profile = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [id, data, setData]);
+  }, [id, setData]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
@@ -108,12 +109,12 @@ const Profile = () => {
   };
 
   //Función para manejar el cambio de la imagen seleccionada por el usuario
-  const handleFileChange = (event) => {
+  const handleImageChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
   // Función para manejar el envío del formulario
-  const handleFormSubmit = async (event) => {
+  const handleImageSubmit = async (event) => {
     event.preventDefault();
 
     // Creacion del objeto FormData
@@ -136,6 +137,11 @@ const Profile = () => {
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
+      Swal.alert({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
     }
   };
   console.log(data);
@@ -170,8 +176,8 @@ const Profile = () => {
                 </Button>
                 {/* Se muestra el formulario si showForm es true */}
                 {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
-                <form onSubmit={handleFormSubmit}>
-                  <input type="file" onChange={handleFileChange} />
+                <form onSubmit={handleImageSubmit}>
+                  <input type="file" onChange={handleImageChange} />
                   <button type="submit">Upload New Profile Image</button>
                 </form>
               </div>
