@@ -155,7 +155,7 @@ const Profile = () => {
                 email={data.correo}
                 role={data.rol}
                 username={data.username}
-                number_pets={data.numMascotas}
+                number_pets={data.mascotas.length}
               />
             </div>
             <div className="m-6">

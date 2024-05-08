@@ -12,7 +12,7 @@ const generatePetViews = (pets) => {
         imageURL={pet.imageURL}
         petName={pet.nombreMascota}
         animalPet={pet.animal}
-        petAge={pet.edad}
+        petAge={Number(pet.edad)}
         petDescription={pet.descripcion}
       />
     ),
@@ -21,10 +21,9 @@ const generatePetViews = (pets) => {
 
 const PetList = ({ pets }) => {
   console.log(pets.animal);
-  if (pets.animal !== ''){ 
+  if (pets.animal !== "") {
     return <div>{generatePetViews(pets)}</div>;
   }
-  
 };
 
 PetList.propTypes = {
