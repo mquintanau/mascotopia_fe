@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
-const UserView = (props) => {
-  const { name, email, username, role, number_pets, imageURL } = props;
+import DataContext from "../../../auth/DataContext";
+
+const UserView = () => {
+  const { data } = useContext(DataContext); // Use the context
+
+  const { nombre, correo, username, role, mascotas, imageURL } = data;
   const roleFullName = role === "petOwner" ? "Pet Owner" : "Volunteer";
 
   return (
@@ -17,16 +22,16 @@ const UserView = (props) => {
           <div className="flex-col justify-start border-t-4 border-primary px-4 text-[15px] font-light text-black">
             <div className="py-2 text-left leading-8">
               <p>
-                <span className="font-bold">Name:</span> {name}
+                <span className="font-bold">Name:</span> {nombre}
               </p>
               <p>
-                <span className="font-bold">Email:</span> {email}
+                <span className="font-bold">Email:</span> {correo}
               </p>
               <p>
                 <span className="font-bold">Username:</span> {username}
               </p>
               <p>
-                <span className="font-bold">Pets:</span> {number_pets}
+                <span className="font-bold">Pets:</span> {mascotas.length}
               </p>
               <p>
                 {" "}
