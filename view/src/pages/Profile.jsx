@@ -100,7 +100,7 @@ const Profile = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [id, setData]);
+  }, [id, data, setData]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
