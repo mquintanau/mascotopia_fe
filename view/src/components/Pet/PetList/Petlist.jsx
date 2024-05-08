@@ -20,7 +20,6 @@ const generatePetViews = (pets) => {
 };
 
 const PetList = ({ pets }) => {
-  console.log(pets.animal);
   if (pets.animal !== "") {
     return <div>{generatePetViews(pets)}</div>;
   }

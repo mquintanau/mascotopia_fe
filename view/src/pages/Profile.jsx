@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 
 // Componentes
 import PetList from "../components/Pet/PetList/Petlist";
@@ -73,7 +73,7 @@ const Profile = () => {
   const [buttonText, setButtonText] = useState("+");
   const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
 
-  const loadUser = async () => {
+  const loadUser = useCallback(async () => {
     try {
       fetch(`${API_URL}/userProfile/${id}`)
         .then((response) => response.json()) //Convierte la respuesta a un objeto JSON
@@ -88,20 +88,11 @@ const Profile = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
-    fetch(`${API_URL}/userProfile/${id}`)
-      .then((response) => response.json()) //Convierte la respuesta a un objeto JSON
-      .then((data) => {
-        //Con los datos obtenidos se hace lo siguiente
-        // Aquí puedes utilizar los datos que recibiste
-        setData(data); //Imprime en consola los datos obtenidos
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, [id, setData]);
+    loadUser(); // Recarga el usuario al cambiar el contexto
+  }, [data, loadUser]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
@@ -134,6 +125,7 @@ const Profile = () => {
         ...prevData,
         imageURL: response.data.imageURL,
       }));
+      loadUser();
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
@@ -144,7 +136,6 @@ const Profile = () => {
       });
     }
   };
-  console.log(data);
 
   return (
     <div
