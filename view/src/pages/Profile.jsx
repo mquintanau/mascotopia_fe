@@ -84,9 +84,19 @@ const Profile = () => {
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.alert({
+            icon: "error",
+            title: "There was an error loading the user data",
+            text: { error },
+          });
         });
     } catch (error) {
       console.error("Error:", error);
+      Swal.alert({
+        icon: "error",
+        title: "There was an error with the server",
+        text: { error },
+      });
     }
   }, [id]);
 
