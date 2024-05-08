@@ -20,7 +20,7 @@ const NavbarInternal = () => {
   };
 
   const goTo = useNavigate();
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   // const user = {
   //   name: "AAAaaaA css",
@@ -35,49 +35,24 @@ const NavbarInternal = () => {
   //   number_pets: 2,
   // };
 
-  console.log({ data });
   return (
     <header className="fixed top-0 z-50 flex h-[50px] w-screen items-center justify-between bg-[#D6FEDA] text-black">
-      <Link to="/profile">
+      <Link to={`/profile/${data && data._id ? data._id : ""}`}>
         <div className="ml-[22px]">
-          <UserNavbarImage username={data ? data.username : ""} />
+          <UserNavbarImage username={data ? data.nombre : ""} />
         </div>
       </Link>
       <div className="hidden h-full lg:flex">
         <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
-          <a
-            href="#"
-            className="text-black"
-            onClick={() => {
-              console.log("Click en Noticias");
-            }}
-          >
-            News
-          </a>
+          <Link to="/">News</Link>
         </div>
 
         <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
-          <a
-            href="#"
-            className="text-black"
-            onClick={() => {
-              console.log("Click en Foros");
-            }}
-          >
-            Forums
-          </a>
+          <Link to="/forum">Forums</Link>
         </div>
 
         <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
-          <a
-            href="#"
-            className="text-black "
-            onClick={() => {
-              console.log("Click en Calendario");
-            }}
-          >
-            Calendar
-          </a>
+          <Link to="/calendar">Calendar</Link>
         </div>
         <Button className="my-2 mr-5" onClick={signOut}>
           Sign Out
@@ -101,20 +76,20 @@ const NavbarInternal = () => {
         </button>
         {showMenu && (
           <div className="absolute right-0 top-9 w-screen rounded border bg-white shadow-lg">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="block px-4 py-2 text-black hover:bg-gray-100"
               onClick={() => console.log("Click en Noticias")}
             >
               News
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/forum"
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               onClick={() => console.log("Click en Foros")}
             >
               Forums
-            </a>
+            </Link>
             <a
               href="#"
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"

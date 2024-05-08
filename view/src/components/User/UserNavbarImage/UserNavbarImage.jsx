@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import DataContext from "../../../auth/DataContext";
 
 const UserNavbarImage = ({ className, ...props }) => {
+  const { data } = useContext(DataContext);
   const { username } = props;
   return (
     <div
@@ -10,11 +13,19 @@ const UserNavbarImage = ({ className, ...props }) => {
       }}
       {...props}
     >
-      <img
-        src="https://via.placeholder.com/150"
-        className="h-10 w-10 rounded-full"
-        alt="Avatar del usuario"
-      />
+      {data && data.imageURL ? (
+        <img
+          src={"http://localhost:4000" + data.imageURL}
+          className="h-10 w-10 rounded-full"
+          alt="Avatar del usuario"
+        />
+      ) : (
+        <img
+          src="https://via.placeholder.com/150"
+          className="h-10 w-10 rounded-full"
+          alt="Avatar del usuario"
+        />
+      )}
       <h1 className="ml-2 text-[17px] font-semibold">{username}</h1>
     </div>
   );
