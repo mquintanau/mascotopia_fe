@@ -142,7 +142,7 @@ const Profile = () => {
 
   return (
     <div
-      className="mx-auto mb-10 max-w-screen-xl"
+      className="mx-auto my-10 max-w-screen-xl"
       style={{ backgroundImage: "url('public/shared/DecorationLine.svg')" }}
     >
       <div className="mt-3 flex justify-center scrollbar">
