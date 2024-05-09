@@ -41,6 +41,7 @@ app.use("/api/imageProfile", require("./routes/imageProfile"));
 // FORO
 app.use("/api/forum", require("./routes/forum")); // Ruta get de los foros
 app.use("/api/sendQuestion", require("./routes/sendQuestion")); // Ruta para post de las preguntas
+app.use("/api/sendAnswer", require("./routes/sendAnswer")); // Ruta para post de las respuestas
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

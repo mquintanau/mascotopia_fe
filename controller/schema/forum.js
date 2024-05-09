@@ -1,5 +1,13 @@
 const mongoose = require("mongoose"); //importamos la libreria mongoose para manejar los esquemas
 
+// Esquema para la subcolección respuesta
+const AnswerSchema = new mongoose.Schema({
+  id: { type: Object },
+  respuesta: { type: String, required: true },
+  fecha: { type: Date, required: true },
+  autor: { type: String, required: true },
+});
+
 // Esquema para la subcolección pregunta
 const QuestionSchema = new mongoose.Schema({
   id: { type: Object },
@@ -7,7 +15,7 @@ const QuestionSchema = new mongoose.Schema({
   descripcion: { type: String, required: true },
   fecha: { type: Date, required: true },
   autor: { type: String, required: true },
-  respuestas: { type: Array, required: false },
+  respuestas: [AnswerSchema], // Referencia al esquema de la subcolección respuesta
   numRespuestas: { type: Number, required: false },
 });
 
