@@ -68,7 +68,7 @@ const QuestionView = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/forum/${idTopic}`)
+    fetch(`${API_URL}/forum/${idTopic}`)
       .then((response) => response.json())
       .then((data) => {
         setForum(data);
@@ -92,7 +92,7 @@ const QuestionView = () => {
           footer: error.message,
         }),
       );
-  }, []);
+  }, [idTopic, id]);
 
   // Se retorna un div con la lista de preguntas y la pregunta seleccionada
   return (
@@ -134,6 +134,12 @@ const QuestionView = () => {
               <p className="text-sm font-light lg:text-xl">
                 {selectedQuestion.descripcion}
               </p>
+              {selectedQuestion.respuestas && selectedQuestion.respuestas.map((respuesta) => (
+                <div key={respuesta.id}>
+                  <h3 className="text-sm lg:text-xl">Answer: {respuesta.autor}</h3>
+                  <p className="text-sm font-light lg:text-xl">{respuesta.respuesta}</p>
+                </div>
+              ))}
             </div>
             <div className="basis-2/5 rounded-xl bg-green5 px-5">
               <form>
