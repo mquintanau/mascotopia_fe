@@ -6,11 +6,14 @@ import Blob from "../assets/Blob.png";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { API_URL } from "../auth/constants.js";
 
 const QuestionView = () => {
   // Se almacena la pregunta seleccionada en la constante selectedQuestion
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [forum, setForum] = useState([]);
+  const [comment, setComment] = useState("");
   const { id, idTopic } = useParams();
   // Preguntas de prueba
   const questionTest = [
@@ -36,6 +39,33 @@ const QuestionView = () => {
   const handleQuestionSelect = (question) => {
     setSelectedQuestion(question);
   };
+  const handleSummitAnwser = async (event) => {
+    event.preventDefault();
+    // Crear FormData
+    const respuesta = comment;
+    const autor = "User";
+    const questionId = selectedQuestion.id;
+    const fecha = new Date().toISOString();
+    try {
+      console.log({ questionId, respuesta, fecha, autor })
+      const response = await axios.post(
+        `${API_URL}/sendAnswer/`,
+        { questionId, respuesta, fecha, autor },
+        
+      );
+      console.log(response);
+      
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.alert({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
+    }
+  };
+
+
 
   useEffect(() => {
     fetch(`http://localhost:4000/api/forum/${idTopic}`)
@@ -111,12 +141,15 @@ const QuestionView = () => {
                   <p className="mt-5">Add a Comment: </p>
                   <textarea
                     type="text"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                     className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2"
                     placeholder="Write Here"
                   />
                 </div>
                 <Button
                   type="submit"
+                  onClick={handleSummitAnwser}
                   className="mx-auto mb-5 whitespace-nowrap  rounded-3xl bg-secondary px-6 py-2 font-normal"
                 >
                   Send

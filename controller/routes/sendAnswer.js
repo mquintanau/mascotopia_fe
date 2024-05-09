@@ -2,9 +2,7 @@ const { jsonResponse } = require("../lib/jsonResponse"); //Generar respuestas JS
 const ForumModel = require("../schema/forum"); //importamos el modelo de usuario (archivo contiene la definición del esquema del modelo de usuario con Mongoose.)
 const router = require("express").Router(); //importamos el router de express
 const getUserInfo = require("../lib/getUserInfo"); //importamos la funcion para obtener la informacion del usuario
-// const { AnswerSchema } = require("../schema/forum"); //importamos el esquema de respuesta
-// const { QuestionSchema } = require("../schema/forum"); //importamos el esquema de pregunta
-// const { ForumModel } = require("../schema/forum");
+
 
 //Ruta para enviar una respuesta a una pregunta
 router.post("/", async (req, res) => {
