@@ -2,6 +2,7 @@ const { jsonResponse } = require("../lib/jsonResponse");
 const User = require("../schema/user")//importamos el modelo de usuario
 const router = require("express").Router()//importamos el router de express
 const getUserInfo = require("../lib/getUserInfo");//importamos la funcion para obtener la informacion del usuario
+const ActivityLog = require("../schema/ActivityLog");//importamos el modelo de log de actividades
 
 router.post('/', async (req, res) => {
     const {correo, contraseña} = req.body;//obtenemos los datos del body
@@ -19,6 +20,15 @@ router.post('/', async (req, res) => {
         if (correctPassword){//si la contraseña es correcta
             const accessToken = user.createAccessToken();//creamos el token de acceso
             const refreshToken = await user.createRefreshToken();//creamos el token de refresco
+            
+            const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
+                nombre: user.nombre,
+                accion: "Login success",
+                fecha: new Date()
+            });
+            
+            await newActivity.save();//guardamos el registro en la base de datos     
+
             return res.status(200).json(jsonResponse(200,{//retornamos un json con el mensaje de exito
                 user: getUserInfo(user),
                 userId : user._id,
