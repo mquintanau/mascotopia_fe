@@ -72,6 +72,7 @@ const Profile = () => {
   const [showForm, setShowForm] = useState(false);
   const [buttonText, setButtonText] = useState("+");
   const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
+  console.log("Renderizado de App");
 
   const loadUser = useCallback(async () => {
     try {
@@ -98,11 +99,11 @@ const Profile = () => {
         text: { error },
       });
     }
-  }, [id]);
+  }, [id, setData]);
 
   useEffect(() => {
     loadUser(); // Recarga el usuario al cambiar el contexto
-  }, [data, loadUser]);
+  }, [loadUser]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
@@ -135,7 +136,16 @@ const Profile = () => {
         ...prevData,
         imageURL: response.data.imageURL,
       }));
-      loadUser();
+
+      console.log("Response:", response);
+      if (response) {
+        Swal.alert({
+          icon: "success",
+          title: "Image uploaded successfully",
+          text: "The image was uploaded successfully",
+        });
+        loadUser(); // Recarga el usuario
+      }
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
