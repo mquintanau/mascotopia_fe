@@ -1,6 +1,8 @@
 const { jsonResponse } = require("../lib/jsonResponse");
 const User = require("../schema/user"); //importamos el modelo de usuario
 const router = require("express").Router(); //importamos el router de express
+const ActivityLog = require("../schema/ActivityLog"); //importamos el modelo de log de actividades
+
 
 router.post("/", async (req, res) => {
   const {
@@ -79,6 +81,17 @@ router.post("/", async (req, res) => {
     //const newUser = new User({ correo, username, contraseña, nombre, nombreMascota, animal, edad, descripcion, rol });
 
     newUser.save();
+
+
+    const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
+      idUsuario: newUser._id,
+      nombre: newUser.nombre,
+      accion: "Signup success",
+      fecha: new Date()
+    });
+
+    await newActivity.save();//guardamos el registro en la base de datos
+
     res
       .status(200)
       .json(jsonResponse(200, { message: "User created successfully" }));
