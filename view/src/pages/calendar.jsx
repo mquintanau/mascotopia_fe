@@ -91,16 +91,10 @@ function Calendar() {
 
   return (
     <>
-      <Button
-        onClick={() => setModalOpen(true)}
-        className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
-      >
-        Add event
-      </Button>
-      <div className="mx-auto flex w-full max-w-3xl flex-row flex-wrap justify-center rounded-md p-4">
-        <h1 className="w-full text-4xl">Calendar</h1>
-        <section className="bg-[#80ed99]">
-          <div className="bg-white">
+      <div className="mx-auto flex w-full max-w-[1000px] flex-row flex-wrap justify-center p-4">
+        <h1 className="mb-4 w-full text-4xl">Calendar</h1>
+        <section className="w-[60%] max-w-[600px] rounded-xl rounded-r-none bg-[#80ed99]">
+          <div className="z-0 m-12 rounded-xl bg-white p-4">
             <FullCalendar
               ref={calendarRef}
               events={events}
@@ -108,7 +102,7 @@ function Calendar() {
               initialView="dayGridMonth"
               eventClick={handleEventClick}
               eventContent={(eventInfo) => (
-                <div className="rounded px-2 py-1 text-black shadow-md outline-none">
+                <div className="rounded bg-primary px-2 py-1 text-black shadow-md outline-none">
                   {eventInfo.event.title}
                 </div>
               )}
@@ -116,14 +110,21 @@ function Calendar() {
               datesSet={(date) => loadEvents(date)}
               eventBorderColor="#bbf7d0"
               eventBackgroundColor="#bbf7d0"
+              aspectRatio={1}
             />
           </div>
         </section>
         <section className="w-[40%] rounded-lg bg-[#6fc2bd] p-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure enim
-          consequuntur asperiores maxime alias itaque ratione unde dolorem
-          perspiciatis sit mollitia, culpa obcaecati in non qui corrupti, dolore
-          soluta sed.
+          {/* Muestra titulo de la fecha actual */}
+          <h2 className="mb-4 text-2xl">
+            {moment().format("dddd, MMMM Do YYYY")}
+          </h2>
+          <Button
+            onClick={() => setModalOpen(true)}
+            className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
+          >
+            Add event
+          </Button>
         </section>
       </div>
       <AddEventModal
