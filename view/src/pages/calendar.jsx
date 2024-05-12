@@ -81,6 +81,8 @@ export default function () {
       end: moment(event.end).toISOString(),
       title: event.title,
       description: event.extendedProps.description,
+      idUsuario: id,
+      nombre: data.nombre,
     };
     await axios.post(
       "http://localhost:4000/api/calendar/create-event",
