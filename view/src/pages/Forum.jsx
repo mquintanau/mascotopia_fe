@@ -156,6 +156,7 @@ function Forum() {
         />
         <div className="flex items-center justify-center">
           <AskButton
+            data={data}
             forumId={currentForumId}
             refreshQuestions={refreshQuestions}
           />
