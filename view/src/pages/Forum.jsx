@@ -22,11 +22,16 @@ function Forum() {
   const [currentForumId, setCurrentForumId] = useState("");
   const id = localStorage.getItem("idUser");
   const { data, setData } = useContext(DataContext);
-  const [isSortByPosts, setIsSortByPosts] = useState(true);
+  const [isSortByPosts, setIsSortByPosts] = useState(false);
   const loadUser = useUserLoader(API_URL, id, setData);
   useEffect(() => {
     loadUser();
   }, [loadUser]);
+
+  useEffect(() => {
+    console.log("Entro");
+    handleForumSearch(searchInputRef.current.value);
+  }, [isSortByPosts]); // Se ejecuta cada vez que `isSortByPosts` cambia
 
   // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
@@ -138,7 +143,6 @@ function Forum() {
                   className="flex h-10 w-full items-center justify-center text-center hover:bg-green1"
                   onClick={() => {
                     setIsSortByPosts(true);
-                    handleForumSearch(searchInputRef.current.value);
                   }}
                 >
                   Number of publications
