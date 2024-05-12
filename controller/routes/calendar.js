@@ -7,14 +7,16 @@ router.post("/create-event", async(req, res)=> {
     const event = Event(req.body);
     await event.save();
 
-    const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
-        idUsuario: req.body.idUsuario,
-        nombre: req.body.nombre,
-        accion: "Event created",
-        fecha: new Date()
-    });
+    if (req.body.shouldLogActivity) {//si se debe registrar la actividad en el log de actividades
+        const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
+            idUsuario: req.body.idUsuario,
+            nombre: req.body.nombre,
+            accion: "Event created",
+            fecha: new Date()
+        });
+        await newActivity.save();//guardamos el registro en la base de datos
+    }
 
-    await newActivity.save();//guardamos el registro en la base de datos
 
     res.sendStatus(201);
 })
@@ -31,12 +33,13 @@ router.get("/get-events", async(req,res)=> {
 router.delete("/delete-event/:title", async (req, res) => {
     try {
         const title = req.params.title;
+        const {id, nombre} = req.body;
         // Buscar y eliminar el evento por título
         await Event.findOneAndDelete({ title: title });
 
         const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
-            idUsuario: user._id,
-            nombre: user.nombre,
+            idUsuario: id,
+            nombre: nombre,
             accion: "Event deleted",
             fecha: new Date()
         });

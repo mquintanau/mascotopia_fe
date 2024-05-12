@@ -35,8 +35,10 @@ export default function () {
 
   async function handleEventDelete(eventToDelete) {
     try {
+      const nombre = data.nombre;
       await axios.delete(
         `http://localhost:4000/api/calendar/delete-event/${eventToDelete.title}`,
+        { data: { id, nombre } },
       );
       setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local
       setSelectedEvent(null); // Cerrar el modal después de eliminar el evento
@@ -83,6 +85,7 @@ export default function () {
       description: event.extendedProps.description,
       idUsuario: id,
       nombre: data.nombre,
+      shouldLogActivity: true,
     };
     await axios.post(
       "http://localhost:4000/api/calendar/create-event",
