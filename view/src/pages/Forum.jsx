@@ -5,6 +5,7 @@ import Input from "../components/Input/Input";
 import Topic from "../components/Topic/Topic";
 import QuestionList from "../components/QuestionList/QuestionList";
 import Search from "../assets/Search.png";
+import Filter from "../assets/Filter.png";
 import AskButton from "../components/AskButton/AskButton";
 import Blob from "../assets/Blob.png";
 import useUserLoader from "../utils/useUserLoader";
@@ -17,10 +18,11 @@ function Forum() {
 
   const [forums, setForums] = useState([]);
   const [shownForums, setShownForums] = useState([]);
+  const [shownFilters, setShownFilters] = useState(false);
   const [currentForumId, setCurrentForumId] = useState("");
   const id = localStorage.getItem("idUser");
   const { data, setData } = useContext(DataContext);
-
+  const [isSortByPosts, setIsSortByPosts] = useState(true);
   const loadUser = useUserLoader(API_URL, id, setData);
   useEffect(() => {
     loadUser();
@@ -38,17 +40,21 @@ function Forum() {
   };
 
   const handleForumSearch = (search) => {
-    setShownForums(
-      forums
-        .filter((forum) => forum._id === currentForumId)
-        .concat(
-          forums.filter(
-            (forum) =>
-              forum.titulo.toLowerCase().includes(search.toLowerCase()) &&
-              forum._id !== currentForumId,
-          ),
+    let result = forums
+      .filter((forum) => forum._id === currentForumId)
+      .concat(
+        forums.filter(
+          (forum) =>
+            forum.titulo.toLowerCase().includes(search.toLowerCase()) &&
+            forum._id !== currentForumId,
         ),
-    );
+      );
+
+    if (isSortByPosts) {
+      result = result.sort((a, b) => b.numPreguntas - a.numPreguntas);
+    }
+
+    setShownForums(result);
   };
 
   const refreshQuestions = () => {
@@ -115,7 +121,38 @@ function Forum() {
             ref={searchInputRef}
             onChange={(e) => handleForumSearch(e.target.value)}
           />
+          <button
+            className="mx-3 mt-7 h-7 w-7 items-center justify-center hover:rounded-xl hover:bg-green2 "
+            onClick={() => setShownFilters(!shownFilters)}
+          >
+            <img src={Filter} />
+          </button>
         </div>
+
+        {shownFilters && (
+          <div className="mb-3 mt-3 flex flex-col items-center justify-center rounded-xl bg-main ">
+            <h2 className="w-full bg-green3 text-center">Filter by...</h2>
+            <ul className="w-full">
+              <li>
+                <button
+                  className="flex h-10 w-full items-center justify-center text-center hover:bg-green1"
+                  onClick={() => {
+                    setIsSortByPosts(true);
+                    handleForumSearch(searchInputRef.current.value);
+                  }}
+                >
+                  Number of publications
+                </button>
+              </li>
+              <hr className="bg-gray h-[2px] w-full"></hr>
+              <li>
+                <button className="flex h-10 w-full items-center justify-center rounded-bl-xl rounded-br-xl text-center hover:bg-green1">
+                  Alphabetical order
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* Se muestra una lista de foros con sus titulos y se establece el currentId de la pregunta que se selecciona*/}
         <ol className="mt-0">
