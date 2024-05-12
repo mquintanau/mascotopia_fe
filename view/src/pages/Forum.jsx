@@ -138,12 +138,20 @@ function Forum() {
 
       {/* Se muestra un div con las preguntas del foro seleccionado */}
       <div className="h-screen max-h-[500px] w-full overflow-auto rounded-xl bg-green3 p-6 lg:mr-28 lg:max-h-full lg:flex-grow ">
-        <h1 className="mb-12 mt-2 text-2xl lg:text-4xl">
+        <h1 className="mb-2 mt-2 text-2xl lg:text-4xl">
           {/* Se muestra el titulo del foro seleccionado */}
           {forums.length > 0
             ? forums.filter((forum) => forum._id === currentForumId)[0].titulo
             : ""}
         </h1>
+
+        <h2 className="mb-4 text-xl lg:text-xl">
+          {"Number of questions: "}
+          {forums.length > 0
+            ? forums.filter((forum) => forum._id === currentForumId)[0]
+                .numPreguntas
+            : ""}
+        </h2>
         <QuestionList
           questions={
             // Se envian a QuestionList las preguntas del foro seleccionado y se filtran por el id del foro seleccionado
