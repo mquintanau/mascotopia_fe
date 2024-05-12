@@ -55,8 +55,8 @@ router.post("/", async (req, res) => {
   });
 
   var mailOptions = {
-    from: correo, //correo a donde se envia
-    to: "juandamadrid7@gmail.com", //correo a donde se envia
+    from: "mascotopiapp@gmail.com", //correo a donde se envia
+    to: user.correo, //correo a donde se envia
     subject: "Reset Your Password", //asunto del correo
     text: `http://localhost:5173/resetPassword/${user._id}/${token}`, //Texto del correo
   };
