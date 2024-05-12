@@ -27,6 +27,7 @@ function Calendar() {
     setEvents(response.data);
   }
 
+  // Elimina un evento
   async function handleEventDelete(eventToDelete) {
     try {
       await axios.delete(
@@ -39,6 +40,7 @@ function Calendar() {
     }
   }
 
+  // Agrega un evento de forma local
   const onEventAdded = (event) => {
     let calendarApi = calendarRef.current.getApi();
 
@@ -51,6 +53,7 @@ function Calendar() {
     });
   };
 
+  // Agrega un evento al API
   async function handleEventAdd(info) {
     const { event } = info;
 
@@ -84,6 +87,7 @@ function Calendar() {
     console.log({ event });
   }
 
+  // Muestra el modal del evento
   function handleEventClick(info) {
     setSelectedEvent(info.event);
     setModalOpen(false); // Cerrar modal de agregar evento si está abierto
