@@ -91,30 +91,40 @@ function Calendar() {
 
   return (
     <>
-      <h1 className="text-4xl">Calendar</h1>
       <Button
         onClick={() => setModalOpen(true)}
         className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
       >
         Add event
       </Button>
-      <div className="relative z-0 mx-auto max-w-3xl">
-        <FullCalendar
-          ref={calendarRef}
-          events={events}
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          eventClick={handleEventClick}
-          eventContent={(eventInfo) => (
-            <div className="rounded px-2 py-1 text-black shadow-md outline-none">
-              {eventInfo.event.title}
-            </div>
-          )}
-          eventAdd={(event) => handleEventAdd(event)}
-          datesSet={(date) => loadEvents(date)}
-          eventBorderColor="#bbf7d0"
-          eventBackgroundColor="#bbf7d0"
-        />
+      <div className="mx-auto flex w-full max-w-3xl flex-row flex-wrap justify-center rounded-md p-4">
+        <h1 className="w-full text-4xl">Calendar</h1>
+        <section className="bg-[#80ed99]">
+          <div className="bg-white">
+            <FullCalendar
+              ref={calendarRef}
+              events={events}
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
+              eventClick={handleEventClick}
+              eventContent={(eventInfo) => (
+                <div className="rounded px-2 py-1 text-black shadow-md outline-none">
+                  {eventInfo.event.title}
+                </div>
+              )}
+              eventAdd={(event) => handleEventAdd(event)}
+              datesSet={(date) => loadEvents(date)}
+              eventBorderColor="#bbf7d0"
+              eventBackgroundColor="#bbf7d0"
+            />
+          </div>
+        </section>
+        <section className="w-[40%] rounded-lg bg-[#6fc2bd] p-4">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure enim
+          consequuntur asperiores maxime alias itaque ratione unde dolorem
+          perspiciatis sit mollitia, culpa obcaecati in non qui corrupti, dolore
+          soluta sed.
+        </section>
       </div>
       <AddEventModal
         isOpen={modalOpen}
