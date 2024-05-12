@@ -86,10 +86,13 @@ function Calendar() {
 
   return (
     <section>
-      <button onClick={() => setModalOpen(true)} style={styles.addButton}>
+      <button
+        onClick={() => setModalOpen(true)}
+        className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
+      >
         Add event
       </button>
-      <div style={styles.calendarContainer}>
+      <div className="relative z-0">
         <FullCalendar
           ref={calendarRef}
           events={events}
@@ -98,7 +101,9 @@ function Calendar() {
           eventAdd={(event) => handleEventAdd(event)}
           eventContent={(eventInfo) => (
             <>
-              <div style={styles.eventContainer}>{eventInfo.event.title}</div>
+              <div className="z-1 relative rounded bg-green-200 px-2 py-1 shadow-md">
+                {eventInfo.event.title}
+              </div>
             </>
           )}
           eventClassNames="custom-event"
@@ -130,26 +135,4 @@ function Calendar() {
   );
 }
 
-const styles = {
-  addButton: {
-    backgroundColor: "#f1fff2",
-    color: "black",
-    border: "none",
-    padding: "10px",
-    borderRadius: "5px",
-    marginBottom: "10px",
-  },
-  calendarContainer: {
-    position: "relative",
-    zIndex: 0,
-  },
-  eventContainer: {
-    position: "relative",
-    zIndex: 1,
-    backgroundColor: "#98FB98",
-    padding: "2px 5px",
-    borderRadius: "5px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  },
-};
 export default Calendar;
