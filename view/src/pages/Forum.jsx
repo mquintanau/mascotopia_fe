@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Swal from "sweetalert2";
 
 import Input from "../components/Input/Input";
@@ -7,13 +7,24 @@ import QuestionList from "../components/QuestionList/QuestionList";
 import Search from "../assets/Search.png";
 import AskButton from "../components/AskButton/AskButton";
 import Blob from "../assets/Blob.png";
+import useUserLoader from "../utils/useUserLoader";
+import { API_URL } from "../auth/constants";
+import DataContext from "../auth/DataContext";
 
 // Componente que muestra el foro
 function Forum() {
   // Se almacenan los foros y el id del foro actual en las siguientes constantes
+
   const [forums, setForums] = useState([]);
   const [shownForums, setShownForums] = useState([]);
   const [currentForumId, setCurrentForumId] = useState("");
+  const id = localStorage.getItem("idUser");
+  const { data, setData } = useContext(DataContext);
+
+  const loadUser = useUserLoader(API_URL, id, setData);
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
