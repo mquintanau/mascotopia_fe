@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
             const accessToken = user.createAccessToken();//creamos el token de acceso
             const refreshToken = await user.createRefreshToken();//creamos el token de refresco
             
+            // Verificar si se debe registrar la actividad en el log de actividades
             const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
                 idUsuario: user._id,
                 nombre: user.nombre,

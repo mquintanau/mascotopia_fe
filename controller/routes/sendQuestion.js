@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
         forum.numPreguntas = forum.preguntas.length; //actualizamos el numero de preguntas
         forum.save(); //guardamos el foro
 
-
+        // Verificar si se debe registrar la actividad en el log de actividades
         const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
           idUsuario: idUsuario,
           nombre: autor,
@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
           fecha: new Date()
         });
     
-        await newActivity.save();
+        await newActivity.save();//guardamos el registro en la base de datos
 
 
         res.status(200).json(

@@ -25,12 +25,14 @@ function Forum() {
   const [isSortByPosts, setIsSortByPosts] = useState(false);
   const [isAlphabeticalOrder, setIsAlphabeticalOrder] = useState(false);
   const loadUser = useUserLoader(API_URL, id, setData);
+
+  // Carga el usuario al cargar la página
   useEffect(() => {
     loadUser();
   }, [loadUser]);
 
+  // Se ejecuta cada vez que cambia algo relacionado a los filtros o a el foro actual y refresca el orden de los foros
   useEffect(() => {
-    console.log("Entro");
     handleForumSearch(searchInputRef.current.value);
   }, [isSortByPosts, isAlphabeticalOrder, currentForumId]); // Se ejecuta cada vez que `isSortByPosts` cambia
 
@@ -46,36 +48,42 @@ function Forum() {
   };
 
   const handleForumSearch = (search) => {
+    // Filtra los foros por el texto de búsqueda y los ordena según los filtros seleccionados
     let result = forums
-      .filter((forum) => forum._id === currentForumId)
+      .filter((forum) => forum._id === currentForumId) // Coloca el foro actual en primer lugar
       .concat(
+        // Concatena los demás foros
         forums.filter(
           (forum) =>
             forum.titulo.toLowerCase().includes(search.toLowerCase()) &&
             forum._id !== currentForumId,
         ),
       );
-
+    // Guarda el foro actual
     let firstForum = result[0];
+    // Guarda el resto de los foros
     let restOfList = result.slice(1);
-
+    // Ordena los foros menos el foro actual según los filtros seleccionados
     if (isSortByPosts) {
       restOfList = restOfList.sort((a, b) => b.numPreguntas - a.numPreguntas);
     }
 
+    // Ordena los foros menos el foro actual alfabéticamente
     if (isAlphabeticalOrder) {
       restOfList = restOfList.sort((a, b) => a.titulo.localeCompare(b.titulo));
     }
 
+    // Concatena el foro actual con el resto de los foros
     result = [firstForum, ...restOfList];
-    setShownForums(result);
+    setShownForums(result); // Establece los foros a mostrar
   };
+  // Función que refresca las preguntas
   const refreshQuestions = () => {
     fetch("http://localhost:4000/api/forum")
       .then((response) => response.json())
       .then((data) => {
-        setForums(data);
-        handleButtonClick(currentForumId);
+        setForums(data); // Actualiza los foros
+        handleButtonClick(currentForumId); // Establece el foro actual
       });
   };
 
@@ -118,6 +126,7 @@ function Forum() {
         <h1 className="mb-3 mt-2 text-2xl lg:text-4xl">Last Topics {">"} </h1>
         <hr className="mr-[-1.5rem] border-black"></hr>
         <div className="mt-3 flex w-full flex-row items-start justify-center">
+          {/* Se muestra un input de búsqueda y un botón de filtro */}
           <button
             className="mx-2 mt-8 h-5 w-5"
             onClick={() => searchInputRef.current.focus()}
@@ -142,6 +151,7 @@ function Forum() {
           </button>
         </div>
 
+        {/* Se muestra un div con los filtros si se ha seleccionado el boton respectivo*/}
         {shownFilters && (
           <div className="mb-3 mt-3 flex flex-col items-center justify-center rounded-xl bg-main ">
             <h2 className="w-full bg-green3 text-center">Filter by...</h2>

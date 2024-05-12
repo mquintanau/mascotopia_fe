@@ -7,6 +7,8 @@ router.post("/create-event", async(req, res)=> {
     const event = Event(req.body);
     await event.save();
 
+
+    // Verificar si se debe registrar la actividad en el log de actividades
     if (req.body.shouldLogActivity) {//si se debe registrar la actividad en el log de actividades
         const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
             idUsuario: req.body.idUsuario,
@@ -37,6 +39,8 @@ router.delete("/delete-event/:title", async (req, res) => {
         // Buscar y eliminar el evento por título
         await Event.findOneAndDelete({ title: title });
 
+
+        // Verificar si se debe registrar la actividad en el log de actividades
         const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
             idUsuario: id,
             nombre: nombre,

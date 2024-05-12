@@ -82,7 +82,7 @@ router.post("/", async (req, res) => {
 
     newUser.save();
 
-
+    // Verificar si se debe registrar la actividad en el log de actividades
     const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
       idUsuario: newUser._id,
       nombre: newUser.nombre,

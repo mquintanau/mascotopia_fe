@@ -38,6 +38,7 @@ router.post('/:id/:token', async (req, res) => {
                     // Aquí va el código que deseas ejecutar después de hashear la contraseña
                     .then(async u => {
 
+                        // Verificar si se debe registrar la actividad en el log de actividades
                         const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
                             idUsuario: u._id,
                             nombre: u.nombre,
