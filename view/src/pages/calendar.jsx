@@ -80,23 +80,22 @@ function Calendar() {
       >
         Add event
       </Button>
-      <div className="relative z-0">
+      <div className="relative z-0 mx-auto max-w-3xl">
         <FullCalendar
           ref={calendarRef}
           events={events}
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
-          // eventAdd={(event) => handleEventAdd(event)}
-          eventContent={(eventInfo) => (
-            <>
-              <div className="relative rounded bg-green-200 px-2 py-1 text-black shadow-md">
-                {eventInfo.event.title}
-              </div>
-            </>
-          )}
-          eventClassNames="custom-event"
-          datesSet={(date) => loadEvents(date)}
           eventClick={handleEventClick}
+          eventContent={(eventInfo) => (
+            <div className="rounded px-2 py-1 text-black shadow-md outline-none">
+              {eventInfo.event.title}
+            </div>
+          )}
+          eventAdd={(event) => handleEventAdd(event)}
+          datesSet={(date) => loadEvents(date)}
+          eventBorderColor="#bbf7d0"
+          eventBackgroundColor="#bbf7d0"
         />
       </div>
       <AddEventModal
