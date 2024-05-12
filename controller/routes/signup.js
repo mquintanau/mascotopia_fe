@@ -107,6 +107,7 @@ router.post("/addPet", async (req, res) => {
     edadNueva,
     descripcionNueva,
     idUsuario,
+    nombreUsuario,
   } = req.body;
 
   if (
@@ -148,6 +149,15 @@ router.post("/addPet", async (req, res) => {
       { $push: { mascotas: pet } },
       { new: true }
     );
+
+    const newActivity = new ActivityLog({
+      idUsuario,
+      nombre: nombreUsuario,
+      accion: "Pet added",
+      fecha: new Date(),
+    });
+
+    await newActivity.save();
 
     res
       .status(200)

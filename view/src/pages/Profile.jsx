@@ -177,7 +177,9 @@ const Profile = () => {
             <div className="m-6">
               <div className="flex flex-col">
                 <PetList pets={data.mascotas} />
-                {showForm && <FormPet loadUser={loadUser} />}{" "}
+                {showForm && (
+                  <FormPet loadUser={loadUser} usuario={data} />
+                )}{" "}
                 <Button
                   className="text-bold mx-auto mb-5 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
