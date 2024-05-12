@@ -23,6 +23,7 @@ function Forum() {
   const id = localStorage.getItem("idUser");
   const { data, setData } = useContext(DataContext);
   const [isSortByPosts, setIsSortByPosts] = useState(false);
+  const [isAlphabeticalOrder, setIsAlphabeticalOrder] = useState(false);
   const loadUser = useUserLoader(API_URL, id, setData);
   useEffect(() => {
     loadUser();
@@ -31,7 +32,7 @@ function Forum() {
   useEffect(() => {
     console.log("Entro");
     handleForumSearch(searchInputRef.current.value);
-  }, [isSortByPosts]); // Se ejecuta cada vez que `isSortByPosts` cambia
+  }, [isSortByPosts, isAlphabeticalOrder, currentForumId]); // Se ejecuta cada vez que `isSortByPosts` cambia
 
   // Funcion que establece el foro actual
   const handleButtonClick = (forumId) => {
@@ -55,13 +56,20 @@ function Forum() {
         ),
       );
 
+    let firstForum = result[0];
+    let restOfList = result.slice(1);
+
     if (isSortByPosts) {
-      result = result.sort((a, b) => b.numPreguntas - a.numPreguntas);
+      restOfList = restOfList.sort((a, b) => b.numPreguntas - a.numPreguntas);
     }
 
+    if (isAlphabeticalOrder) {
+      restOfList = restOfList.sort((a, b) => a.titulo.localeCompare(b.titulo));
+    }
+
+    result = [firstForum, ...restOfList];
     setShownForums(result);
   };
-
   const refreshQuestions = () => {
     fetch("http://localhost:4000/api/forum")
       .then((response) => response.json())
@@ -140,17 +148,26 @@ function Forum() {
             <ul className="w-full">
               <li>
                 <button
-                  className="flex h-10 w-full items-center justify-center text-center hover:bg-green1"
+                  className={`flex h-10 w-full items-center justify-center text-center hover:bg-green1 ${isAlphabeticalOrder ? "bg-gray-300 text-gray-600" : ""} ${isSortByPosts ? "bg-green-300 text-black" : ""}`}
                   onClick={() => {
-                    setIsSortByPosts(true);
+                    setIsSortByPosts(!isSortByPosts);
+                    setIsAlphabeticalOrder(false);
                   }}
+                  disabled={isAlphabeticalOrder}
                 >
                   Number of publications
                 </button>
               </li>
               <hr className="bg-gray h-[2px] w-full"></hr>
               <li>
-                <button className="flex h-10 w-full items-center justify-center rounded-bl-xl rounded-br-xl text-center hover:bg-green1">
+                <button
+                  className={`flex h-10 w-full items-center justify-center rounded-bl-xl rounded-br-xl text-center hover:bg-green1 ${isSortByPosts ? "bg-gray-300 text-gray-600" : ""} ${isAlphabeticalOrder ? "bg-green-300 text-black" : ""}`}
+                  onClick={() => {
+                    setIsAlphabeticalOrder(!isAlphabeticalOrder);
+                    setIsSortByPosts(false);
+                  }}
+                  disabled={isSortByPosts}
+                >
                   Alphabetical order
                 </button>
               </li>
@@ -165,7 +182,9 @@ function Forum() {
               <li key={forum._id}>
                 <Topic
                   name={forum.titulo}
-                  onClick={() => handleButtonClick(forum._id)}
+                  onClick={() => {
+                    handleButtonClick(forum._id);
+                  }}
                   className={
                     currentForumId === forum._id
                       ? "my-2 bg-teal text-sm text-white lg:text-2xl"
