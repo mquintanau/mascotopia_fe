@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { twMerge } from "tailwind-merge";
-import React from "react";
+import React, { useId } from "react";
 
 const Input = React.forwardRef(function Input(
   {
@@ -13,6 +13,9 @@ const Input = React.forwardRef(function Input(
   },
   ref,
 ) {
+  const defaultId = useId();
+  const resolvedId = id || defaultId; // Use the provided ID, or the default ID if none was provided
+
   const divClass = twMerge("relative my-3 w-full", className);
   const inputClass = twMerge(
     "peer w-full rounded-2xl bg-main px-3 py-2.5 placeholder-transparent",
@@ -27,12 +30,12 @@ const Input = React.forwardRef(function Input(
     <div className={divClass}>
       <input
         ref={ref}
-        id={id}
+        id={resolvedId}
         className={inputClass}
         placeholder={label}
         {...props}
       />
-      <label htmlFor={id} className={labelClass}>
+      <label htmlFor={resolvedId} className={labelClass}>
         {label}
       </label>
     </div>

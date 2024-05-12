@@ -1,44 +1,82 @@
 import { useRef, useState } from "react";
 import DescriptionModal from "./descriptionModal";
+import AddEventModal from "./AddEventModal";
 
+// Librerías externas
 import axios from "axios";
 import moment from "moment";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import AddEventModal from "./AddEventModal";
+
+// Estilos sweetalert
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const ReactSwal = withReactContent(Swal);
 
 import Button from "../components/Button/Button";
 
 function Calendar() {
-  const [modalOpen, setModalOpen] = useState(false);
+  // Estados de modal y calendario
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [events, setEvents] = useState([]);
   const calendarRef = useRef(null);
 
-  // Carga los eventos del API
-  async function loadEvents(data) {
-    const response = await axios.get(
-      "http://localhost:4000/api/calendar/get-events?start=" +
-        moment(data.start).toISOString() +
-        "&end=" +
-        moment(data.end).toISOString(),
-    );
-    setEvents(response.data);
+  // Estado de formulario de evento nuevo
+  const [title, setTitle] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  const [description, setDescription] = useState("");
+
+  // Funciones visuales del calendario
+  function showEventModal() {
+    ReactSwal.fire({
+      title: "New Event",
+      html: (
+        <div>
+          <input id="title" className="swal2-input" placeholder="Event Title" />
+          <input
+            id="start"
+            className="swal2-input"
+            placeholder="Start Date"
+            type="date"
+          />
+          <input
+            id="end"
+            className="swal2-input"
+            placeholder="End Date"
+            type="date"
+          />
+          <input
+            id="description"
+            className="swal2-input"
+            placeholder="Description"
+          />
+        </div>
+      ),
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          title: document.getElementById("title").value,
+          start: document.getElementById("start").value,
+          end: document.getElementById("end").value,
+          description: document.getElementById("description").value,
+        };
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes manejar los datos del formulario
+        console.log(result.value);
+      }
+    });
   }
 
-  // Elimina un evento
-  async function handleEventDelete(eventToDelete) {
-    try {
-      await axios.delete(
-        `http://localhost:4000/api/calendar/delete-event/${eventToDelete.title}`,
-      );
-      setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local
-      setSelectedEvent(null); // Cerrar el modal después de eliminar el evento
-    } catch (error) {
-      console.error("Error al eliminar el evento:", error);
-    }
+  // Muestra el modal del evento
+  function handleEventClick(info) {
+    setSelectedEvent(info.event);
+    setModalOpen(false); // Cerrar modal de agregar evento si está abierto
   }
+
+  // Funciones de lógica del calendario
 
   // Agrega un evento de forma local
   const onEventAdded = (event) => {
@@ -52,6 +90,17 @@ function Calendar() {
       description: event.description,
     });
   };
+
+  // Carga los eventos del API
+  async function loadEvents(data) {
+    const response = await axios.get(
+      "http://localhost:4000/api/calendar/get-events?start=" +
+        moment(data.start).toISOString() +
+        "&end=" +
+        moment(data.end).toISOString(),
+    );
+    setEvents(response.data);
+  }
 
   // Agrega un evento al API
   async function handleEventAdd(info) {
@@ -87,10 +136,17 @@ function Calendar() {
     console.log({ event });
   }
 
-  // Muestra el modal del evento
-  function handleEventClick(info) {
-    setSelectedEvent(info.event);
-    setModalOpen(false); // Cerrar modal de agregar evento si está abierto
+  // Elimina un evento del API
+  async function handleEventDelete(eventToDelete) {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/calendar/delete-event/${eventToDelete.title}`,
+      );
+      setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local
+      setSelectedEvent(null); // Cerrar el modal después de eliminar el evento
+    } catch (error) {
+      console.error("Error al eliminar el evento:", error);
+    }
   }
 
   return (
@@ -124,18 +180,18 @@ function Calendar() {
             {moment().format("dddd, MMMM Do YYYY")}
           </h2>
           <Button
-            onClick={() => setModalOpen(true)}
+            onClick={() => showEventModal(true)}
             className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
           >
             Add event
           </Button>
         </section>
       </div>
-      <AddEventModal
+      {/* <AddEventModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onEventAdded={(event) => onEventAdded(event)}
-      />
+      /> */}
       {selectedEvent && (
         <DescriptionModal
           isOpen={!!selectedEvent}
