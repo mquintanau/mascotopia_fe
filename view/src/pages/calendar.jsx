@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import DescriptionModal from "./descriptionModal";
 
+import axios from "axios";
+import moment from "moment";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import AddEventModal from "./AddEventModal";
-import axios from "axios";
-import moment from "moment";
-import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
+
 import Button from "../components/Button/Button";
 
 function Calendar() {
@@ -59,10 +60,27 @@ function Calendar() {
       title: event.title,
       description: event.extendedProps.description,
     };
-    // await axios.post(
-    //   "http://localhost:4000/api/calendar/create-event",
-    //   eventData,
-    // );
+    try {
+      await axios.post(
+        "http://localhost:4000/api/calendar/create-event",
+        eventData,
+      );
+      // Muestra una notificacion toast de confirmacion
+      Swal.fire({
+        icon: "success",
+        title: "Event added successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+        toast: true,
+        position: "top-end",
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "There was an error! Please try again or contact support.",
+        text: { error },
+      });
+    }
     console.log({ event });
   }
 
