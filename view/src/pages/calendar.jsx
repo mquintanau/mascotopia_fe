@@ -1,4 +1,4 @@
-import { useRef, useState, useId } from "react";
+import { useRef, useState, useId, useEffect } from "react";
 import DescriptionModal from "./DescriptionModal";
 import DatePicker from "react-datepicker";
 
@@ -13,10 +13,12 @@ import Swal from "sweetalert2";
 
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
+import EventCard from "../components/EventCard/EventCard";
 
 function Calendar() {
   // Estados de modal y calendario
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [todayEvents, setTodayEvents] = useState([]);
   const [events, setEvents] = useState([]);
   const calendarRef = useRef(null);
 
@@ -61,6 +63,22 @@ function Calendar() {
         moment(data.end).toISOString(),
     );
     setEvents(response.data);
+  }
+
+  // Carga los eventos de hoy
+  async function loadEventsToday() {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/calendar/get-events?start=" +
+          moment().startOf("day").toISOString() +
+          "&end=" +
+          moment().endOf("day").toISOString(),
+      );
+      setTodayEvents(response.data);
+      console.log("Eventos de hoy:", response.data);
+    } catch (error) {
+      console.error("Error al cargar los eventos de hoy:", error);
+    }
   }
 
   // Agrega un evento al API
@@ -110,6 +128,10 @@ function Calendar() {
     }
   }
 
+  useEffect(() => {
+    loadEventsToday();
+  }, []);
+
   return (
     <>
       <div className="mx-auto flex w-full max-w-[1000px] flex-row flex-wrap justify-center p-4">
@@ -144,6 +166,21 @@ function Calendar() {
           <h2 className="mb-4 text-2xl">
             {moment().format("dddd, MMMM Do YYYY")}
           </h2>
+          <div>
+            {todayEvents.map((event, index) => {
+              let date = new Date(event.start);
+              let time = `${date.getHours() == 0 ? "00" : date.getHours()}:${date.getMinutes() == "0" ? "00" : date.getMinutes()}`;
+
+              return (
+                <EventCard
+                  key={index}
+                  title={event.title}
+                  time={time}
+                  description={event.description}
+                />
+              );
+            })}
+          </div>
           <Button
             onClick={() => setModalOpen(true)}
             className="mx-auto mb-4 w-[200px] rounded border-none bg-green-200 px-4 py-2 text-black"
