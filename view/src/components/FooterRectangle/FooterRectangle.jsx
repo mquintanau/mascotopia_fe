@@ -3,6 +3,46 @@ import RectangularLogo from "../RectangularLogo/RectangularLogo";
 import Swal from "sweetalert2";
 
 const FooterRectangle = () => {
+  function showTermsOfUse() {
+    Swal.fire({
+      title: "Terms of Use",
+      html: `
+      <span>
+      By using our app, you agree to the following terms of use:
+      <br><br>
+      - You will not use the app for any unlawful purposes.
+      <br><br>
+      - You will not use the app to send spam.
+      <br><br>
+      - You will not attempt to gain unauthorized access to the app.
+      <br><br> 
+      </span>
+      `,
+      icon: "info",
+      confirmButtonText: "Continue",
+      confirmButtonColor: "#6FC2BD",
+    });
+  }
+
+  function showContactUs() {
+    Swal.fire({
+      title: "Contact Us",
+      html: `
+      <span>
+      If you have any questions or concerns about our policy, or our practices with regards to your personal information, please 
+      contact us through our e-mail address:
+      <br><br> 
+      <p style= "color: green;">
+      mascotopiapp@gmail.com
+      </p>
+      </span>
+      `,
+      icon: "info",
+      confirmButtonText: "Continue",
+      confirmButtonColor: "#6FC2BD",
+    });
+  }
+
   function showDataProtection() {
     Swal.fire({
       title: "Data Protection",
@@ -22,7 +62,7 @@ const FooterRectangle = () => {
       `,
       icon: "info",
       confirmButtonText: "Continue",
-      confirmButtonColor: "#f27474",
+      confirmButtonColor: "#78D8AB",
     });
   }
 
@@ -38,9 +78,7 @@ const FooterRectangle = () => {
           <a
             href="#"
             className="mr-[25px] text-black hover:text-[#424a49]"
-            onClick={() => {
-              console.log("Click en Contact Us");
-            }}
+            onClick={showContactUs}
           >
             Contact Us
           </a>
@@ -54,9 +92,7 @@ const FooterRectangle = () => {
           <a
             href="#"
             className="mr-[25px] text-black hover:text-[#424a49]"
-            onClick={() => {
-              console.log("Click en Terms of Use");
-            }}
+            onClick={showTermsOfUse}
           >
             Terms of Use
           </a>

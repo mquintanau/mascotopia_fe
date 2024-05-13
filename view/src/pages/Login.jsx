@@ -65,26 +65,24 @@ function Login() {
     }
   }, [successfulRegister, passwordSent, passwordReset, noPermission]);
 
-  function showDataProtection() {
+  function showTermsOfUse() {
     Swal.fire({
-      title: "Data Protection",
+      title: "Terms of Use",
       html: `
       <span>
-      We are committed to protecting your personal information and your
-      right to privacy. If you have any questions or concerns about our
-      policy, or our practices with regards to your personal information,
-      please contact us.
+      By using our app, you agree to the following terms of use:
       <br><br>
-    
-      The system manages a personal data policy in accordance with Colombian law 1581 of 2012.
-      <a href="https://www.minambiente.gov.co/politica-de-proteccion-de-datos-personales/" target="_blank" style="color: blue; text-decoration: underline;">
-        Consult here
-      </a>
+      - You will not use the app for any unlawful purposes.
+      <br><br>
+      - You will not use the app to send spam.
+      <br><br>
+      - You will not attempt to gain unauthorized access to the app.
+      <br><br> 
       </span>
       `,
       icon: "info",
       confirmButtonText: "Continue",
-      confirmButtonColor: "#f27474",
+      confirmButtonColor: "#6FC2BD",
     });
   }
 
@@ -218,7 +216,7 @@ function Login() {
             Sign Up
           </a>
         </p>
-        <a onClick={showDataProtection} className="cursor-pointer text-center">
+        <a onClick={showTermsOfUse} className="cursor-pointer text-center">
           <p className="mt-4 text-black">Terms & Conditions</p>
         </a>
       </form>
