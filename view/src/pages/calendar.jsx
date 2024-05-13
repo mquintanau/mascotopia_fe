@@ -93,6 +93,19 @@ function Calendar() {
       title: title,
       description: description,
     };
+
+    // Verificar que la fecha de inicio sea menor a la fecha de fin
+    if (start >= end) {
+      Swal.fire({
+        icon: "error",
+        title: "The end date must be greater than the start date",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     try {
       await axios.post(
         "http://localhost:4000/api/calendar/create-event",
