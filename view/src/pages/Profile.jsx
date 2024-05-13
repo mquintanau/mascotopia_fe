@@ -59,6 +59,9 @@ const Profile = () => {
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
     setButtonText((prevText) => (prevText === "+" ? "x" : "+"));
+  };
+
+  const handleFileButtonClick = () => {
     fileInputRef.current.click();
   };
 
@@ -126,7 +129,7 @@ const Profile = () => {
                ref={fileInputRef}
               />
               <Button 
-               onClick={handleButtonClick}
+               onClick={handleFileButtonClick}
                className="bg-primary" 
                style={{marginRight: '5px'}}
               >
