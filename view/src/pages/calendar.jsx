@@ -1,6 +1,5 @@
 import { useRef, useState, useId } from "react";
-import DescriptionModal from "./descriptionModal";
-import AddEventModal from "./AddEventModal";
+import DescriptionModal from "./DescriptionModal";
 import DatePicker from "react-datepicker";
 
 // Librerías externas
@@ -11,8 +10,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 // Estilos sweetalert
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-const ReactSwal = withReactContent(Swal);
 
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
@@ -115,9 +112,11 @@ function Calendar() {
   return (
     <>
       <div className="mx-auto flex w-full max-w-[1000px] flex-row flex-wrap justify-center p-4">
-        <h1 className="mb-4 w-full text-4xl">Calendar</h1>
-        <section className="w-[60%] max-w-[600px] rounded-xl rounded-r-none bg-[#80ed99]">
-          <div className="z-0 m-12 rounded-xl bg-white p-4">
+        <h1 className="mb-4 w-full text-center text-4xl lg:text-left">
+          Calendar
+        </h1>
+        <section className="w-[100%] max-w-[600px] rounded-xl md:bg-primary lg:w-[60%] lg:rounded-r-none">
+          <div className="z-0 rounded-xl bg-white p-4 md:m-12">
             <FullCalendar
               ref={calendarRef}
               events={events}
@@ -125,7 +124,7 @@ function Calendar() {
               initialView="dayGridMonth"
               eventClick={handleEventClick}
               eventContent={(eventInfo) => (
-                <div className="rounded bg-primary px-2 py-1 text-black shadow-md outline-none">
+                <div className="rounded bg-primary px-2 py-1 text-black shadow-md outline-none hover:cursor-pointer">
                   {eventInfo.event.title}
                 </div>
               )}
@@ -137,14 +136,14 @@ function Calendar() {
             />
           </div>
         </section>
-        <section className="w-[40%] rounded-lg bg-[#6fc2bd] p-4">
+        <section className="mt-6 flex w-[100%] max-w-[600px] flex-col justify-center rounded-lg bg-[#6fc2bd] p-4 lg:mt-0 lg:w-[40%]">
           {/* Muestra titulo de la fecha actual */}
           <h2 className="mb-4 text-2xl">
             {moment().format("dddd, MMMM Do YYYY")}
           </h2>
           <Button
             onClick={() => setModalOpen(true)}
-            className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
+            className="mx-auto mb-4 w-[200px] rounded border-none bg-green-200 px-4 py-2 text-black"
           >
             Add event
           </Button>
@@ -169,6 +168,7 @@ function Calendar() {
                   label="Event title"
                   inputClassName="rounded-xl"
                   maxLength={30}
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required={true}
                   className="mb-6"
@@ -209,6 +209,7 @@ function Calendar() {
                   type="text"
                   label="Event description"
                   maxLength={100}
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   required={true}
                   className="mt-7"
@@ -227,13 +228,6 @@ function Calendar() {
             </form>
           </div>
         </div>
-      )}
-      {selectedEvent && (
-        <DescriptionModal
-          isOpen={!!selectedEvent}
-          onClose={() => setSelectedEvent(null)}
-          event={selectedEvent}
-        />
       )}
       {selectedEvent && (
         <DescriptionModal
