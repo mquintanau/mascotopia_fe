@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useId } from "react";
 import DescriptionModal from "./descriptionModal";
 import AddEventModal from "./AddEventModal";
+import DatePicker from "react-datepicker";
 
 // Librerías externas
 import axios from "axios";
@@ -14,6 +15,7 @@ import withReactContent from "sweetalert2-react-content";
 const ReactSwal = withReactContent(Swal);
 
 import Button from "../components/Button/Button";
+import Input from "../components/Input/Input";
 
 function Calendar() {
   // Estados de modal y calendario
@@ -26,54 +28,15 @@ function Calendar() {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [description, setDescription] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // Funciones visuales del calendario
-  function showEventModal() {
-    ReactSwal.fire({
-      title: "New Event",
-      html: (
-        <div>
-          <input id="title" className="swal2-input" placeholder="Event Title" />
-          <input
-            id="start"
-            className="swal2-input"
-            placeholder="Start Date"
-            type="date"
-          />
-          <input
-            id="end"
-            className="swal2-input"
-            placeholder="End Date"
-            type="date"
-          />
-          <input
-            id="description"
-            className="swal2-input"
-            placeholder="Description"
-          />
-        </div>
-      ),
-      focusConfirm: false,
-      preConfirm: () => {
-        return {
-          title: document.getElementById("title").value,
-          start: document.getElementById("start").value,
-          end: document.getElementById("end").value,
-          description: document.getElementById("description").value,
-        };
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Aquí puedes manejar los datos del formulario
-        console.log(result.value);
-      }
-    });
-  }
+  const startDateId = useId();
+  const endDateId = useId();
 
   // Muestra el modal del evento
   function handleEventClick(info) {
     setSelectedEvent(info.event);
-    setModalOpen(false); // Cerrar modal de agregar evento si está abierto
+    // setModalOpen(false); // Cerrar modal de agregar evento si está abierto
   }
 
   // Funciones de lógica del calendario
@@ -180,18 +143,91 @@ function Calendar() {
             {moment().format("dddd, MMMM Do YYYY")}
           </h2>
           <Button
-            onClick={() => showEventModal(true)}
+            onClick={() => setModalOpen(true)}
             className="mb-4 rounded border-none bg-green-200 px-4 py-2 text-black"
           >
             Add event
           </Button>
         </section>
       </div>
-      {/* <AddEventModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onEventAdded={(event) => onEventAdded(event)}
-      /> */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur hover:cursor-pointer"
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className="mx-5 flex w-96 flex-col gap-5 rounded-xl bg-navbar p-5 md:mx-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <form onSubmit={onEventAdded}>
+              <div className="flex w-full flex-col items-center justify-center">
+                <h1 className="mb-5 text-center text-3xl font-semibold">
+                  Add an Event 📅
+                </h1>
+                <Input
+                  type="text"
+                  label="Event title"
+                  inputClassName="rounded-xl"
+                  maxLength={30}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required={true}
+                  className="mb-6"
+                />
+                <div className="flex w-full flex-row flex-wrap items-center justify-center">
+                  <label htmlFor={startDateId} className="mr-3 text-center">
+                    Start Date:
+                  </label>
+                  <DatePicker
+                    selected={start}
+                    onChange={(date) => setStart(date)}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    timeCaption="time"
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    className="bg-main px-4 py-2"
+                    id={startDateId}
+                  />
+                </div>
+                <div className="mt-4 flex w-full flex-row flex-wrap items-center justify-center">
+                  <label htmlFor={endDateId} className="mr-5 text-center">
+                    End Date:
+                  </label>
+                  <DatePicker
+                    selected={end}
+                    onChange={(date) => setEnd(date)}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    timeCaption="time"
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    className="bg-main px-4 py-2"
+                    id={endDateId}
+                  />
+                </div>
+                <Input
+                  type="text"
+                  label="Event description"
+                  maxLength={100}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required={true}
+                  className="mt-7"
+                />
+              </div>
+              <div className="mt-4 flex justify-center">
+                <Button
+                  type="button"
+                  className="mr-3 bg-red-400 hover:bg-black hover:text-red-400"
+                  onClick={() => setModalOpen(false)}
+                >
+                  Close
+                </Button>
+                <Button type="submit">Send</Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
       {selectedEvent && (
         <DescriptionModal
           isOpen={!!selectedEvent}

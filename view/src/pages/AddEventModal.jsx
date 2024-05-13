@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "react-modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
-    const [title, setTitle] = useState("");
-    const [start, setStart] = useState(new Date());
-    const [end, setEnd] = useState(new Date());
-    const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState(new Date());
+  const [description, setDescription] = useState("");
 
-    const onSubmit = (event) => {
-        event.preventDefault();
+  const onSubmit = (event) => {
+    event.preventDefault();
 
-        onEventAdded({
-            start,
-            end,
-            title,
-            description
-        });
+    onEventAdded({
+      start,
+      end,
+      title,
+      description,
+    });
 
-        onClose();
-    };
+    onClose();
+  };
 
-    const styles = `
+  const styles = `
         .event-form {
             display: flex;
             flex-direction: column;
@@ -91,51 +91,50 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded }) {
         }
     `;
 
-    return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
-            <style>{styles}</style>
-            
-            
-            <form className="event-form" onSubmit={onSubmit}>
-                <h2 className="event-title">Añade tu evento</h2> {/* Título */}
-                <input
-                    className="event-input"
-                    placeholder="Ingrese el titulo del evento"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <textarea
-                    className="event-textarea"
-                    placeholder="Ingrese la descripcion del evento"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <div className="event-datepicker-container">
-                    <label className="event-datepicker-label">Fecha de inicio:</label>
-                    <DatePicker
-                        selected={start}
-                        onChange={(date) => setStart(date)}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={15}
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        className="event-datepicker" // Aplicar la clase al DatePicker
-                    />
-                </div>
-                <div className="event-datepicker-container">
-                    <label className="event-datepicker-label">Fecha de fin:</label>
-                    <DatePicker
-                        selected={end}
-                        onChange={(date) => setEnd(date)}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={15}
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        className="event-datepicker" // Aplicar la clase al DatePicker
-                    />
-                </div>
-                <button className="event-button">Add event</button>
-            </form>
-        </Modal>
-    );
+  return (
+    <Modal isOpen={isOpen} onRequestClose={onClose}>
+      <style>{styles}</style>
+
+      <form className="event-form" onSubmit={onSubmit}>
+        <h2 className="event-title">Añade tu evento</h2> {/* Título */}
+        <input
+          className="event-input"
+          placeholder="Ingrese el titulo del evento"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          className="event-textarea"
+          placeholder="Ingrese la descripcion del evento"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <div className="event-datepicker-container">
+          <label className="event-datepicker-label">Fecha de inicio:</label>
+          <DatePicker
+            selected={start}
+            onChange={(date) => setStart(date)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            dateFormat="MMMM d, yyyy h:mm aa"
+            className="event-datepicker" // Aplicar la clase al DatePicker
+          />
+        </div>
+        <div className="event-datepicker-container">
+          <label className="event-datepicker-label">Fecha de fin:</label>
+          <DatePicker
+            selected={end}
+            onChange={(date) => setEnd(date)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            dateFormat="MMMM d, yyyy h:mm aa"
+            className="event-datepicker" // Aplicar la clase al DatePicker
+          />
+        </div>
+        <button className="event-button">Add event</button>
+      </form>
+    </Modal>
+  );
 }
