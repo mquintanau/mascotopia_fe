@@ -35,6 +35,7 @@ function Calendar() {
   // Muestra el modal del evento
   function handleEventClick(info) {
     setSelectedEvent(info.event);
+    console.log(info.event);
     // setModalOpen(false); // Cerrar modal de agregar evento si está abierto
   }
 
@@ -181,7 +182,10 @@ function Calendar() {
                   key={index}
                   title={event.title}
                   time={time}
+                  start={event.start}
+                  end={event.end}
                   description={event.description}
+                  handleEventClick={handleEventClick}
                 />
               );
             })}

@@ -1,4 +1,5 @@
 import moment from "moment";
+import Button from "../components/Button/Button";
 
 export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
   if (!isOpen || !event) {
@@ -23,7 +24,7 @@ export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
   const formattedEndDate = moment(event.end).format("YYYY-MM-DD HH:mm");
 
   return (
-    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50 backdrop-blur hover:cursor-pointer">
       <div className="rounded bg-green-200 p-4 shadow">
         <h2>
           <strong>Title:</strong> {event.title}
@@ -34,21 +35,21 @@ export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
         <p>
           <strong>Start:</strong> {formattedStartDate}
         </p>
-        <p>
+        <p className="mb-5">
           <strong>End:</strong> {formattedEndDate}
         </p>
-        <button
+        <Button
           onClick={handleDelete}
-          className="mr-2 cursor-pointer rounded border-none bg-red-400 px-4 py-2"
+          className="mr-2 cursor-pointer rounded border-none bg-red-400 px-4 py-2 text-white hover:bg-red-500 hover:text-white active:bg-red-600"
         >
           Delete event
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={onClose}
-          className="cursor-pointer rounded border-none bg-white px-4 py-2"
+          className="cursor-pointer rounded border-none bg-white px-4 py-2 hover:bg-neutral-50 hover:text-black active:bg-neutral-100"
         >
           Close
-        </button>
+        </Button>
       </div>
     </div>
   );
