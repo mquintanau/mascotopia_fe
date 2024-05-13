@@ -1,26 +1,27 @@
 import PropTypes from "prop-types";
 
-const EventCard = ({
-  title,
-  start,
-  end,
-  time,
-  description,
-  handleEventClick,
-}) => {
+const EventCard = ({ event, time, handleEventClick }) => {
+  const eventToSend = {
+    ...event,
+    extendedProps: {
+      description: event.description,
+      _id: event._id,
+    },
+  };
+
   return (
     <div
       className="my-4 flex flex-row justify-between overflow-hidden rounded-md bg-white hover:cursor-pointer"
       onClick={() =>
         handleEventClick({
-          event: { title, start, end, extendedProps: { description } },
+          event: eventToSend,
         })
       }
     >
       <div className="p-4">
         <p>
           <span className="font-bold">Event: </span>
-          {title}
+          {event.title}
         </p>
         <p>
           <span className="font-bold">Time: </span>
@@ -28,7 +29,7 @@ const EventCard = ({
         </p>
         <p>
           <span className="font-bold">Description: </span>
-          {description}
+          {event.description}
         </p>
       </div>
       <div className="w-[50px] bg-primary"></div>
@@ -37,10 +38,7 @@ const EventCard = ({
 };
 
 EventCard.propTypes = {
-  title: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  handleEventClick: PropTypes.func,
 };
 
 export default EventCard;

@@ -220,11 +220,8 @@ function Calendar() {
               return (
                 <EventCard
                   key={index}
-                  title={event.title}
                   time={time}
-                  start={event.start}
-                  end={event.end}
-                  description={event.description}
+                  event={event}
                   handleEventClick={handleEventClick}
                 />
               );
