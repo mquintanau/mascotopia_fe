@@ -1,6 +1,5 @@
-import { useRef, useState, useEffect, useCallback, useContext } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import DescriptionModal from "./DescriptionModal";
-import DataContext from "../auth/DataContext";
 
 // Librerías externas
 import axios from "axios";
@@ -17,7 +16,6 @@ import AddEventModal from "../components/AddEventModal/AddEventModal";
 
 function Calendar() {
   // Contexto de usuario
-  const { data, setData } = useContext(DataContext);
   const id = localStorage.getItem("idUser");
 
   // Estados de modal y calendario

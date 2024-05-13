@@ -4,6 +4,18 @@ const moment = require("moment");
 
 router.post("/create-event", async (req, res) => {
   const event = Event(req.body);
+  // validar Evento
+  if (
+    !event ||
+    !event.title ||
+    !event.start ||
+    !event.end ||
+    !event.description
+  ) {
+    return res.sendStatus(400);
+  }
+
+  // Guardar evento
   await event.save();
   res.sendStatus(201);
 });
