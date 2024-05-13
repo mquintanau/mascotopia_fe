@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // Componente que muestra una pregunta
 const Question = (props) => {
   // Se almacenan las props dadas a la pregunta en las siguientes constantes
-  const { titulo, descripcion, onSelect, id, autor, idTopic } = props;
+  const { titulo, descripcion, onSelect, id, autor, idTopic, correo } = props;
 
   // Se retorna un link que redirige a la vista de la pregunta con el id de la pregunta
   return (
@@ -18,6 +18,13 @@ const Question = (props) => {
         <h3 className="capitalize">{titulo}</h3>
         <h3>Question: {autor}</h3>
         <p className="font-light">{descripcion}</p>
+        {correo === "admin@gmail.com" && (
+          <div className="mt-2 w-full">
+            <button className="admin-button bg-red-200">
+              Botón de administrador
+            </button>
+          </div>
+        )}
       </div>
     </Link>
   );

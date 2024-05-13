@@ -110,6 +110,7 @@ function Forum() {
       );
   }, []);
 
+  console.log("hola" + data);
   // Se retorna un div con los foros y preguntas
   return (
     // Se muestra un div con los foros y preguntas
@@ -205,7 +206,6 @@ function Forum() {
             ))}
         </ol>
       </div>
-
       {/* Se muestra un div con las preguntas del foro seleccionado */}
       <div className="h-screen max-h-[500px] w-full overflow-auto rounded-xl bg-green3 p-6 lg:mr-28 lg:max-h-full lg:flex-grow ">
         <h1 className="mb-2 mt-2 text-2xl lg:text-4xl">
@@ -230,6 +230,7 @@ function Forum() {
                   .preguntas
               : ""
           }
+          data={data}
           idTopic={currentForumId}
         />
         <div className="flex items-center justify-center">
