@@ -149,7 +149,6 @@ const Profile = () => {
                 >
                   {buttonText}
                 </Button>
-                {/* Se muestra el formulario si showForm es true */}
                 {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
               </div>
             </div>
