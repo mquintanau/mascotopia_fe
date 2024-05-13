@@ -61,6 +61,7 @@ const Profile = () => {
     setButtonText((prevText) => (prevText === "+" ? "x" : "+"));
   };
 
+  //Funcion para manejar el evento de subir foto de perfil
   const handleFileButtonClick = () => {
     fileInputRef.current.click();
   };
@@ -120,7 +121,7 @@ const Profile = () => {
                 username={data.username}
                 number_pets={data.mascotas.length}
               />
-            <form onSubmit={handleImageSubmit}>
+            <form onSubmit={handleImageSubmit} style={{ display: 'flex', justifyContent: 'center' }}>
               <input 
                type="file" 
                id="fileInput" 

@@ -13,6 +13,7 @@ const MascotaSchema = new mongoose.Schema({
   animal: { type: String, required: false },
   edad: { type: String, required: false },
   descripcion: { type: String, required: false },
+  imageURL: { type: String, required: false },
 });
 
 // Esquema para la colección usuario que incluye la subcolección mascota
