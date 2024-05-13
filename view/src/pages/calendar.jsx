@@ -1,6 +1,6 @@
-import { useRef, useState, useId, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, useContext } from "react";
 import DescriptionModal from "./DescriptionModal";
-import DatePicker from "react-datepicker";
+import DataContext from "../auth/DataContext";
 
 // Librerías externas
 import axios from "axios";
@@ -12,10 +12,14 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import Swal from "sweetalert2";
 
 import Button from "../components/Button/Button";
-import Input from "../components/Input/Input";
 import EventCard from "../components/EventCard/EventCard";
+import AddEventModal from "../components/AddEventModal/AddEventModal";
 
 function Calendar() {
+  // Contexto de usuario
+  const { data, setData } = useContext(DataContext);
+  const id = localStorage.getItem("idUser");
+
   // Estados de modal y calendario
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [todayEvents, setTodayEvents] = useState([]);
@@ -23,15 +27,7 @@ function Calendar() {
   const [key, setKey] = useState(0); // Key para forzar la actualización del componente del calendario
   const calendarRef = useRef(null);
 
-  // Estado de formulario de evento nuevo
-  const [title, setTitle] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const startDateId = useId();
-  const endDateId = useId();
+  const [addEventShown, setAddEventShown] = useState(false);
 
   // Muestra el modal del evento
   function handleEventClick(info) {
@@ -42,15 +38,14 @@ function Calendar() {
 
   // Agrega un evento de forma local
   const onEventAdded = (event) => {
-    event.preventDefault();
     let calendarApi = calendarRef.current.getApi();
 
     // Agregar evento
     calendarApi.addEvent({
-      title: title,
-      start: startDate.toISOString(),
-      end: endDate.toISOString(),
-      description: description,
+      title: event.title,
+      start: event.startDate.toISOString(),
+      end: event.endDate.toISOString(),
+      description: event.description,
     });
   };
 
@@ -88,16 +83,19 @@ function Calendar() {
   }, [loadEventsToday]);
 
   // Agrega un evento al API
-  async function handleEventAdd(addInfo) {
+  async function handleEventAdd(info) {
+    const { event } = info;
     const eventData = {
-      start: moment(startDate).toISOString(),
-      end: moment(endDate).toISOString(),
-      title: title,
-      description: description,
+      start: moment(event.start).toISOString(),
+      end: moment(event.end).toISOString(),
+      title: event.title,
+      description: event.extendedProps.description,
+      idUsuario: id,
+      shouldLogActivity: true,
     };
 
     // Verificar que la fecha de inicio sea menor a la fecha de fin
-    if (startDate >= endDate) {
+    if (eventData.start >= eventData.end) {
       Swal.fire({
         icon: "error",
         title: "The end date must be greater than the start date",
@@ -105,7 +103,7 @@ function Calendar() {
         position: "top-end",
         showConfirmButton: false,
       });
-      addInfo.revert(); // Revertir el evento si la fecha de inicio es mayor a la fecha de fin
+      info.revert(); // Revertir el evento si la fecha de inicio es mayor a la fecha de fin
       return;
     } else {
       try {
@@ -125,7 +123,7 @@ function Calendar() {
         });
 
         loadEventsToday();
-        setModalOpen(false); // Cerrar el modal después de agregar el evento
+        setAddEventShown(false); // Cerrar el modal después de agregar el evento
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -224,92 +222,19 @@ function Calendar() {
             })}
           </div>
           <Button
-            onClick={() => setModalOpen(true)}
+            onClick={() => setAddEventShown(true)}
             className="mx-auto mb-4 w-[200px] rounded border-none bg-green-200 px-4 py-2 text-black"
           >
             Add Event
           </Button>
         </section>
       </div>
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur hover:cursor-pointer"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className="mx-5 flex w-96 flex-col gap-5 rounded-xl bg-navbar p-5 md:mx-0"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <form onSubmit={onEventAdded}>
-              <div className="flex w-full flex-col items-center justify-center">
-                <h1 className="mb-5 text-center text-3xl font-semibold">
-                  Add an Event 📅
-                </h1>
-                <Input
-                  type="text"
-                  label="Event title"
-                  inputClassName="rounded-xl"
-                  maxLength={30}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required={true}
-                  className="mb-6"
-                />
-                <div className="flex w-full flex-row flex-wrap items-center justify-center">
-                  <label htmlFor={startDateId} className="mr-3 text-center">
-                    Start Date:
-                  </label>
-                  <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    showTimeSelect
-                    timeFormat="HH:mm"
-                    timeIntervals={15}
-                    timeCaption="time"
-                    dateFormat="MMMM d, yyyy h:mm aa"
-                    className="bg-main px-4 py-2"
-                    id={startDateId}
-                  />
-                </div>
-                <div className="mt-4 flex w-full flex-row flex-wrap items-center justify-center">
-                  <label htmlFor={endDateId} className="mr-5 text-center">
-                    End Date:
-                  </label>
-                  <DatePicker
-                    selected={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    showTimeSelect
-                    timeFormat="HH:mm"
-                    timeIntervals={15}
-                    timeCaption="time"
-                    dateFormat="MMMM d, yyyy h:mm aa"
-                    className="bg-main px-4 py-2"
-                    id={endDateId}
-                  />
-                </div>
-                <Input
-                  type="text"
-                  label="Event description"
-                  maxLength={100}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required={true}
-                  className="mt-7"
-                />
-              </div>
-              <div className="mt-4 flex justify-center">
-                <Button
-                  type="button"
-                  className="mr-3 bg-red-400 hover:bg-black hover:text-red-400"
-                  onClick={() => setModalOpen(false)}
-                >
-                  Close
-                </Button>
-                <Button type="submit">Send</Button>
-              </div>
-            </form>
-          </div>
-        </div>
+      {/* Seccion de alertas modal */}
+      {addEventShown && (
+        <AddEventModal
+          setAddEventShown={setAddEventShown}
+          onEventAdded={onEventAdded}
+        />
       )}
       {selectedEvent && (
         <DescriptionModal
