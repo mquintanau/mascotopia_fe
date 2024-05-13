@@ -137,7 +137,7 @@ function Calendar() {
   async function handleEventDelete(eventToDelete) {
     try {
       await axios.delete(
-        `http://localhost:4000/api/calendar/delete-event/${eventToDelete.title}`,
+        `http://localhost:4000/api/calendar/delete-event/${eventToDelete.extendedProps._id}`,
       );
 
       setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local

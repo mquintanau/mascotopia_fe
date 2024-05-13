@@ -41,11 +41,11 @@ router.get("/get-events-today", async (req, res) => {
   res.send(events);
 });
 
-router.delete("/delete-event/:title", async (req, res) => {
+router.delete("/delete-event/:id", async (req, res) => {
   try {
-    const title = req.params.title;
+    const id = req.params.id;
     // Buscar y eliminar el evento por título
-    await Event.findOneAndDelete({ title: title });
+    await Event.findByIdAndDelete(id);
     res.sendStatus(200);
   } catch (error) {
     console.error("Error al borrar el evento:", error);
