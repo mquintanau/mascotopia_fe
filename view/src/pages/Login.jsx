@@ -68,7 +68,20 @@ function Login() {
   function showDataProtection() {
     Swal.fire({
       title: "Data Protection",
-      text: "We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.",
+      html: `
+      <span>
+      We are committed to protecting your personal information and your
+      right to privacy. If you have any questions or concerns about our
+      policy, or our practices with regards to your personal information,
+      please contact us.
+      <br><br>
+    
+      The system manages a personal data policy in accordance with Colombian law 1581 of 2012.
+      <a href="https://www.minambiente.gov.co/politica-de-proteccion-de-datos-personales/" target="_blank" style="color: blue; text-decoration: underline;">
+        Consult here
+      </a>
+      </span>
+      `,
       icon: "info",
       confirmButtonText: "Continue",
       confirmButtonColor: "#f27474",
