@@ -86,7 +86,7 @@ function Calendar() {
   }, [loadEventsToday]);
 
   // Agrega un evento al API
-  async function handleEventAdd() {
+  async function handleEventAdd(addInfo) {
     const eventData = {
       start: moment(start).toISOString(),
       end: moment(end).toISOString(),
@@ -103,36 +103,36 @@ function Calendar() {
         position: "top-end",
         showConfirmButton: false,
       });
+      addInfo.revert(); // Revertir el evento si la fecha de inicio es mayor a la fecha de fin
       return;
+    } else {
+      try {
+        await axios.post(
+          "http://localhost:4000/api/calendar/create-event",
+          eventData,
+        );
+
+        // Muestra una notificacion toast de confirmacion
+        Swal.fire({
+          icon: "success",
+          title: "Event added successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true,
+          position: "top-end",
+        });
+
+        loadEventsToday();
+        setModalOpen(false); // Cerrar el modal después de agregar el evento
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "There was an error! Please try again or contact support.",
+          text: { error },
+        });
+        console.log("Error al agregar el evento:", error);
+      }
     }
-
-    try {
-      await axios.post(
-        "http://localhost:4000/api/calendar/create-event",
-        eventData,
-      );
-
-      // Muestra una notificacion toast de confirmacion
-      Swal.fire({
-        icon: "success",
-        title: "Event added successfully!",
-        showConfirmButton: false,
-        timer: 1500,
-        toast: true,
-        position: "top-end",
-      });
-
-      loadEventsToday();
-      setModalOpen(false); // Cerrar el modal después de agregar el evento
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "There was an error! Please try again or contact support.",
-        text: { error },
-      });
-      console.log("Error al agregar el evento:", error);
-    }
-    console.log({ event });
   }
 
   // Elimina un evento del API
