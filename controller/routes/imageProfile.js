@@ -39,4 +39,20 @@ router.post('/:id', upload.single('image'), async (req, res) => {
     }
   });
 
+router.post('/pet/:id', upload.single('image'), async (req, res) => {
+    const {id} = req.params; //Obtén el ID del usuario de los parámetros de la URL
+    try {
+      const user = await User.findOne({ _id: id }); // Asume que el ID del usuario se envía en el cuerpo de la solicitud
+      if (!user) {
+        return res.status(404).send({ error: 'User not found' });
+      }
+      
+      user.mascotas[].imageURL = '/uploads/' + req.file.filename; // Aquí se guarda la ruta de la imagen
+      await user.save();
+      //console.log({ message: 'Image uploaded successfully', user });
+    } catch (error) {
+      res.status(500).send({ error: 'Server error' });
+    }
+});
+
 module.exports = router;

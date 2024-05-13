@@ -31,7 +31,7 @@ const generatePetViews = (pets) => {
     // Envíar FormData al servidor
     try {
       const response = await axios.post(
-        `${API_URL}/imageProfile/${id}`,
+        `${API_URL}/imageProfile/pet/${id}`,
         formData,
       );
       // Actualizar
