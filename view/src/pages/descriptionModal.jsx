@@ -53,7 +53,7 @@ export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
         </Button>
         <Button
           onClick={onClose}
-          className="cursor-pointer rounded border-none bg-white px-4 py-2 hover:bg-neutral-50 hover:text-black active:bg-neutral-100"
+          className="cursor-pointer rounded border-none bg-white px-4 py-2 !text-black hover:bg-neutral-100 hover:text-black active:outline"
         >
           Close
         </Button>

@@ -25,8 +25,8 @@ function Calendar() {
 
   // Estado de formulario de evento nuevo
   const [title, setTitle] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [description, setDescription] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -36,8 +36,6 @@ function Calendar() {
   // Muestra el modal del evento
   function handleEventClick(info) {
     setSelectedEvent(info.event);
-    console.log(info.event);
-    // setModalOpen(false); // Cerrar modal de agregar evento si está abierto
   }
 
   // Funciones de lógica del calendario
@@ -50,8 +48,8 @@ function Calendar() {
     // Agregar evento
     calendarApi.addEvent({
       title: title,
-      start: start.toISOString(),
-      end: end.toISOString(),
+      start: startDate.toISOString(),
+      end: endDate.toISOString(),
       description: description,
     });
   };
@@ -75,8 +73,12 @@ function Calendar() {
         "http://localhost:4000/api/calendar/get-events-today",
       );
       setTodayEvents(response.data);
-      console.log("Eventos de hoy:", response.data);
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "There was an error! Please try again or contact support.",
+        text: { error },
+      });
       console.error("Error al cargar los eventos de hoy:", error);
     }
   }, []);
@@ -88,14 +90,14 @@ function Calendar() {
   // Agrega un evento al API
   async function handleEventAdd(addInfo) {
     const eventData = {
-      start: moment(start).toISOString(),
-      end: moment(end).toISOString(),
+      start: moment(startDate).toISOString(),
+      end: moment(endDate).toISOString(),
       title: title,
       description: description,
     };
 
     // Verificar que la fecha de inicio sea menor a la fecha de fin
-    if (start >= end) {
+    if (startDate >= endDate) {
       Swal.fire({
         icon: "error",
         title: "The end date must be greater than the start date",
@@ -130,7 +132,7 @@ function Calendar() {
           title: "There was an error! Please try again or contact support.",
           text: { error },
         });
-        console.log("Error al agregar el evento:", error);
+        console.log("Error creating event:", error);
       }
     }
   }
@@ -141,12 +143,11 @@ function Calendar() {
       await axios.delete(
         `http://localhost:4000/api/calendar/delete-event/${eventToDelete.title}`,
       );
+
       setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local
       setSelectedEvent(null); // Cerrar el modal después de eliminar el evento
-      loadEventsToday();
-
-      // recarga los eventos de fullcalendar
-      setKey((prevKey) => prevKey + 1);
+      loadEventsToday(); // Recarga los eventos de hoy
+      setKey((prevKey) => prevKey + 1); // Recarga los eventos de fullcalendar
 
       Swal.fire({
         icon: "success",
@@ -156,7 +157,12 @@ function Calendar() {
         showConfirmButton: false,
       });
     } catch (error) {
-      console.error("Error al eliminar el evento:", error);
+      Swal.fire({
+        icon: "error",
+        title: "There was an error! Please try again or contact support.",
+        text: { error },
+      });
+      console.error("Error deleting event", error);
     }
   }
 
@@ -254,8 +260,8 @@ function Calendar() {
                     Start Date:
                   </label>
                   <DatePicker
-                    selected={start}
-                    onChange={(date) => setStart(date)}
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
                     showTimeSelect
                     timeFormat="HH:mm"
                     timeIntervals={15}
@@ -270,8 +276,8 @@ function Calendar() {
                     End Date:
                   </label>
                   <DatePicker
-                    selected={end}
-                    onChange={(date) => setEnd(date)}
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
                     showTimeSelect
                     timeFormat="HH:mm"
                     timeIntervals={15}
