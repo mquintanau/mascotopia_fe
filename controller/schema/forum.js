@@ -3,9 +3,9 @@ const mongoose = require("mongoose"); //importamos la libreria mongoose para man
 // Esquema para la subcolección respuesta
 const AnswerSchema = new mongoose.Schema({
   id: { type: Object },
-  respuesta: { type: String, required: true },
-  fecha: { type: Date, required: true },
-  autor: { type: String, required: true },
+  respuesta: { type: String, required: false },
+  fecha: { type: Date, required: false },
+  autor: { type: String, required: false },
 });
 
 // Esquema para la subcolección pregunta

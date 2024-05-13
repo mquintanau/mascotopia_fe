@@ -31,10 +31,6 @@ const ProtectedRoute = () => {
   if (isResetPassword) {
     return tokenRestPassword ? <Outlet /> : <Navigate to="/login" />; //Si la ubicación actual es /resetPassword y el token de reseteo de contraseña existe, redirige al usuario a la página de login
   }
-  if (isForum||isQuestionView) {
-    return <Outlet />;
-  }
-
 
   return token ? <Outlet /> : <Navigate to="/login?noPermission=true" />; //Si el token no existe, redirige al usuario a la página de login
 
