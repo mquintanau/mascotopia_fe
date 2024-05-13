@@ -59,7 +59,6 @@ router.delete("/delete-event/:id", async (req, res) => {
     const id = req.params.id;
     const { idUsuario, nombreUsuario } = req.body;
 
-    console.log({ id });
     // Find and delete the event by ID
     const event = await Event.findByIdAndDelete(id); // Ensure that the Event object is properly defined
 
