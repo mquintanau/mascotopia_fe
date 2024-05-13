@@ -20,6 +20,7 @@ function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [todayEvents, setTodayEvents] = useState([]);
   const [events, setEvents] = useState([]);
+  const [key, setKey] = useState(0); // Key para forzar la actualización del componente del calendario
   const calendarRef = useRef(null);
 
   // Estado de formulario de evento nuevo
@@ -129,6 +130,18 @@ function Calendar() {
       );
       setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local
       setSelectedEvent(null); // Cerrar el modal después de eliminar el evento
+      loadEventsToday();
+
+      // recarga los eventos de fullcalendar
+      setKey((prevKey) => prevKey + 1);
+
+      Swal.fire({
+        icon: "success",
+        title: "Event deleted successfully!",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.error("Error al eliminar el evento:", error);
     }
@@ -148,6 +161,7 @@ function Calendar() {
           <div className="z-0 rounded-xl bg-white p-4 md:m-12">
             <FullCalendar
               ref={calendarRef}
+              key={key}
               events={events}
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"

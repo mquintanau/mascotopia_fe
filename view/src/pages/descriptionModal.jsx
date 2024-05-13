@@ -1,5 +1,6 @@
 import moment from "moment";
 import Button from "../components/Button/Button";
+import Swal from "sweetalert2";
 
 export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
   if (!isOpen || !event) {
@@ -7,16 +8,22 @@ export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
   }
 
   const handleDelete = () => {
-    console.log("Event to delete:", event);
     // Confirm before deleting
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this event?",
-    );
-    if (confirmDelete) {
-      console.log("Deleting event...");
-      // Call onDelete with the event to delete
-      onDelete(event);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Deleting event...");
+        // Call onDelete with the event to delete
+        onDelete(event);
+      }
+    });
   };
 
   // Format the date and time in the desired format
