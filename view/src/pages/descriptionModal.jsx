@@ -1,73 +1,63 @@
-import React from "react";
 import moment from "moment";
+import Button from "../components/Button/Button";
+import Swal from "sweetalert2";
 
 export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
-    if (!isOpen || !event) {
-        return null;
-    }
+  if (!isOpen || !event) {
+    return null;
+  }
 
-    const handleDelete = () => {
-        console.log("Evento a eliminar:", event);
-        // Confirmar antes de eliminar
-        const confirmDelete = window.confirm("¿Estás seguro de que quieres borrar este evento?");
-        if (confirmDelete) {
-            console.log("Eliminando evento...");
-            // Llamar a onDelete con el evento a eliminar
-            onDelete(event);
-        }
-    };
-    
+  const handleDelete = () => {
+    // Confirm before deleting
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Deleting event...");
+        // Call onDelete with the event to delete
+        onDelete(event);
+      }
+    });
+  };
 
-    // Formatear la fecha y la hora en el formato deseado
-    const formattedStartDate = moment(event.start).format("YYYY-MM-DD HH:mm");
-    const formattedEndDate = moment(event.end).format("YYYY-MM-DD HH:mm");
+  // Format the date and time in the desired format
+  const formattedStartDate = moment(event.start).format("YYYY-MM-DD HH:mm");
+  const formattedEndDate = moment(event.end).format("YYYY-MM-DD HH:mm");
 
-    return (
-        <div style={styles.modalBackground}>
-            <div style={styles.modalContainer}>
-                <h2><strong>Titulo:</strong> {event.title}</h2>
-                <p><strong>Descripción:</strong> {event.extendedProps.description}</p>
-                <p><strong>Start:</strong> {formattedStartDate}</p>
-                <p><strong>End:</strong> {formattedEndDate}</p>
-                <button onClick={handleDelete} style={styles.deleteButton}>Borrar evento</button>
-                <button onClick={onClose} style={styles.closeButton}>Cerrar</button>
-            </div>
-        </div>
-    );
+  return (
+    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50 backdrop-blur hover:cursor-pointer">
+      <div className="rounded bg-green-200 p-4 shadow">
+        <h2>
+          <strong>Title:</strong> {event.title}
+        </h2>
+        <p>
+          <strong>Description:</strong> {event.extendedProps.description}
+        </p>
+        <p>
+          <strong>Start:</strong> {formattedStartDate}
+        </p>
+        <p className="mb-5">
+          <strong>End:</strong> {formattedEndDate}
+        </p>
+        <Button
+          onClick={handleDelete}
+          className="mr-2 cursor-pointer rounded border-none bg-red-400 px-4 py-2 text-white hover:bg-red-500 hover:text-white active:bg-red-600"
+        >
+          Delete event
+        </Button>
+        <Button
+          onClick={onClose}
+          className="cursor-pointer rounded border-none bg-white px-4 py-2 !text-black hover:bg-neutral-100 hover:text-black active:outline"
+        >
+          Close
+        </Button>
+      </div>
+    </div>
+  );
 }
-
-const styles = {
-    modalBackground: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    modalContainer: {
-        backgroundColor: '#d0f0c0',
-        padding: '20px',
-        borderRadius: '5px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    },
-    closeButton: {
-        backgroundColor: 'white',
-        border: 'none',
-        padding: '10px',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        marginRight: '10px',
-    },
-    deleteButton: {
-        backgroundColor: '#ff9999',
-        border: 'none',
-        padding: '10px',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        marginRight: '10px',
-    },
-};
