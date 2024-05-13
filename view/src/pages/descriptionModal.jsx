@@ -1,4 +1,3 @@
-import React from "react";
 import moment from "moment";
 
 export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
@@ -7,30 +6,30 @@ export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
   }
 
   const handleDelete = () => {
-    console.log("Evento a eliminar:", event);
-    // Confirmar antes de eliminar
+    console.log("Event to delete:", event);
+    // Confirm before deleting
     const confirmDelete = window.confirm(
-      "¿Estás seguro de que quieres borrar este evento?",
+      "Are you sure you want to delete this event?",
     );
     if (confirmDelete) {
-      console.log("Eliminando evento...");
-      // Llamar a onDelete con el evento a eliminar
+      console.log("Deleting event...");
+      // Call onDelete with the event to delete
       onDelete(event);
     }
   };
 
-  // Formatear la fecha y la hora en el formato deseado
+  // Format the date and time in the desired format
   const formattedStartDate = moment(event.start).format("YYYY-MM-DD HH:mm");
   const formattedEndDate = moment(event.end).format("YYYY-MM-DD HH:mm");
 
   return (
-    <div style={styles.modalBackground} className="z-50">
-      <div style={styles.modalContainer}>
+    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+      <div className="rounded bg-green-200 p-4 shadow">
         <h2>
-          <strong>Titulo:</strong> {event.title}
+          <strong>Title:</strong> {event.title}
         </h2>
         <p>
-          <strong>Descripción:</strong> {event.extendedProps.description}
+          <strong>Description:</strong> {event.extendedProps.description}
         </p>
         <p>
           <strong>Start:</strong> {formattedStartDate}
@@ -38,49 +37,19 @@ export default function DescriptionModal({ isOpen, onClose, event, onDelete }) {
         <p>
           <strong>End:</strong> {formattedEndDate}
         </p>
-        <button onClick={handleDelete} style={styles.deleteButton}>
-          Borrar evento
+        <button
+          onClick={handleDelete}
+          className="mr-2 cursor-pointer rounded border-none bg-red-400 px-4 py-2"
+        >
+          Delete event
         </button>
-        <button onClick={onClose} style={styles.closeButton}>
-          Cerrar
+        <button
+          onClick={onClose}
+          className="cursor-pointer rounded border-none bg-white px-4 py-2"
+        >
+          Close
         </button>
       </div>
     </div>
   );
 }
-
-const styles = {
-  modalBackground: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContainer: {
-    backgroundColor: "#d0f0c0",
-    padding: "20px",
-    borderRadius: "5px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-  },
-  closeButton: {
-    backgroundColor: "white",
-    border: "none",
-    padding: "10px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginRight: "10px",
-  },
-  deleteButton: {
-    backgroundColor: "#ff9999",
-    border: "none",
-    padding: "10px",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginRight: "10px",
-  },
-};

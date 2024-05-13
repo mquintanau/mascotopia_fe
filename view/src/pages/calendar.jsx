@@ -1,4 +1,4 @@
-import { useRef, useState, useId, useEffect } from "react";
+import { useRef, useState, useId, useEffect, useCallback } from "react";
 import DescriptionModal from "./DescriptionModal";
 import DatePicker from "react-datepicker";
 
@@ -66,20 +66,22 @@ function Calendar() {
   }
 
   // Carga los eventos de hoy
-  async function loadEventsToday() {
+  const loadEventsToday = useCallback(async () => {
     try {
+      // Obtener eventos de hoy
       const response = await axios.get(
-        "http://localhost:4000/api/calendar/get-events?start=" +
-          moment().startOf("day").toISOString() +
-          "&end=" +
-          moment().endOf("day").toISOString(),
+        "http://localhost:4000/api/calendar/get-events-today",
       );
       setTodayEvents(response.data);
       console.log("Eventos de hoy:", response.data);
     } catch (error) {
       console.error("Error al cargar los eventos de hoy:", error);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    loadEventsToday();
+  }, [loadEventsToday]);
 
   // Agrega un evento al API
   async function handleEventAdd() {
@@ -94,8 +96,8 @@ function Calendar() {
         "http://localhost:4000/api/calendar/create-event",
         eventData,
       );
-      // Muestra una notificacion toast de confirmacion
 
+      // Muestra una notificacion toast de confirmacion
       Swal.fire({
         icon: "success",
         title: "Event added successfully!",
@@ -104,6 +106,9 @@ function Calendar() {
         toast: true,
         position: "top-end",
       });
+
+      loadEventsToday();
+      setModalOpen(false); // Cerrar el modal después de agregar el evento
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -130,13 +135,13 @@ function Calendar() {
 
   useEffect(() => {
     loadEventsToday();
-  }, []);
+  }, [loadEventsToday]);
 
   return (
     <>
       <div className="mx-auto flex w-full max-w-[1000px] flex-row flex-wrap justify-center p-4">
         <h1 className="mb-4 w-full text-center text-4xl lg:text-left">
-          Calendar
+          Calendar 📅
         </h1>
         <section className="w-[100%] max-w-[600px] rounded-xl md:bg-primary lg:w-[60%] lg:rounded-r-none">
           <div className="z-0 rounded-xl bg-white p-4 md:m-12">
