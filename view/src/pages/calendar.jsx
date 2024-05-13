@@ -40,14 +40,15 @@ function Calendar() {
 
   // Agrega un evento de forma local
   const onEventAdded = (event) => {
+    event.preventDefault();
     let calendarApi = calendarRef.current.getApi();
 
     // Agregar evento
     calendarApi.addEvent({
-      title: event.title,
-      start: event.start.toISOString(),
-      end: event.end.toISOString(),
-      description: event.description,
+      title: title,
+      start: start.toISOString(),
+      end: end.toISOString(),
+      description: description,
     });
   };
 
@@ -63,14 +64,12 @@ function Calendar() {
   }
 
   // Agrega un evento al API
-  async function handleEventAdd(info) {
-    const { event } = info;
-
+  async function handleEventAdd() {
     const eventData = {
-      start: moment(event.start).toISOString(),
-      end: moment(event.end).toISOString(),
-      title: event.title,
-      description: event.extendedProps.description,
+      start: moment(start).toISOString(),
+      end: moment(end).toISOString(),
+      title: title,
+      description: description,
     };
     try {
       await axios.post(
@@ -78,6 +77,7 @@ function Calendar() {
         eventData,
       );
       // Muestra una notificacion toast de confirmacion
+
       Swal.fire({
         icon: "success",
         title: "Event added successfully!",
@@ -92,6 +92,7 @@ function Calendar() {
         title: "There was an error! Please try again or contact support.",
         text: { error },
       });
+      console.log("Error al agregar el evento:", error);
     }
     console.log({ event });
   }
@@ -124,8 +125,10 @@ function Calendar() {
               initialView="dayGridMonth"
               eventClick={handleEventClick}
               eventContent={(eventInfo) => (
-                <div className="rounded bg-primary px-2 py-1 text-black shadow-md outline-none hover:cursor-pointer">
-                  {eventInfo.event.title}
+                <div className="w-full overflow-x-scroll rounded bg-primary px-2 py-1 text-black shadow-md outline-none hover:cursor-pointer">
+                  <p className="w-[30px] break-words">
+                    {eventInfo.event.title}
+                  </p>
                 </div>
               )}
               eventAdd={(event) => handleEventAdd(event)}
@@ -145,7 +148,7 @@ function Calendar() {
             onClick={() => setModalOpen(true)}
             className="mx-auto mb-4 w-[200px] rounded border-none bg-green-200 px-4 py-2 text-black"
           >
-            Add event
+            Add Event
           </Button>
         </section>
       </div>
