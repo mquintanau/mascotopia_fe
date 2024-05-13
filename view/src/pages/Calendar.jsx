@@ -18,7 +18,6 @@ import EventCard from "../components/EventCard/EventCard";
 import AddEventModal from "../components/AddEventModal/AddEventModal";
 
 function Calendar() {
-
   // Estados de modal y calendario
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [todayEvents, setTodayEvents] = useState([]);
@@ -26,14 +25,15 @@ function Calendar() {
   const [key, setKey] = useState(0); // Key para forzar la actualización del componente del calendario
   const calendarRef = useRef(null);
   const [addEventShown, setAddEventShown] = useState(false);
-  
+  console.log({ selectedEvent });
+
   // Contexto de usuario
   const { data, setData } = useContext(DataContext);
   const id = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, id, setData);
-    useEffect(() => {
-      loadUser();
-    }, [loadUser]);
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   // Muestra el modal del evento
   function handleEventClick(info) {
@@ -129,6 +129,7 @@ function Calendar() {
           position: "top-end",
         });
 
+        setKey((prevKey) => prevKey + 1); // Recargar los eventos del calendario
         loadEventsToday();
         setAddEventShown(false); // Cerrar el modal después de agregar el evento
       } catch (error) {
@@ -147,7 +148,7 @@ function Calendar() {
     try {
       await axios.delete(
         `http://localhost:4000/api/calendar/delete-event/${eventToDelete.extendedProps._id}`,
-        {data: {idUsuario:id, nombreUsuario: data.nombre}}
+        { data: { idUsuario: id, nombreUsuario: data.nombre } },
       );
 
       setEvents(events.filter((event) => event !== eventToDelete)); // Eliminar el evento de la lista local
