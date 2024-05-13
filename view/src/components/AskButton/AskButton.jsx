@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 import PropTypes from "prop-types";
 
-function AskButton({ forumId, refreshQuestions }) {
+function AskButton({ forumId, refreshQuestions, data }) {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -26,6 +26,8 @@ function AskButton({ forumId, refreshQuestions }) {
         body: JSON.stringify({
           //Se envian los datos del formulario en formato JSON al servidor
           forumId,
+          idUsuario: data._id,
+          autor: data.nombre,
           titulo: title,
           descripcion: description,
         }),

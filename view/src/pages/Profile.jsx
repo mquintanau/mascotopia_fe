@@ -72,6 +72,7 @@ const Profile = () => {
   const [showForm, setShowForm] = useState(false);
   const [buttonText, setButtonText] = useState("+");
   const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
+  console.log("Renderizado de App");
 
   const loadUser = useCallback(async () => {
     try {
@@ -84,7 +85,7 @@ const Profile = () => {
         })
         .catch((error) => {
           console.error("Error:", error);
-          Swal.alert({
+          Swal.fire({
             icon: "error",
             title: "There was an error loading the user data",
             text: { error },
@@ -92,17 +93,17 @@ const Profile = () => {
         });
     } catch (error) {
       console.error("Error:", error);
-      Swal.alert({
+      Swal.fire({
         icon: "error",
         title: "There was an error with the server",
         text: { error },
       });
     }
-  }, [id]);
+  }, [id, setData]);
 
   useEffect(() => {
     loadUser(); // Recarga el usuario al cambiar el contexto
-  }, [data, loadUser]);
+  }, [loadUser]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
@@ -135,11 +136,19 @@ const Profile = () => {
         ...prevData,
         imageURL: response.data.imageURL,
       }));
-      loadUser();
+
+      if (response) {
+        Swal.fire({
+          icon: "success",
+          title: "Image uploaded successfully",
+          text: "The image was uploaded successfully",
+        });
+        loadUser(); // Recarga el usuario
+      }
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
-      Swal.alert({
+      Swal.fire({
         icon: "error",
         title: "Error",
         text: { error },
@@ -168,7 +177,9 @@ const Profile = () => {
             <div className="m-6">
               <div className="flex flex-col">
                 <PetList pets={data.mascotas} />
-                {showForm && <FormPet loadUser={loadUser} />}{" "}
+                {showForm && (
+                  <FormPet loadUser={loadUser} usuario={data} />
+                )}{" "}
                 <Button
                   className="text-bold mx-auto mb-5 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
