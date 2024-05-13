@@ -29,7 +29,6 @@ function App() {
   const [data, setData] = useState(null);
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
-  // console.log("Pathname", location.pathname);
 
   let showExternalNavbar =
     location.pathname === "/" ||
