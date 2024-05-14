@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import Swal from "sweetalert2";
+import { API_URL } from "../../auth/constants";
 
 // Componente que muestra una pregunta
 const Question = (props) => {
@@ -10,8 +11,31 @@ const Question = (props) => {
   const navigate = useNavigate();
   // Se retorna un link que redirige a la vista de la pregunta con el id de la pregunta
 
-  const handleDelete = () => {
-    console.log("Deletetiado");
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${API_URL}/deleteQuestion`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          idTopic,
+        }),
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "The question has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#6FC2BD",
+        });
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const confirmationDelete = (e) => {
