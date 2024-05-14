@@ -80,6 +80,15 @@ const QuestionView = () => {
     }
   }, [idTopic, id]);
 
+  const Answer = ({ value }) => (
+    <div key={value.id} className="mb-2 rounded-md bg-green-200 p-4">
+      <h3 className="mb-2 text-sm font-bold lg:text-xl">
+        Answer by: {value.autor}
+      </h3>
+      <p className="text-sm font-light lg:text-xl">{value.respuesta}</p>
+    </div>
+  );
+
   useEffect(() => {
     loadsForums();
   }, [loadsForums]);
@@ -128,17 +137,7 @@ const QuestionView = () => {
               </p>
               {selectedQuestion.respuestas &&
                 selectedQuestion.respuestas.map((respuesta) => (
-                  <div
-                    key={respuesta.id}
-                    className="mb-2 rounded-md bg-green-200 p-4"
-                  >
-                    <h3 className="mb-2 text-sm font-bold lg:text-xl">
-                      Answer: {respuesta.autor}
-                    </h3>
-                    <p className="text-sm font-light lg:text-xl">
-                      {respuesta.respuesta}
-                    </p>
-                  </div>
+                  <Answer value={respuesta} key={respuesta.id} />
                 ))}
             </div>
             <div className="basis-2/5 rounded-xl bg-green5 px-5 shadow-lg">
