@@ -217,7 +217,7 @@ const QuestionView = () => {
                 ))}
             </div>
             <div className="basis-2/5 rounded-xl bg-green5 px-5 shadow-lg">
-              <form>
+              <form onSubmit={handleSubmitAnswer}>
                 <div>
                   <p className="mt-5">Add a Comment: </p>
                   <textarea
@@ -226,11 +226,11 @@ const QuestionView = () => {
                     onChange={(e) => setComment(e.target.value)}
                     className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2 shadow-inner"
                     placeholder="Write Here"
+                    required
                   />
                 </div>
                 <Button
                   type="submit"
-                  onClick={handleSubmitAnswer}
                   className="mx-auto mb-5 whitespace-nowrap  rounded-3xl bg-secondary px-6 py-2 font-normal"
                 >
                   Send
