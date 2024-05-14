@@ -126,22 +126,22 @@ const QuestionView = () => {
         {/*Si existe selectedQuestion muestra un div con el formato de la pregunta al lado derecho de la lista de preguntas*/}
         {selectedQuestion && (
           <div className="flex h-full flex-col ">
-            <div className="mb-4 basis-3/5 rounded-xl bg-white px-5 pb-6 pt-2">
-              <h3 className="text-sm lg:text-xl">{selectedQuestion.titulo}</h3>
-              <h3 className="text-sm lg:text-xl">
+            <div className="mb-4 basis-3/5 rounded-xl bg-white px-5 pb-6 pt-2 shadow-lg">
+              <h3 className="text-sm lg:text-xl font-bold mb-2">{selectedQuestion.titulo}</h3>
+              <h3 className="text-sm lg:text-xl mb-2">
                 Question: {selectedQuestion.autor}
               </h3>
-              <p className="text-sm font-light lg:text-xl">
+              <p className="text-sm font-light lg:text-xl mb-4">
                 {selectedQuestion.descripcion}
               </p>
               {selectedQuestion.respuestas && selectedQuestion.respuestas.map((respuesta) => (
-                <div key={respuesta.id}>
-                  <h3 className="text-sm lg:text-xl">Answer: {respuesta.autor}</h3>
+                <div key={respuesta.id} className="p-4 mb-2 bg-green-200 rounded-md">
+                  <h3 className="text-sm lg:text-xl font-bold mb-2">Answer: {respuesta.autor}</h3>
                   <p className="text-sm font-light lg:text-xl">{respuesta.respuesta}</p>
                 </div>
               ))}
             </div>
-            <div className="basis-2/5 rounded-xl bg-green5 px-5">
+            <div className="basis-2/5 rounded-xl bg-green5 px-5 shadow-lg">
               <form>
                 <div>
                   <p className="mt-5">Add a Comment: </p>
@@ -149,7 +149,7 @@ const QuestionView = () => {
                     type="text"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2"
+                    className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2 shadow-inner"
                     placeholder="Write Here"
                   />
                 </div>
