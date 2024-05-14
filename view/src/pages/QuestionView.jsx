@@ -53,6 +53,7 @@ const QuestionView = () => {
           toast: true,
           position: "top-end",
           showConfirmButton: false,
+          timer: 3000,
         });
         setComment(""); // Limpia el campo de texto
         loadsForums(); // Recarga las preguntas
@@ -126,6 +127,7 @@ const QuestionView = () => {
           toast: true,
           position: "top-end",
           showConfirmButton: false,
+          timer: 3000,
         });
         loadsForums();
       }
@@ -226,7 +228,7 @@ const QuestionView = () => {
                     onChange={(e) => setComment(e.target.value)}
                     className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2 shadow-inner"
                     placeholder="Write Here"
-                    required
+                    required={true}
                   />
                 </div>
                 <Button
