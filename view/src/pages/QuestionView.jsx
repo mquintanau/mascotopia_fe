@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+
 import QuestionList from "../components/QuestionList/QuestionList";
 import { useState, useContext } from "react";
 import Button from "../components/Button/Button";
 import Blob from "../assets/Blob.png";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 import useUserLoader from "../utils/useUserLoader";
 import DataContext from "../auth/DataContext";
 import { API_URL } from "../auth/constants";
@@ -15,7 +17,9 @@ const QuestionView = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const { data, setData } = useContext(DataContext);
   const [forum, setForum] = useState([]);
+  const [comment, setComment] = useState("");
   const { id, idTopic } = useParams();
+
   const idUsuario = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, idUsuario, setData);
   // Carga el usuario al cargar la página
@@ -29,32 +33,77 @@ const QuestionView = () => {
     setSelectedQuestion(question);
   };
 
-  useEffect(() => {
-    fetch(`http://localhost:4000/api/forum/${idTopic}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setForum(data);
-        // console.log(data.preguntas);
-
-        const defaultQuestion = data.preguntas.filter(
-          (pregunta) => pregunta.id == id,
-        )[0];
-
-        if (defaultQuestion) {
-          console.log(defaultQuestion);
-          setSelectedQuestion(defaultQuestion);
-        }
-      })
-      .catch((error) =>
-        // Muestra un mensaje de error si no se puede cargar el foro
+  const handleSubmitAnswer = async (event) => {
+    event.preventDefault();
+    // Crear FormData
+    const respuesta = comment;
+    const autor = "User";
+    const questionId = selectedQuestion.id;
+    const fecha = new Date().toISOString();
+    try {
+      const response = await axios.post(`${API_URL}/sendAnswer/`, {
+        questionId,
+        respuesta,
+        fecha,
+        autor,
+      });
+      if (response.status === 201) {
         Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: error.message,
-        }),
+          icon: "success",
+          title: "Answer Sent!",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
+        setComment(""); // Limpia el campo de texto
+        loadsForums(); // Recarga las preguntas
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
+    }
+  };
+
+  const loadsForums = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/forum/${idTopic}`);
+      const data = await response.json();
+      setForum(data);
+
+      const defaultQuestion = data.preguntas.find(
+        (pregunta) => pregunta.id == id,
       );
-  }, []);
+
+      if (defaultQuestion) {
+        console.log(defaultQuestion);
+        setSelectedQuestion(defaultQuestion);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
+    }
+  }, [idTopic, id]);
+
+  const Answer = ({ value }) => (
+    <div key={value.id} className="mb-2 rounded-md bg-green-200 p-4">
+      <h3 className="mb-2 text-sm font-bold lg:text-xl">
+        Answer by: {value.autor}
+      </h3>
+      <p className="text-sm font-light lg:text-xl">{value.respuesta}</p>
+    </div>
+  );
+
+  useEffect(() => {
+    loadsForums();
+  }, [loadsForums]);
 
   // Se retorna un div con la lista de preguntas y la pregunta seleccionada
   return (
@@ -89,27 +138,36 @@ const QuestionView = () => {
         {/*Si existe selectedQuestion muestra un div con el formato de la pregunta al lado derecho de la lista de preguntas*/}
         {selectedQuestion && (
           <div className="flex h-full flex-col ">
-            <div className="mb-4 basis-3/5 rounded-xl bg-white px-5 pb-6 pt-2">
-              <h3 className="text-sm lg:text-xl">{selectedQuestion.titulo}</h3>
-              <h3 className="text-sm lg:text-xl">
+            <div className="mb-4 basis-3/5 rounded-xl bg-white px-5 pb-6 pt-2 shadow-lg">
+              <h3 className="mb-2 text-sm font-bold lg:text-xl">
+                {selectedQuestion.titulo}
+              </h3>
+              <h3 className="mb-2 text-sm lg:text-xl">
                 Question: {selectedQuestion.autor}
               </h3>
-              <p className="text-sm font-light lg:text-xl">
+              <p className="mb-4 text-sm font-light lg:text-xl">
                 {selectedQuestion.descripcion}
               </p>
+              {selectedQuestion.respuestas &&
+                selectedQuestion.respuestas.map((respuesta) => (
+                  <Answer value={respuesta} key={respuesta.id} />
+                ))}
             </div>
-            <div className="basis-2/5 rounded-xl bg-green5 px-5">
+            <div className="basis-2/5 rounded-xl bg-green5 px-5 shadow-lg">
               <form>
                 <div>
                   <p className="mt-5">Add a Comment: </p>
                   <textarea
                     type="text"
-                    className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2 shadow-inner"
                     placeholder="Write Here"
                   />
                 </div>
                 <Button
                   type="submit"
+                  onClick={handleSubmitAnswer}
                   className="mx-auto mb-5 whitespace-nowrap  rounded-3xl bg-secondary px-6 py-2 font-normal"
                 >
                   Send
