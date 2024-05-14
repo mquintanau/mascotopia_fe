@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 
 import QuestionList from "../components/QuestionList/QuestionList";
-import { useState, useContext } from "react";
 import Button from "../components/Button/Button";
 import Blob from "../assets/Blob.png";
 
@@ -18,15 +17,15 @@ const QuestionView = () => {
   const { data, setData } = useContext(DataContext);
   const [forum, setForum] = useState([]);
   const [comment, setComment] = useState("");
-  const { id, idTopic } = useParams();
+  const { idQuestion, idForum } = useParams();
 
   const idUsuario = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, idUsuario, setData);
+
   // Carga el usuario al cargar la página
   useEffect(() => {
     loadUser();
   }, [loadUser]);
-  // Preguntas de prueba
 
   // Funcion que establece la pregunta seleccionada con sus atributos de titulo y descripcion
   const handleQuestionSelect = (question) => {
@@ -37,7 +36,7 @@ const QuestionView = () => {
     event.preventDefault();
     // Crear FormData
     const respuesta = comment;
-    const autor = "User";
+    const autor = data ? data.nombre : "Anonymous";
     const questionId = selectedQuestion.id;
     const fecha = new Date().toISOString();
     try {
@@ -70,12 +69,13 @@ const QuestionView = () => {
 
   const loadsForums = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/forum/${idTopic}`);
+      const response = await fetch(`${API_URL}/forum/${idForum}`);
       const data = await response.json();
       setForum(data);
 
+      console.log({ idForum });
       const defaultQuestion = data.preguntas.find(
-        (pregunta) => pregunta.id == id,
+        (pregunta) => pregunta.id == idQuestion,
       );
 
       if (defaultQuestion) {
@@ -90,7 +90,54 @@ const QuestionView = () => {
         footer: error.message,
       });
     }
-  }, [idTopic, id]);
+  }, [idForum, idQuestion]);
+
+  const confirmationDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#6FC2BD",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDeleteAnswer(id);
+      }
+    });
+  };
+
+  const handleDeleteAnswer = async (idAnswer) => {
+    console.log("id answer", idAnswer);
+    try {
+      const response = await axios.delete(`${API_URL}/deleteAnswer/`, {
+        data: {
+          id: idAnswer,
+          idForum,
+          idQuestion,
+          user: data,
+        },
+      });
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Answer Deleted!",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
+        loadsForums();
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
+    }
+  };
 
   const Answer = ({ value }) => (
     <div key={value.id} className="mb-2 rounded-md bg-green-200 p-4">
@@ -98,8 +145,23 @@ const QuestionView = () => {
         Answer by: {value.autor}
       </h3>
       <p className="text-sm font-light lg:text-xl">{value.respuesta}</p>
+      {data && data.correo === "admin@gmail.com" && (
+        <div className="mt-2 flex w-full items-end justify-end">
+          <Button
+            type="button"
+            className="bg-red-300"
+            onClick={() => {
+              confirmationDelete(value._id);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+      )}
     </div>
   );
+
+  console.log(selectedQuestion);
 
   useEffect(() => {
     loadsForums();
@@ -129,7 +191,8 @@ const QuestionView = () => {
           }
           onQuestionSelect={handleQuestionSelect}
           data={data}
-          idTopic={idTopic}
+          idForum={idForum}
+          refreshQuestions={loadsForums}
         />
       </div>
 
@@ -149,8 +212,8 @@ const QuestionView = () => {
                 {selectedQuestion.descripcion}
               </p>
               {selectedQuestion.respuestas &&
-                selectedQuestion.respuestas.map((respuesta) => (
-                  <Answer value={respuesta} key={respuesta.id} />
+                selectedQuestion.respuestas.map((respuesta, index) => (
+                  <Answer value={respuesta} key={index} />
                 ))}
             </div>
             <div className="basis-2/5 rounded-xl bg-green5 px-5 shadow-lg">

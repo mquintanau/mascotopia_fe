@@ -5,27 +5,41 @@ const ActivityLog = require("../schema/ActivityLog");
 
 router.delete("/", async (req, res) => {
   try {
-    const { idQuestion, idForum, usuario } = req.body;
+    const { id, idForum, idQuestion, user } = req.body;
     // Find and delete the event by ID
     const forum = await Forum.findById(idForum); // Ensure that the Event object is properly defined
-    const question = forum.preguntas.find(
-      (question) => question.id == idQuestion
+    let question = forum.preguntas.find(
+      (question) => question.id === idQuestion
     );
+    if (!question) {
+      let questionNumber = Number(idQuestion);
+      question = forum.preguntas.find(
+        (question) => question.id === questionNumber
+      );
+    }
+
+    const answer = question.respuestas.find((answer) => answer._id == id);
+
+    if (!answer) {
+      return res
+        .status(404)
+        .send("Did not found any answer with the provided ID");
+    }
     if (!question) {
       return res
         .status(404)
-        .send("No se encontró ninguna pregunta con el ID proporcionado");
+        .send("Did not found any question with the provided ID");
     }
 
-    forum.preguntas.pull(question);
-    forum.numPreguntas = forum.preguntas.length;
+    question.respuestas.pull(answer);
+    question.numRespuestas = question.respuestas.length;
 
     await forum.save();
 
     newActivity = new ActivityLog({
-      idUsuario: usuario._id,
-      nombre: usuario.nombre,
-      accion: "Question deleted",
+      idUsuario: user._id,
+      nombre: user.nombre,
+      accion: "Answer Deleted",
       fecha: new Date(),
     });
 

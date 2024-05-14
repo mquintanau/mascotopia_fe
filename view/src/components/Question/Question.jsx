@@ -11,9 +11,9 @@ const Question = (props) => {
     titulo,
     descripcion,
     onSelect,
-    id,
+    idQuestion,
     autor,
-    idTopic,
+    idForum,
     correo,
     usuario,
     refreshQuestions = () => {},
@@ -29,8 +29,8 @@ const Question = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id,
-          idTopic,
+          idQuestion,
+          idForum,
           usuario,
         }),
       });
@@ -72,7 +72,7 @@ const Question = (props) => {
       className="mb-4 rounded-xl bg-white px-5 pb-6 pt-2 text-sm hover:cursor-pointer hover:bg-gray-200 lg:text-xl"
       onClick={() => {
         onSelect({ titulo, descripcion, autor });
-        navigate(`/questionView/${id}/${idTopic}`);
+        navigate(`/questionView/${idQuestion}/${idForum}`);
       }}
     >
       {/* Se muestra el titulo, descripcion y autor de la pregunta */}

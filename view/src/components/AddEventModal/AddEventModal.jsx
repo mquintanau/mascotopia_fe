@@ -19,7 +19,6 @@ const AddEventModal = ({ setAddEventShown, onEventAdded }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onEventAdded({ title, startDate, endDate, description });
-    setAddEventShown(false);
   };
 
   return (

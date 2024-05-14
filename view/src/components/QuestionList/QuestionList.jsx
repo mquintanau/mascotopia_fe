@@ -5,7 +5,7 @@ const generateQuestionViews = (
   questions,
   onQuestionSelect = () => {},
   data,
-  idTopic,
+  idForum,
   refreshQuestions = () => {},
 ) => {
   // Si no hay preguntas, se muestra un mensaje de carga
@@ -20,9 +20,9 @@ const generateQuestionViews = (
       index={index}
       key={index}
       onSelect={onQuestionSelect}
-      id={question.id}
+      idQuestion={question.id}
       autor={question.autor}
-      idTopic={idTopic}
+      idForum={idForum}
       correo={data.correo}
       usuario={data}
       refreshQuestions={refreshQuestions}
@@ -35,7 +35,7 @@ const QuestionList = ({
   questions,
   onQuestionSelect,
   data,
-  idTopic,
+  idForum,
   refreshQuestions,
 }) => {
   // Se retorna un div con todas las preguntas generadas por la funcion generateQuestionViews
@@ -45,7 +45,7 @@ const QuestionList = ({
         questions,
         onQuestionSelect,
         data,
-        idTopic,
+        idForum,
         refreshQuestions,
       )}
     </div>

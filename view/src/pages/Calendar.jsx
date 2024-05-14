@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 import Button from "../components/Button/Button";
 import EventCard from "../components/EventCard/EventCard";
 import AddEventModal from "../components/AddEventModal/AddEventModal";
+import DecorationLineRegister from "../assets/decorationLineRegister.svg";
 
 function Calendar() {
   // Estados de modal y calendario
@@ -25,7 +26,6 @@ function Calendar() {
   const [key, setKey] = useState(0); // Key para forzar la actualización del componente del calendario
   const calendarRef = useRef(null);
   const [addEventShown, setAddEventShown] = useState(false);
-  console.log({ selectedEvent });
 
   // Contexto de usuario
   const { data, setData } = useContext(DataContext);
@@ -102,7 +102,7 @@ function Calendar() {
     };
 
     // Verificar que la fecha de inicio sea menor a la fecha de fin
-    if (eventData.start >= eventData.end) {
+    if (event.start >= event.end) {
       Swal.fire({
         icon: "error",
         title: "The end date must be greater than the start date",
@@ -178,8 +178,11 @@ function Calendar() {
   }, [loadEventsToday]);
 
   return (
-    <>
-      <div className="mx-auto flex w-full max-w-[1000px] flex-row flex-wrap justify-center p-4">
+    <div
+      style={{ backgroundImage: `url(${DecorationLineRegister})` }}
+      className="bg-cover bg-center bg-no-repeat"
+    >
+      <div className="min-w-screen mx-auto flex w-full max-w-[1000px] flex-row flex-wrap justify-center p-4">
         <h1 className="mb-4 w-full text-center text-4xl lg:text-left">
           Calendar 📅
         </h1>
@@ -250,7 +253,7 @@ function Calendar() {
           onDelete={handleEventDelete} // Pasar la función onDelete al componente hijo
         />
       )}
-    </>
+    </div>
   );
 }
 

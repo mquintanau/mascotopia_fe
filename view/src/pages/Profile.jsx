@@ -5,6 +5,7 @@ import PetList from "../components/Pet/PetList/Petlist";
 import UserView from "../components/User/UserView/UserView";
 import Button from "../components/Button/Button";
 import FormPet from "../components/FormPet/FormPet";
+import profileBackground from "../assets/profileBackground.png";
 
 // Logica de la pagina
 import { API_URL } from "../auth/constants";
@@ -120,8 +121,10 @@ const Profile = () => {
 
   return (
     <div
-      className="mx-auto my-10 max-w-screen-xl"
-      style={{ backgroundImage: "url('public/shared/DecorationLine.svg')" }}
+      className="min-w-screen mx-auto min-h-screen bg-cover bg-center bg-no-repeat backdrop-blur"
+      style={{
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.1) 100%), url(${profileBackground})`,
+      }}
     >
       <div className="mt-3 flex justify-center scrollbar">
         {data && (
@@ -159,22 +162,27 @@ const Profile = () => {
                 </Button>
               </form>
             </div>
-            <div className="m-6">
-              <div className="flex flex-col">
-                <PetList
-                  pets={data.mascotas}
-                  setData={setData}
+            <div className="m-6 flex flex-col">
+              <PetList
+                pets={data.mascotas}
+                setData={setData}
+                loadUser={loadUser}
+              />
+              {showForm && (
+                <FormPet
                   loadUser={loadUser}
+                  usuario={data}
+                  setShowForm={setShowForm}
+                  setButtonText={setButtonText}
                 />
-                {showForm && <FormPet loadUser={loadUser} usuario={data} />}{" "}
-                <Button
-                  className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
-                  onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
-                >
-                  {buttonText}
-                </Button>
-                {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
-              </div>
+              )}{" "}
+              <Button
+                className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
+                onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
+              >
+                {buttonText}
+              </Button>
+              {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
             </div>
           </div>
         )}

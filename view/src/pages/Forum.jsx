@@ -230,7 +230,7 @@ function Forum() {
               : ""
           }
           data={data}
-          idTopic={currentForumId}
+          idForum={currentForumId}
           refreshQuestions={refreshQuestions}
         />
         <div className="flex items-center justify-center">
