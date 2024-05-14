@@ -25,6 +25,8 @@ const Profile = () => {
   console.log("Renderizado de App");
 
   const loadUser = useCallback(async () => {
+    console.log("user loading");
+
     try {
       fetch(`${API_URL}/userProfile/${id}`)
         .then((response) => response.json()) //Convierte la respuesta a un objeto JSON
@@ -73,6 +75,7 @@ const Profile = () => {
   // Función para manejar el envío del formulario
   const handleImageSubmit = async (event) => {
     event.preventDefault();
+    console.log("image submit");
 
     // Creacion del objeto FormData
     const formData = new FormData();
@@ -86,12 +89,14 @@ const Profile = () => {
         `${API_URL}/imageProfile/${id}`,
         formData,
       );
+      console.log("response", response);
       // Actualizar
       setData((prevData) => ({
         ...prevData,
         imageURL: response.data.imageURL,
       }));
 
+      console.log("sdaaaaaaaaaa");
       if (response) {
         Swal.fire({
           icon: "success",
@@ -140,6 +145,7 @@ const Profile = () => {
                   ref={fileInputRef}
                 />
                 <Button
+                  type="button"
                   onClick={handleFileButtonClick}
                   className="bg-primary"
                   style={{ marginRight: "5px" }}
