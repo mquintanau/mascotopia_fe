@@ -4,7 +4,7 @@ import { API_URL } from "../../auth/constants";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-const FormPet = ({ loadUser }) => {
+const FormPet = ({ loadUser, usuario }) => {
   // Estados para la nueva mascota
   const [nombreMascotaNueva, setNombreMascotaNueva] = useState("");
   const [animalNueva, setAnimalNueva] = useState("");
@@ -40,6 +40,7 @@ const FormPet = ({ loadUser }) => {
           descripcionNueva,
           edadNueva,
           idUsuario: id,
+          nombreUsuario: usuario.nombre,
         }),
       });
 

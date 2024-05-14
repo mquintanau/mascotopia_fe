@@ -20,7 +20,7 @@ import DataContext from "./auth/DataContext";
 import Profile from "./pages/Profile";
 import Forum from "./pages/Forum";
 import QuestionView from "./pages/QuestionView";
-import Calendar from "./pages/calendar";
+import Calendar from "./pages/Calendar";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
