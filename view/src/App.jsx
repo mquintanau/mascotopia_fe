@@ -20,7 +20,7 @@ import DataContext from "./auth/DataContext";
 import Profile from "./pages/Profile";
 import Forum from "./pages/Forum";
 import QuestionView from "./pages/QuestionView";
-import Calendar from "./pages/calendar";
+import Calendar from "./pages/Calendar";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
@@ -29,7 +29,6 @@ function App() {
   const [data, setData] = useState(null);
   // Se obtiene la ubicación actual de la aplicación para mostrar una navbar u otra
   const location = useLocation();
-  // console.log("Pathname", location.pathname);
 
   let showExternalNavbar =
     location.pathname === "/" ||

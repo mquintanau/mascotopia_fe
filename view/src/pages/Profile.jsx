@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, useRef } from "react";
 
 // Componentes
 import PetList from "../components/Pet/PetList/Petlist";
@@ -15,57 +15,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-//Ejemplos para la pagina mientras union
-//Revisar como unir pet y user
-//Ejemplos para la pagina mientras union
-// const petsData = [
-//   {
-//     imageURL: "./shared/EjemploPet.jpg",
-//     petLocation: "Bogotá",
-//     name: "Fluffy",
-//     age: 3,
-//     kind: "Dog",
-//     description: "A fluffy and friendly dog.",
-//   },
-//   {
-//     imageURL: "https://via.placeholder.com/150",
-//     petLocation: "Los Angeles",
-//     name: "Whiskers",
-//     age: 2,
-//     kind: "Cat",
-//     description: "Independent and curious",
-//   },
-//   {
-//     imageURL: "https://via.placeholder.com/150",
-//     petLocation: "Chicago",
-//     name: "Buddy",
-//     age: 5,
-//     kind: "Dog",
-//     description: "Loyal and energetic",
-//   },
-//   {
-//     imageURL: "https://via.placeholder.com/150",
-//     petLocation: "Houston",
-//     name: "Fluffy",
-//     age: 1,
-//     kind: "Rabbit",
-//     description: "Adorable and cuddly",
-//   },
-// ];
-
-// const user = {
-//   name: "AAAaaaA css",
-//   email: "aaa@gmail.com",
-//   username: "aa123",
-//   role: "Volunteer",
-//   imageURL: "/shared/EjemploImagenUsuario.jpg",
-//   user_id: 20,
-//   birthday: "1990-06-15",
-//   contact_number: 1111111111,
-//   description: ":3",
-//   number_pets: 2,
-// };
-
 const Profile = () => {
   const { data, setData } = useContext(DataContext); //Variable de estado para guardar los datos del usuario
   const { id } = useParams();
@@ -73,7 +22,12 @@ const Profile = () => {
   const [buttonText, setButtonText] = useState("+");
   const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
 
+  const fileInputRef = useRef();
+  console.log("Renderizado de App");
+
   const loadUser = useCallback(async () => {
+    console.log("user loading");
+
     try {
       fetch(`${API_URL}/userProfile/${id}`)
         .then((response) => response.json()) //Convierte la respuesta a un objeto JSON
@@ -98,15 +52,16 @@ const Profile = () => {
         text: { error },
       });
     }
-  }, [id]);
-
-  useEffect(() => {
-    loadUser(); // Recarga el usuario al cambiar el contexto
-  }, [data, loadUser]);
+  }, [id, setData]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
     setButtonText((prevText) => (prevText === "+" ? "x" : "+"));
+  };
+
+  //Funcion para manejar el evento de subir foto de perfil
+  const handleFileButtonClick = () => {
+    fileInputRef.current.click();
   };
 
   //Función para manejar el cambio de la imagen seleccionada por el usuario
@@ -117,6 +72,7 @@ const Profile = () => {
   // Función para manejar el envío del formulario
   const handleImageSubmit = async (event) => {
     event.preventDefault();
+    console.log("image submit");
 
     // Creacion del objeto FormData
     const formData = new FormData();
@@ -126,16 +82,27 @@ const Profile = () => {
 
     // Envíar FormData al servidor
     try {
+      console.log("response");
       const response = await axios.post(
         `${API_URL}/imageProfile/${id}`,
         formData,
       );
+      console.log("response", response);
       // Actualizar
       setData((prevData) => ({
         ...prevData,
         imageURL: response.data.imageURL,
       }));
-      loadUser();
+
+      console.log("sdaaaaaaaaaa");
+      if (response) {
+        Swal.fire({
+          icon: "success",
+          title: "Image uploaded successfully",
+          text: "The image was uploaded successfully",
+        });
+        loadUser(); // Recarga el usuario
+      }
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
@@ -146,6 +113,10 @@ const Profile = () => {
       });
     }
   };
+
+  useEffect(() => {
+    loadUser(); // Recarga el usuario al cambiar el contexto
+  }, [loadUser]);
 
   return (
     <div
@@ -164,23 +135,45 @@ const Profile = () => {
                 username={data.username}
                 number_pets={data.mascotas.length}
               />
+              <form
+                onSubmit={handleImageSubmit}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }} // Oculta el input
+                  ref={fileInputRef}
+                />
+                <Button
+                  type="button"
+                  onClick={handleFileButtonClick}
+                  className="bg-primary"
+                  style={{ marginRight: "5px" }}
+                >
+                  New Profile Picture
+                </Button>
+                <Button type="submit" className="bg-primary">
+                  Upload
+                </Button>
+              </form>
             </div>
             <div className="m-6">
               <div className="flex flex-col">
-                <PetList pets={data.mascotas} />
-                {showForm && <FormPet loadUser={loadUser} />}{" "}
+                <PetList
+                  pets={data.mascotas}
+                  setData={setData}
+                  loadUser={loadUser}
+                />
+                {showForm && <FormPet loadUser={loadUser} usuario={data} />}{" "}
                 <Button
-                  className="text-bold mx-auto mb-5 w-[200px] rounded-full text-[20px] text-black"
+                  className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
                 >
                   {buttonText}
                 </Button>
-                {/* Se muestra el formulario si showForm es true */}
                 {/* Se ponen mas mascotas dependiendo de la cantidad de mascotas del usuario */}
-                <form onSubmit={handleImageSubmit}>
-                  <input type="file" onChange={handleImageChange} />
-                  <button type="submit">Upload New Profile Image</button>
-                </form>
               </div>
             </div>
           </div>

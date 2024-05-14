@@ -1,17 +1,19 @@
 import PropTypes from "prop-types";
+// import { Camera } from "iconoir-react";
 
 const PetView = (props) => {
   const { imageURL, petName, petAge, animalPet, petDescription } = props;
+
   return (
     <div className="mb-5 items-start font-semibold text-black">
       <p className="flex justify-start px-4 py-1">
         {petName + " - " + animalPet}
       </p>
       <div className="flex min-h-[250px] min-w-[300px] justify-center rounded-[13px] bg-[#A4F3B3]">
-        <div className="flex  items-center justify-center">
+        <div className="flex items-center justify-center">
           <div className="relative m-4 mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
             <img
-              src={imageURL}
+              src={`http://localhost:4000${imageURL}`}
               className="h-full w-full rounded-full object-cover"
             />
           </div>

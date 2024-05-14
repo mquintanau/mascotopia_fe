@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.11",
+    "@fullcalendar/react": "^6.1.11",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -20,11 +22,10 @@
     "mongoose": "^8.2.4",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.13",
+    "nodemailer-express-handlebars": "^6.1.2",
     "nodemon": "^3.1.0",
-    "uuid": "^9.0.1",
-    "@fullcalendar/daygrid": "^6.1.11",
-    "@fullcalendar/react": "^6.1.11",
     "react-datetime": "^3.2.0",
-    "react-modal": "^3.16.1"
+    "react-modal": "^3.16.1",
+    "uuid": "^9.0.1"
   }
 }

@@ -5,6 +5,7 @@ const getUserInfo = require("../lib/getUserInfo"); // importamos la funcion para
 const jwt = require('jsonwebtoken'); // importamos la libreria de jwt
 const { hash } = require("bcrypt");
 const bcrypt = require('bcrypt');
+const ActivityLog = require("../schema/ActivityLog"); // importamos el modelo de log de actividades
 
 
 router.post('/:id/:token', async (req, res) => {
@@ -12,7 +13,7 @@ router.post('/:id/:token', async (req, res) => {
     const { contraseña, contraseñaRev } = req.body;
 
 
-    if (!!!contraseña || !!!contraseñaRev) { //verificamos si los campos estan vacios
+    if (!contraseña || !contraseñaRev) { //verificamos si los campos estan vacios
         return res.status(400).json(jsonResponse(400, { //retornamos un json con el mensaje de error
             error: "The fields are required"
         }));
@@ -35,7 +36,18 @@ router.post('/:id/:token', async (req, res) => {
                 .then(hash => {
                     User.findByIdAndUpdate({_id: id}, {contraseña: hash })
                     // Aquí va el código que deseas ejecutar después de hashear la contraseña
-                    .then(u => {
+                    .then(async u => {
+
+                        // Verificar si se debe registrar la actividad en el log de actividades
+                        const newActivity = new ActivityLog({//creamos un nuevo registro en el log de actividades
+                            idUsuario: u._id,
+                            nombre: u.nombre,
+                            accion: "Password updated",
+                            fecha: new Date()
+                        });
+
+                        await newActivity.save();//guardamos el registro en la base de datos
+
                         return res.status(200).json(jsonResponse(200, {
                             message: "Password updated successfully"
                         }));
