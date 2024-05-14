@@ -1,36 +1,28 @@
 import { Link } from "react-router-dom";
 import QuestionList from "../components/QuestionList/QuestionList";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "../components/Button/Button";
 import Blob from "../assets/Blob.png";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import useUserLoader from "../utils/useUserLoader";
+import DataContext from "../auth/DataContext";
+import { API_URL } from "../auth/constants";
 
 const QuestionView = () => {
   // Se almacena la pregunta seleccionada en la constante selectedQuestion
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const { data, setData } = useContext(DataContext);
   const [forum, setForum] = useState([]);
   const { id, idTopic } = useParams();
+  const idUsuario = localStorage.getItem("idUser");
+  const loadUser = useUserLoader(API_URL, idUsuario, setData);
+  // Carga el usuario al cargar la página
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
   // Preguntas de prueba
-  const questionTest = [
-    {
-      name: "Pablo",
-      description: "Hola, como estas?",
-    },
-    {
-      name: "Juan",
-      description: "Bien, gracias y tu?",
-    },
-    {
-      name: "Pablo",
-      description: "Bien, gracias",
-    },
-    {
-      name: "Pablo",
-      description: "Bien, gracias",
-    },
-  ];
 
   // Funcion que establece la pregunta seleccionada con sus atributos de titulo y descripcion
   const handleQuestionSelect = (question) => {
@@ -87,6 +79,7 @@ const QuestionView = () => {
             forum.preguntas && forum.preguntas.length > 0 ? forum.preguntas : ""
           }
           onQuestionSelect={handleQuestionSelect}
+          data={data}
           idTopic={idTopic}
         />
       </div>

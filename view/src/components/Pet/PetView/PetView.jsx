@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
+// import { Camera } from "iconoir-react";
 
 const PetView = (props) => {
   const { imageURL, petName, petAge, animalPet, petDescription } = props;
+
   return (
     <div className="mb-5 items-start font-semibold text-black">
       <p className="flex justify-start px-4 py-1">

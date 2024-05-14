@@ -21,6 +21,7 @@ const Profile = () => {
   const [showForm, setShowForm] = useState(false);
   const [buttonText, setButtonText] = useState("+");
   const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
+
   const fileInputRef = useRef();
   console.log("Renderizado de App");
 
@@ -52,10 +53,6 @@ const Profile = () => {
       });
     }
   }, [id, setData]);
-
-  useEffect(() => {
-    loadUser(); // Recarga el usuario al cambiar el contexto
-  }, [loadUser]);
 
   const handleButtonClick = () => {
     setShowForm((prevState) => !prevState);
@@ -116,6 +113,10 @@ const Profile = () => {
       });
     }
   };
+
+  useEffect(() => {
+    loadUser(); // Recarga el usuario al cambiar el contexto
+  }, [loadUser]);
 
   return (
     <div
