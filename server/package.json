@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon app",
+    "server": "nodemon app.js",
     "build": "npm install --prefix ./client && npm run build --prefix ./client && npm install"
   },
   "keywords": [],
