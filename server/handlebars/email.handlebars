@@ -1,0 +1,68 @@
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .card {
+            background-color: #D6FEDA;
+            width: 100%;
+            height: 150px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            
+        }
+
+        .cardInverted {
+            background-color: #D6FEDA;
+            width: 100%;
+            height: 150px;
+            border-bottom-left-radius :10px;
+            border-bottom-right-radius: 10px;
+        }
+        
+        .container{
+          margin-bottom: 100px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 3em;
+            width: 100%;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            font-size: 2em
+        }
+
+        a {
+            color: #6FC2BD;;
+            text-decoration: none;
+            font-size: 20px;
+
+        }
+        a:hover {
+            background-color: #007B9A;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="card">
+        </div>
+        <h1>{{title}}</h1>
+        <p>{{text}}</p>
+        <div class="container">
+            <a href={{link}}>{{linkMessage}}</a>
+        </div>
+        <div class="cardInverted">
+        </div>
+    </div>
+</body>
+</html>
