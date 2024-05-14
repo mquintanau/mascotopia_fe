@@ -43,6 +43,7 @@ app.use("/api/forum", require("./routes/forum")); // Ruta get de los foros
 app.use("/api/sendQuestion", require("./routes/sendQuestion")); // Ruta para post de las preguntas
 app.use("/api/sendAnswer", require("./routes/sendAnswer")); // Ruta para post de las respuestas
 app.use("/api/deleteQuestion", require("./routes/deleteQuestion")); // Ruta para eliminar preguntas
+app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eliminar preguntas
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

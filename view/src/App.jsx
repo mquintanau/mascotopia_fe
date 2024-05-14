@@ -56,7 +56,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route
-                path="/questionView/:id/:idTopic"
+                path="/questionView/:idQuestion/:idForum"
                 element={<QuestionView />}
               />
               {/* Prueba perfil */}
