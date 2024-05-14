@@ -15,8 +15,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
-
 const Profile = () => {
   const { data, setData } = useContext(DataContext); //Variable de estado para guardar los datos del usuario
   const { id } = useParams();
@@ -121,30 +119,35 @@ const Profile = () => {
                 username={data.username}
                 number_pets={data.mascotas.length}
               />
-            <form onSubmit={handleImageSubmit} style={{ display: 'flex', justifyContent: 'center' }}>
-              <input 
-               type="file" 
-               id="fileInput" 
-               onChange={handleImageChange} 
-               style={{ display: 'none' }} // Oculta el input
-               ref={fileInputRef}
-              />
-              <Button 
-               onClick={handleFileButtonClick}
-               className="bg-primary" 
-               style={{marginRight: '5px'}}
+              <form
+                onSubmit={handleImageSubmit}
+                style={{ display: "flex", justifyContent: "center" }}
               >
-                New Profile Picture
-              </Button>
-              <Button type="submit" className="bg-primary" >Upload</Button>
-            </form>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }} // Oculta el input
+                  ref={fileInputRef}
+                />
+                <Button
+                  onClick={handleFileButtonClick}
+                  className="bg-primary"
+                  style={{ marginRight: "5px" }}
+                >
+                  New Profile Picture
+                </Button>
+                <Button type="submit" className="bg-primary">
+                  Upload
+                </Button>
+              </form>
             </div>
             <div className="m-6">
               <div className="flex flex-col">
                 <PetList pets={data.mascotas} />
                 {showForm && <FormPet loadUser={loadUser} />}{" "}
                 <Button
-                  className="text-bold mx-auto mb-5 w-[200px] rounded-full text-[20px] text-black"
+                  className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
                 >
                   {buttonText}
