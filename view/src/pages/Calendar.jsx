@@ -58,7 +58,7 @@ function Calendar() {
   // Carga los eventos del API
   async function loadEvents(data) {
     const response = await axios.get(
-      "http://localhost:4000/api/calendar/get-events?start=" +
+      `${API_URL}/calendar/get-events?start=` +
         moment(data.start).toISOString() +
         "&end=" +
         moment(data.end).toISOString(),
@@ -70,9 +70,7 @@ function Calendar() {
   const loadEventsToday = useCallback(async () => {
     try {
       // Obtener eventos de hoy
-      const response = await axios.get(
-        "http://localhost:4000/api/calendar/get-events-today",
-      );
+      const response = await axios.get(`${API_URL}/calendar/get-events-today`);
       setTodayEvents(response.data);
     } catch (error) {
       Swal.fire({
@@ -114,10 +112,7 @@ function Calendar() {
       return;
     } else {
       try {
-        await axios.post(
-          "http://localhost:4000/api/calendar/create-event",
-          eventData,
-        );
+        await axios.post(`${API_URL}/calendar/create-event`, eventData);
 
         // Muestra una notificacion toast de confirmacion
         Swal.fire({
@@ -147,7 +142,7 @@ function Calendar() {
   async function handleEventDelete(eventToDelete) {
     try {
       await axios.delete(
-        `http://localhost:4000/api/calendar/delete-event/${eventToDelete.extendedProps._id}`,
+        `${API_URL}/calendar/delete-event/${eventToDelete.extendedProps._id}`,
         { data: { idUsuario: id, nombreUsuario: data.nombre } },
       );
 
