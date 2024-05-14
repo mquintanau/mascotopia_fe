@@ -231,6 +231,7 @@ function Forum() {
           }
           data={data}
           idTopic={currentForumId}
+          refreshQuestions={refreshQuestions}
         />
         <div className="flex items-center justify-center">
           <AskButton

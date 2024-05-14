@@ -7,8 +7,17 @@ import { API_URL } from "../../auth/constants";
 // Componente que muestra una pregunta
 const Question = (props) => {
   // Se almacenan las props dadas a la pregunta en las siguientes constantes
-  const { titulo, descripcion, onSelect, id, autor, idTopic, correo, usuario } =
-    props;
+  const {
+    titulo,
+    descripcion,
+    onSelect,
+    id,
+    autor,
+    idTopic,
+    correo,
+    usuario,
+    refreshQuestions = () => {},
+  } = props;
   const navigate = useNavigate();
   // Se retorna un link que redirige a la vista de la pregunta con el id de la pregunta
 
@@ -33,7 +42,7 @@ const Question = (props) => {
           icon: "success",
           confirmButtonColor: "#6FC2BD",
         });
-        window.location.reload();
+        refreshQuestions();
       }
     } catch (error) {
       console.error(error);

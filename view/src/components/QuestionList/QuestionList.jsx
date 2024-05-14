@@ -6,6 +6,7 @@ const generateQuestionViews = (
   onQuestionSelect = () => {},
   data,
   idTopic,
+  refreshQuestions = () => {},
 ) => {
   // Si no hay preguntas, se muestra un mensaje de carga
   if (!questions) return <h1>Loading...</h1>;
@@ -24,16 +25,29 @@ const generateQuestionViews = (
       idTopic={idTopic}
       correo={data.correo}
       usuario={data}
+      refreshQuestions={refreshQuestions}
     />
   ));
 };
 
 // Componente que muestra una lista de preguntas
-const QuestionList = ({ questions, onQuestionSelect, data, idTopic }) => {
+const QuestionList = ({
+  questions,
+  onQuestionSelect,
+  data,
+  idTopic,
+  refreshQuestions,
+}) => {
   // Se retorna un div con todas las preguntas generadas por la funcion generateQuestionViews
   return (
     <div>
-      {generateQuestionViews(questions, onQuestionSelect, data, idTopic)}
+      {generateQuestionViews(
+        questions,
+        onQuestionSelect,
+        data,
+        idTopic,
+        refreshQuestions,
+      )}
     </div>
   );
 };

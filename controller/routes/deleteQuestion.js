@@ -13,6 +13,8 @@ router.delete("/", async (req, res) => {
         return res.status(404).send('No se encontró ninguna pregunta con el ID proporcionado');
       }
       forum.preguntas.pull(question);
+      forum.numPreguntas = forum.preguntas.length;
+      
       await forum.save();
 
       newActivity = new ActivityLog({
