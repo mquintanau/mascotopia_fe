@@ -11,7 +11,7 @@ const PetView = (props) => {
         <div className="flex  items-center justify-center">
           <div className="relative m-4 mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
             <img
-              src={imageURL}
+              src={`http://localhost:4000${imageURL}`}
               className="h-full w-full rounded-full object-cover"
             />
           </div>
