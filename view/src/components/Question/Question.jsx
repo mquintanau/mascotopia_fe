@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
+import Swal from "sweetalert2";
 
 // Componente que muestra una pregunta
 const Question = (props) => {
@@ -8,6 +9,29 @@ const Question = (props) => {
   const { titulo, descripcion, onSelect, id, autor, idTopic, correo } = props;
   const navigate = useNavigate();
   // Se retorna un link que redirige a la vista de la pregunta con el id de la pregunta
+
+  const handleDelete = () => {
+    console.log("Deletetiado");
+  };
+
+  const confirmationDelete = (e) => {
+    e.stopPropagation();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#6FC2BD",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete();
+        // Aquí va el código para manejar la eliminación
+      }
+    });
+  };
+
   return (
     <div
       className="mb-4 rounded-xl bg-white px-5 pb-6 pt-2 text-sm hover:cursor-pointer hover:bg-gray-200 lg:text-xl"
@@ -25,10 +49,7 @@ const Question = (props) => {
           <Button
             type="submit"
             className="bg-red-300"
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log("Delete");
-            }}
+            onClick={confirmationDelete}
           >
             Delete
           </Button>
