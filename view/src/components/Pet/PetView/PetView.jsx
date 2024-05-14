@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-// import { Camera } from "iconoir-react";
+import PetDefaultPhoto from "../../../assets/pet.png";
 
 const PetView = (props) => {
   const { imageURL, petName, petAge, animalPet, petDescription } = props;
@@ -11,10 +11,12 @@ const PetView = (props) => {
       </p>
       <div className="flex min-h-[250px] min-w-[300px] justify-center rounded-[13px] bg-[#A4F3B3]">
         <div className="flex items-center justify-center">
-          <div className="relative m-4 mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
+          <div className="relative m-4 mb-4 h-[175px] w-[175px] justify-center overflow-hidden">
             <img
-              src={`http://localhost:4000${imageURL}`}
-              className="h-full w-full rounded-full object-cover"
+              src={
+                imageURL ? `http://localhost:4000${imageURL}` : PetDefaultPhoto
+              }
+              className={`h-full w-full object-cover ${imageURL ? "rounded-full" : ""}`}
             />
           </div>
           <div className="flex-col justify-start border-l-4 border-primary px-4 text-[15px] font-light text-black">

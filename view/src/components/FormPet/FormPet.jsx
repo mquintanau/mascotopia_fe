@@ -4,7 +4,7 @@ import { API_URL } from "../../auth/constants";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-const FormPet = ({ loadUser, usuario }) => {
+const FormPet = ({ loadUser, usuario, setButtonText, setShowForm }) => {
   // Estados para la nueva mascota
   const [nombreMascotaNueva, setNombreMascotaNueva] = useState("");
   const [animalNueva, setAnimalNueva] = useState("");
@@ -52,6 +52,9 @@ const FormPet = ({ loadUser, usuario }) => {
           icon: "success",
           confirmButtonText: "Continue",
         });
+        setIsVisible(false);
+        setShowForm(false);
+        setButtonText("+");
         loadUser();
       } else {
         console.log(

@@ -119,7 +119,7 @@ const QuestionView = () => {
           user: data,
         },
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Answer Deleted!",
@@ -192,6 +192,7 @@ const QuestionView = () => {
           onQuestionSelect={handleQuestionSelect}
           data={data}
           idForum={idForum}
+          refreshQuestions={loadsForums}
         />
       </div>
 

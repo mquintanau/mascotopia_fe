@@ -168,7 +168,14 @@ const Profile = () => {
                 setData={setData}
                 loadUser={loadUser}
               />
-              {showForm && <FormPet loadUser={loadUser} usuario={data} />}{" "}
+              {showForm && (
+                <FormPet
+                  loadUser={loadUser}
+                  usuario={data}
+                  setShowForm={setShowForm}
+                  setButtonText={setButtonText}
+                />
+              )}{" "}
               <Button
                 className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
                 onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón

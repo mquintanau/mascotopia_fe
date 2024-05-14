@@ -44,7 +44,7 @@ router.delete("/", async (req, res) => {
     });
 
     await newActivity.save();
-    res.sendStatus(201);
+    res.sendStatus(200);
   } catch (error) {
     console.error("Error al borrar el evento:", error);
     res.sendStatus(500);
