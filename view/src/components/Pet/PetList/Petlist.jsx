@@ -60,7 +60,7 @@ const generatePetViews = (pets, idUser, setData, loadUser) => {
   };
 
   return pets.map((pet, index) => (
-    <div key={index} className="mt-4">
+    <div key={index} className={index !== 0 ? "mt-4" : ""}>
       <PetView
         pet={pet}
         imageURL={pet.imageURL}

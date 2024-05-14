@@ -121,12 +121,14 @@ const Profile = () => {
 
   return (
     <div
-      className="min-w-screen mx-auto min-h-screen bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${profileBackground})` }}
+      className="min-w-screen mx-auto min-h-screen bg-cover bg-center bg-no-repeat backdrop-blur"
+      style={{
+        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.1) 100%), url(${profileBackground})`,
+      }}
     >
       <div className="mt-3 flex justify-center scrollbar">
         {data && (
-          <div className="mb-8 flex flex-col items-center sm:flex-row">
+          <div className="mb-8 flex flex-col sm:flex-row">
             <div className="m-6">
               <UserView
                 imageURL={data.imageURL}

@@ -6,7 +6,7 @@ const PetView = (props) => {
 
   return (
     <div className="mb-5 items-start font-semibold text-black">
-      <p className="flex justify-start px-4 py-1">
+      <p className="outline-blac mb-2 flex w-fit justify-start rounded-md bg-white bg-opacity-85 px-4 py-1 outline outline-[2.5px]">
         {petName + " - " + animalPet}
       </p>
       <div className="flex min-h-[250px] min-w-[300px] justify-center rounded-[13px] bg-[#A4F3B3]">
