@@ -2,6 +2,7 @@ import { useContext } from "react";
 import PropTypes from "prop-types";
 import DataContext from "../../../auth/DataContext";
 import UserDefaultPhoto from "../../../assets/user.png";
+import { API_URL } from "../../../auth/constants";
 
 const UserView = () => {
   const { data } = useContext(DataContext); // Use the context

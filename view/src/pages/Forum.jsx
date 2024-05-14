@@ -79,7 +79,7 @@ function Forum() {
   };
   // Función que refresca las preguntas
   const refreshQuestions = () => {
-    fetch("http://localhost:4000/api/forum")
+    fetch(`${API_URL}/forum`)
       .then((response) => response.json())
       .then((data) => {
         setForums(data); // Actualiza los foros
@@ -91,7 +91,7 @@ function Forum() {
 
   //   Carga los foros disponibles
   useEffect(() => {
-    fetch("http://localhost:4000/api/forum")
+    fetch(`${API_URL}/forum`)
       .then((response) => response.json())
       .then((data) => {
         setForums(data);
