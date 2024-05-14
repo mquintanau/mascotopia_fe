@@ -8,7 +8,7 @@ const PetView = (props) => {
         {petName + " - " + animalPet}
       </p>
       <div className="flex min-h-[250px] min-w-[300px] justify-center rounded-[13px] bg-[#A4F3B3]">
-        <div className="flex  items-center justify-center">
+        <div className="flex items-center justify-center">
           <div className="relative m-4 mb-4 h-[175px] w-[175px] justify-center overflow-hidden rounded-full">
             <img
               src={`http://localhost:4000${imageURL}`}

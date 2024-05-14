@@ -85,6 +85,7 @@ const Profile = () => {
 
     // Envíar FormData al servidor
     try {
+      console.log("response");
       const response = await axios.post(
         `${API_URL}/imageProfile/${id}`,
         formData,
@@ -159,10 +160,12 @@ const Profile = () => {
             </div>
             <div className="m-6">
               <div className="flex flex-col">
-                <PetList pets={data.mascotas} />
-                {showForm && (
-                  <FormPet loadUser={loadUser} usuario={data} />
-                )}{" "}
+                <PetList
+                  pets={data.mascotas}
+                  setData={setData}
+                  loadUser={loadUser}
+                />
+                {showForm && <FormPet loadUser={loadUser} usuario={data} />}{" "}
                 <Button
                   className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón
