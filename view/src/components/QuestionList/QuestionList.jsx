@@ -23,6 +23,7 @@ const generateQuestionViews = (
       autor={question.autor}
       idTopic={idTopic}
       correo={data.correo}
+      usuario={data}
     />
   ));
 };

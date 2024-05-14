@@ -110,7 +110,6 @@ function Forum() {
       );
   }, []);
 
-  console.log("hola" + data);
   // Se retorna un div con los foros y preguntas
   return (
     // Se muestra un div con los foros y preguntas

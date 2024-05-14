@@ -7,7 +7,8 @@ import { API_URL } from "../../auth/constants";
 // Componente que muestra una pregunta
 const Question = (props) => {
   // Se almacenan las props dadas a la pregunta en las siguientes constantes
-  const { titulo, descripcion, onSelect, id, autor, idTopic, correo } = props;
+  const { titulo, descripcion, onSelect, id, autor, idTopic, correo, usuario } =
+    props;
   const navigate = useNavigate();
   // Se retorna un link que redirige a la vista de la pregunta con el id de la pregunta
 
@@ -21,6 +22,7 @@ const Question = (props) => {
         body: JSON.stringify({
           id,
           idTopic,
+          usuario,
         }),
       });
 
