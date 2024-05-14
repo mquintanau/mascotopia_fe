@@ -84,7 +84,7 @@ const Profile = () => {
         })
         .catch((error) => {
           console.error("Error:", error);
-          Swal.alert({
+          Swal.fire({
             icon: "error",
             title: "There was an error loading the user data",
             text: { error },
@@ -92,7 +92,7 @@ const Profile = () => {
         });
     } catch (error) {
       console.error("Error:", error);
-      Swal.alert({
+      Swal.fire({
         icon: "error",
         title: "There was an error with the server",
         text: { error },
@@ -139,7 +139,7 @@ const Profile = () => {
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
-      Swal.alert({
+      Swal.fire({
         icon: "error",
         title: "Error",
         text: { error },

@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+
 import QuestionList from "../components/QuestionList/QuestionList";
-import { useState } from "react";
 import Button from "../components/Button/Button";
 import Blob from "../assets/Blob.png";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { API_URL } from "../auth/constants.js";
+
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { API_URL } from "../auth/constants.js";
 
 const QuestionView = () => {
   // Se almacena la pregunta seleccionada en la constante selectedQuestion
@@ -15,31 +15,13 @@ const QuestionView = () => {
   const [forum, setForum] = useState([]);
   const [comment, setComment] = useState("");
   const { id, idTopic } = useParams();
-  // Preguntas de prueba
-  const questionTest = [
-    {
-      name: "Pablo",
-      description: "Hola, como estas?",
-    },
-    {
-      name: "Juan",
-      description: "Bien, gracias y tu?",
-    },
-    {
-      name: "Pablo",
-      description: "Bien, gracias",
-    },
-    {
-      name: "Pablo",
-      description: "Bien, gracias",
-    },
-  ];
 
   // Funcion que establece la pregunta seleccionada con sus atributos de titulo y descripcion
   const handleQuestionSelect = (question) => {
     setSelectedQuestion(question);
   };
-  const handleSummitAnwser = async (event) => {
+
+  const handleSubmitAnswer = async (event) => {
     event.preventDefault();
     // Crear FormData
     const respuesta = comment;
@@ -47,17 +29,26 @@ const QuestionView = () => {
     const questionId = selectedQuestion.id;
     const fecha = new Date().toISOString();
     try {
-      console.log({ questionId, respuesta, fecha, autor })
-      const response = await axios.post(
-        `${API_URL}/sendAnswer/`,
-        { questionId, respuesta, fecha, autor },
-        
-      );
-      console.log(response);
-      
+      const response = await axios.post(`${API_URL}/sendAnswer/`, {
+        questionId,
+        respuesta,
+        fecha,
+        autor,
+      });
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Answer Sent!",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
+        setComment(""); // Limpia el campo de texto
+        loadsForums(); // Recarga las preguntas
+      }
     } catch (error) {
       console.error("Error:", error);
-      Swal.alert({
+      Swal.fire({
         icon: "error",
         title: "Error",
         text: { error },
@@ -65,34 +56,33 @@ const QuestionView = () => {
     }
   };
 
+  const loadsForums = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/forum/${idTopic}`);
+      const data = await response.json();
+      setForum(data);
 
+      const defaultQuestion = data.preguntas.find(
+        (pregunta) => pregunta.id == id,
+      );
+
+      if (defaultQuestion) {
+        console.log(defaultQuestion);
+        setSelectedQuestion(defaultQuestion);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
+    }
+  }, [idTopic, id]);
 
   useEffect(() => {
-    fetch(`${API_URL}/forum/${idTopic}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setForum(data);
-        // console.log(data.preguntas);
-
-        const defaultQuestion = data.preguntas.filter(
-          (pregunta) => pregunta.id == id,
-        )[0];
-
-        if (defaultQuestion) {
-          console.log(defaultQuestion);
-          setSelectedQuestion(defaultQuestion);
-        }
-      })
-      .catch((error) =>
-        // Muestra un mensaje de error si no se puede cargar el foro
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-          footer: error.message,
-        }),
-      );
-  }, [idTopic, id]);
+    loadsForums();
+  }, [loadsForums]);
 
   // Se retorna un div con la lista de preguntas y la pregunta seleccionada
   return (
@@ -127,19 +117,29 @@ const QuestionView = () => {
         {selectedQuestion && (
           <div className="flex h-full flex-col ">
             <div className="mb-4 basis-3/5 rounded-xl bg-white px-5 pb-6 pt-2 shadow-lg">
-              <h3 className="text-sm lg:text-xl font-bold mb-2">{selectedQuestion.titulo}</h3>
-              <h3 className="text-sm lg:text-xl mb-2">
+              <h3 className="mb-2 text-sm font-bold lg:text-xl">
+                {selectedQuestion.titulo}
+              </h3>
+              <h3 className="mb-2 text-sm lg:text-xl">
                 Question: {selectedQuestion.autor}
               </h3>
-              <p className="text-sm font-light lg:text-xl mb-4">
+              <p className="mb-4 text-sm font-light lg:text-xl">
                 {selectedQuestion.descripcion}
               </p>
-              {selectedQuestion.respuestas && selectedQuestion.respuestas.map((respuesta) => (
-                <div key={respuesta.id} className="p-4 mb-2 bg-green-200 rounded-md">
-                  <h3 className="text-sm lg:text-xl font-bold mb-2">Answer: {respuesta.autor}</h3>
-                  <p className="text-sm font-light lg:text-xl">{respuesta.respuesta}</p>
-                </div>
-              ))}
+              {selectedQuestion.respuestas &&
+                selectedQuestion.respuestas.map((respuesta) => (
+                  <div
+                    key={respuesta.id}
+                    className="mb-2 rounded-md bg-green-200 p-4"
+                  >
+                    <h3 className="mb-2 text-sm font-bold lg:text-xl">
+                      Answer: {respuesta.autor}
+                    </h3>
+                    <p className="text-sm font-light lg:text-xl">
+                      {respuesta.respuesta}
+                    </p>
+                  </div>
+                ))}
             </div>
             <div className="basis-2/5 rounded-xl bg-green5 px-5 shadow-lg">
               <form>
@@ -155,7 +155,7 @@ const QuestionView = () => {
                 </div>
                 <Button
                   type="submit"
-                  onClick={handleSummitAnwser}
+                  onClick={handleSubmitAnswer}
                   className="mx-auto mb-5 whitespace-nowrap  rounded-3xl bg-secondary px-6 py-2 font-normal"
                 >
                   Send
