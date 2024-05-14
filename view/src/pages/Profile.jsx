@@ -25,6 +25,8 @@ const Profile = () => {
   console.log("Renderizado de App");
 
   const loadUser = useCallback(async () => {
+    console.log("user loading");
+
     try {
       fetch(`${API_URL}/userProfile/${id}`)
         .then((response) => response.json()) //Convierte la respuesta a un objeto JSON
@@ -73,6 +75,7 @@ const Profile = () => {
   // Función para manejar el envío del formulario
   const handleImageSubmit = async (event) => {
     event.preventDefault();
+    console.log("image submit");
 
     // Creacion del objeto FormData
     const formData = new FormData();
@@ -82,16 +85,19 @@ const Profile = () => {
 
     // Envíar FormData al servidor
     try {
+      console.log("response");
       const response = await axios.post(
         `${API_URL}/imageProfile/${id}`,
         formData,
       );
+      console.log("response", response);
       // Actualizar
       setData((prevData) => ({
         ...prevData,
         imageURL: response.data.imageURL,
       }));
 
+      console.log("sdaaaaaaaaaa");
       if (response) {
         Swal.fire({
           icon: "success",
@@ -140,6 +146,7 @@ const Profile = () => {
                   ref={fileInputRef}
                 />
                 <Button
+                  type="button"
                   onClick={handleFileButtonClick}
                   className="bg-primary"
                   style={{ marginRight: "5px" }}
@@ -153,10 +160,12 @@ const Profile = () => {
             </div>
             <div className="m-6">
               <div className="flex flex-col">
-                <PetList pets={data.mascotas} />
-                {showForm && (
-                  <FormPet loadUser={loadUser} usuario={data} />
-                )}{" "}
+                <PetList
+                  pets={data.mascotas}
+                  setData={setData}
+                  loadUser={loadUser}
+                />
+                {showForm && <FormPet loadUser={loadUser} usuario={data} />}{" "}
                 <Button
                   className="text-bold mx-auto mb-5 mt-4 w-[200px] rounded-full text-[20px] text-black"
                   onClick={handleButtonClick} // Aquí se llama a la función cuando se hace clic en el botón

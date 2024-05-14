@@ -7,7 +7,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const generatePetViews = (pets, idUser) => {
+const generatePetViews = (pets, idUser, setData, loadUser) => {
   const fileInputRef = useRef();
   const [selectedFile, setSelectedFile] = useState(null); //Variable de estado para guardar la imagen seleccionada por el usuario
 
@@ -41,6 +41,13 @@ const generatePetViews = (pets, idUser) => {
         imageURL: response.data.imageURL,
       }));
       loadUser();
+      Swal.fire({
+        icon: "success",
+        title: "Image uploaded successfully",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+      });
       //setData(data) => ({ ...data, imageURL: response.data.imageURL })
     } catch (error) {
       console.error("Error:", error);
@@ -53,7 +60,7 @@ const generatePetViews = (pets, idUser) => {
   };
 
   return pets.map((pet, index) => (
-    <div key={index}>
+    <div key={index} className="mt-4">
       <PetView
         pet={pet}
         imageURL={pet.imageURL}
@@ -93,11 +100,11 @@ const generatePetViews = (pets, idUser) => {
   ));
 };
 
-const PetList = ({ pets }) => {
+const PetList = ({ pets, setData, loadUser }) => {
   const { id } = useParams();
 
   if (pets.animal !== "") {
-    return <div>{generatePetViews(pets, id)}</div>;
+    return <div>{generatePetViews(pets, id, setData, loadUser)}</div>;
   }
 };
 

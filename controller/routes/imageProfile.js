@@ -37,14 +37,17 @@ router.post("/:id", upload.single("image"), async (req, res) => {
 
     user.imageURL = "/uploads/" + req.file.filename; // Aquí se guarda la ruta de la imagen
     await user.save();
-     // Crear un nuevo registro en el log de actividades
+    // Crear un nuevo registro en el log de actividades
     const newActivity = new ActivityLog({
       idUsuario: user._id,
       nombre: user.nombre,
       accion: "Profile image updated",
       fecha: new Date(),
     });
-    await newActivity.save();//guardamos el registro en la base de datos
+    await newActivity.save(); //guardamos el registro en la base de datos
+
+    // Enviar respuesta exitosa
+    res.status(201).send({ message: "Image uploaded successfully" });
 
     //console.log({ message: 'Image uploaded successfully', user });
   } catch (error) {
@@ -73,7 +76,9 @@ router.post(
         accion: "Profile Pet Image Updated",
         fecha: new Date(),
       });
-      await newActivity.save();//guardamos el registro en la base de datos
+      await newActivity.save(); //guardamos el registro en la base de datos
+      // Enviar respuesta exitosa
+      res.status(201).send({ message: "Image uploaded successfully" });
       //console.log({ message: 'Image uploaded successfully', user });
     } catch (error) {
       res.status(500).send({ error: "Server error" });
