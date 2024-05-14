@@ -19,8 +19,6 @@ router.delete("/", async (req, res) => {
     }
 
     const answer = question.respuestas.find((answer) => answer._id == id);
-    console.log("id Respuesta", id);
-    console.log(question.respuestas);
 
     if (!answer) {
       return res

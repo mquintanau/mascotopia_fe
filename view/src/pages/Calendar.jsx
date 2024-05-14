@@ -25,7 +25,6 @@ function Calendar() {
   const [key, setKey] = useState(0); // Key para forzar la actualización del componente del calendario
   const calendarRef = useRef(null);
   const [addEventShown, setAddEventShown] = useState(false);
-  console.log({ selectedEvent });
 
   // Contexto de usuario
   const { data, setData } = useContext(DataContext);
@@ -102,7 +101,7 @@ function Calendar() {
     };
 
     // Verificar que la fecha de inicio sea menor a la fecha de fin
-    if (eventData.start >= eventData.end) {
+    if (event.start >= event.end) {
       Swal.fire({
         icon: "error",
         title: "The end date must be greater than the start date",
