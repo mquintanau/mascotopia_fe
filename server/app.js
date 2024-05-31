@@ -45,6 +45,10 @@ app.use("/api/sendAnswer", require("./routes/sendAnswer")); // Ruta para post de
 app.use("/api/deleteQuestion", require("./routes/deleteQuestion")); // Ruta para eliminar preguntas
 app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eliminar preguntas
 
+
+
+
+
 //Use the client folder in production
 app.use(express.static(path.join(__dirname,'/client/dist')));
 
