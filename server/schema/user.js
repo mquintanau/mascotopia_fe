@@ -9,6 +9,7 @@ const getUserInfo = require("../lib/getUserInfo"); //importamos la funcion para 
 
 // Esquema para la subcolección mascota
 const MascotaSchema = new mongoose.Schema({
+  idMascotaPerdida: { type: String, required: false },
   nombreMascota: { type: String, required: false },
   animal: { type: String, required: false },
   edad: { type: String, required: false },
