@@ -48,7 +48,7 @@ app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eli
 //FEED
 app.use("/api/post", require("./routes/post")); // Ruta para dar like a las preguntas
 app.use("/api/lostPets", require("./routes/lostPets")); // Ruta para dar like a las preguntas 
-
+app.use("/api/sendReplyPost", require("./routes/sendReplyPost")); // Ruta para post de los comentarios
 
 
 //Use the client folder in production
