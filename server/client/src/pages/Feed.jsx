@@ -36,6 +36,7 @@ const posts = [
     author: "dogfanatic",
     numComments: 3,
     numLikes: 20,
+    imageUrl: "https://d2zp5xs5cp8zlg.cloudfront.net/image-55813-800.jpg",
     comments: [
       {
         reply: "Give him special food for senior dogs, it helps a lot.",
