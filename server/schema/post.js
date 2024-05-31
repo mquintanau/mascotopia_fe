@@ -3,8 +3,8 @@ const mongoose = require("mongoose"); //importamos la libreria mongoose para man
 
 // Esquema para la coleccion post
 const PostSchema = new mongoose.Schema({
-  id: { type: Object },
   titulo: { type: String, required: true },
+  tipo: {type: String, enum: ['featured', 'local'], required: true},
   descripcion: { type: String, required: true },
   fecha: { type: Date, required: true },
   autor: { type: String, required: true },
@@ -13,3 +13,10 @@ const PostSchema = new mongoose.Schema({
   imgUrl: { type: String, required: false },
   comentarios: [ReplySchema],
 });
+
+
+// Exportamos el esquema
+module.exports = mongoose.model("Post", PostSchema);
+
+
+
