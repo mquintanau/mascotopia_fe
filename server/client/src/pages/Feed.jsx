@@ -1,3 +1,4 @@
+import { useState } from "react";
 import moment from "moment";
 import PostContainer from "./PostContainer";
 
@@ -11,6 +12,8 @@ const posts = [
     author: "user123",
     numComments: 2,
     numLikes: 15,
+    imageUrl:
+      "https://images.picxy.com/cache/2019/12/26/ba8757c4a2190faf358d83c09f66ca80.jpg",
     comments: [
       {
         reply: "That's awesome! How did you manage that?",
@@ -116,6 +119,8 @@ const posts = [
 ];
 
 const Feed = () => {
+  const [likedPosts, setLikedPosts] = useState([]);
+  console.log(likedPosts);
   return (
     <div className="min-h-screen w-screen">
       <h2 className="w-full pl-12 pt-10 text-2xl font-semibold">
@@ -123,7 +128,11 @@ const Feed = () => {
         <span className="text-base font-normal">
           {moment().format("dddd, MMMM Do YYYY")}
         </span>
-        <PostContainer posts={posts} />
+        <PostContainer
+          posts={posts}
+          likedPosts={likedPosts}
+          setLikedPosts={setLikedPosts}
+        />
       </h2>
     </div>
   );
