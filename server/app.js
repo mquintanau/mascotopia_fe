@@ -44,7 +44,7 @@ app.use("/api/sendQuestion", require("./routes/sendQuestion")); // Ruta para pos
 app.use("/api/sendAnswer", require("./routes/sendAnswer")); // Ruta para post de las respuestas
 app.use("/api/deleteQuestion", require("./routes/deleteQuestion")); // Ruta para eliminar preguntas
 app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eliminar preguntas
-
+app.use("/api/post", require("./routes/post")); // Ruta para dar like a las preguntas
 
 
 
