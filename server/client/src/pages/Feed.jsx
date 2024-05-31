@@ -36,6 +36,7 @@ const posts = [
     author: "dogfanatic",
     numComments: 3,
     numLikes: 20,
+    imageUrl: "https://d2zp5xs5cp8zlg.cloudfront.net/image-55813-800.jpg",
     comments: [
       {
         reply: "Give him special food for senior dogs, it helps a lot.",
@@ -123,17 +124,17 @@ const Feed = () => {
   console.log(likedPosts);
   return (
     <div className="min-h-screen w-screen">
-      <h2 className="w-full pl-12 pt-10 text-2xl font-semibold">
-        Pet News{" "}
-        <span className="text-base font-normal">
+      <h2 className="mx-auto w-full pt-10 text-center text-2xl font-semibold">
+        Pet News
+        <span className="ml-2 text-lg font-normal">
           {moment().format("dddd, MMMM Do YYYY")}
         </span>
-        <PostContainer
-          posts={posts}
-          likedPosts={likedPosts}
-          setLikedPosts={setLikedPosts}
-        />
       </h2>
+      <PostContainer
+        posts={posts}
+        likedPosts={likedPosts}
+        setLikedPosts={setLikedPosts}
+      />
     </div>
   );
 };
