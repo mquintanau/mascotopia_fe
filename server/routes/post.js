@@ -4,7 +4,7 @@ const Post = require("../schema/post") //importamos el modelo de post
 
 //Crea ruta post para guardar post
 router.post("/sendPost/", async (req, res) => {
-  const { titulo, tipo, descripcion, fecha, autor, imgUrl } = req.body; //obtenemos los datos del post
+  const { titulo, tipo, descripcion, fecha, autor, imageURL } = req.body; //obtenemos los datos del post
   const post = new Post({
     titulo,
     tipo,
@@ -13,7 +13,7 @@ router.post("/sendPost/", async (req, res) => {
     autor,
     numComentarios: 0,
     numLikes: 0,
-    imgUrl,
+    imageURL,
   });
 
   try {

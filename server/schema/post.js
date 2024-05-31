@@ -9,7 +9,7 @@ const PostSchema = new mongoose.Schema({
   autor: { type: String, required: true },
   numComentarios: { type: Number, required: false },
   numLikes: { type: Number, required: false },
-  imgUrl: { type: String, required: false },
+  imageURL: { type: String, required: false },
   comentarios: [ReplySchema],
 });
 

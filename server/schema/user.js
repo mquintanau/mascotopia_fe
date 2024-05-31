@@ -16,6 +16,18 @@ const MascotaSchema = new mongoose.Schema({
   imageURL: { type: String, required: false },
 });
 
+
+const MascotaPerdidaSchema = new mongoose.Schema({
+  idMascotaPerdida: { type: String, required: true },
+  nombre : { type: String, required: true },
+  vistoPorUltimaVez: { type: String, required: true },
+  respondeA: { type: String, required: true },
+  accesorios: { type: String, required: true },
+  infoContacto: { type: String, required: true },
+  imageURL: { type: String, required: false },
+});
+
+
 // Esquema para la colección usuario que incluye la subcolección mascota
 const UserSchema = new mongoose.Schema({
   correo: { type: String, required: true, unique: true },
@@ -23,6 +35,7 @@ const UserSchema = new mongoose.Schema({
   contraseña: { type: String, required: true },
   nombre: { type: String, required: true },
   mascotas: [MascotaSchema], // Referencia al esquema de la subcolección
+  mascotasPerdidas: [MascotaPerdidaSchema],
   numMascotas: { type: Number, required: false },
   rol: { type: String, required: true },
   imageURL: { type: String, required: false },
