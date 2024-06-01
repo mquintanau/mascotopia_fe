@@ -3,7 +3,7 @@ const User = require("../schema/user"); //importamos el modelo de usuario
 const { v4: uuidv4 } = require("uuid"); //importamos la libreria uuid para generar un id unico
 const multer = require("multer");
 const path = require("path");
-
+const ActivityLog = require("../schema/ActivityLog"); //importamos el modelo de log de actividades  
 //Creacion y verificacion automatica de la carpeta uploads
 const fs = require("fs");
 const dirPath = path.join(__dirname, "/uploads");
@@ -27,8 +27,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 //Crea ruta post para subir imageURL de mascota perdida
 router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) => {
+  
+  const user = await User.findById(req.params.idUsuario); //buscamos el usuario por su id
   try{
     const ImageURL = "/uploads/" + req.file.filename; //Guarda la ruta de la imagen
+    const newActivity = new ActivityLog({ //creamos un nuevo registro en el log de actividades
+      idUsuario: user._id,
+      nombre: user.nombre,
+      accion: "Image uploaded",
+      fecha: new Date(),
+    });
+    await newActivity.save(); //guardamos el registro en la base de datos
     res.status(201).send({ imageURL: ImageURL }); //Envía la respuesta exitosa
   } catch (error) {
     res.status(500).send({ error: "Server error" }); //Envía la respuesta de error
@@ -58,6 +67,13 @@ router.post("/sendPet", async (req, res) => {
             imageURL,
         });
         user.save();
+        const newActivity = new ActivityLog({ //creamos un nuevo registro en el log de actividades
+            idUsuario,
+            nombre: user.nombre,
+            accion: "Lost pet added",
+            fecha: new Date(),
+        });
+        await newActivity.save(); //guardamos el registro en la base de datos
         res.status(201).json({ user });
         } else {
         res.status(404).json({ error: "User not found" });
