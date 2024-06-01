@@ -8,7 +8,7 @@ router.post("/:idMascota/:idUsuario", async (req, res) => {
     const user = await User.findById(req.params.idUsuario); //buscamos el usuario por su id
     if (user) {
       const mascotaPerdida = user.mascotasPerdidas.id(req.params.idMascota); //buscamos la mascota perdida por su id
-      const autor = user.nombre; //obtenemos el nombre del autor del comentario
+      const autor = user._id; //obtenemos el nombre del autor del comentario
       if (mascotaPerdida) {
         //obtenemos la fecha actual
         fecha = new Date();
