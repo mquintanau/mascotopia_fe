@@ -102,6 +102,23 @@ router.get("/getPets", async (req, res) => {
   });
 
 
+//Crea ruta get para obtener una mascota perdida por su id
+router.get("/getPet/:id", async (req, res) => {
+    try {
+      //Obtiene todos los usuarios y selecciona solo el campo mascotasPerdidas
+      const users = await User.find().select('mascotasPerdidas'); //obtenemos sólo el campo mascotasPerdidas de todos los usuarios
+      //Concatena todas las mascotas perdidas de todos los usuarios
+      let allLostPets = [];
+      users.forEach(user => {
+        allLostPets = allLostPets.concat(user.mascotasPerdidas);
+      });
+      //Busca la mascota perdida por su id
+      const lostPet = allLostPets.find(pet => pet._id == req.params.id);
+      res.status(200).json({ lostPet }); //retornamos un json con la mascota perdida
+    } catch (error) {
+      res.status(400).json({ error }); //retornamos un json con el error
+    }
+  });
 
 
 
