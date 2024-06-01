@@ -7,4 +7,4 @@ const ReplySchema = new mongoose.Schema({
   autor: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Reply", ReplySchema); //exportamos el modelo de usuario
+module.exports = ReplySchema //exportamos el modelo de usuario

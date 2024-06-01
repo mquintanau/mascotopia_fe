@@ -1,5 +1,7 @@
 const mongoose = require("mongoose"); //importamos la libreria mongoose para manejar los esquemas
 const bcrypt = require("bcrypt"); //importamos la libreria bcrypt para encriptar la contraseña
+const ReplySchema = require("./reply"); //importamos el modelo de respuesta
+
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -9,12 +11,27 @@ const getUserInfo = require("../lib/getUserInfo"); //importamos la funcion para 
 
 // Esquema para la subcolección mascota
 const MascotaSchema = new mongoose.Schema({
+  idMascotaPerdida: { type: String, required: false },
   nombreMascota: { type: String, required: false },
   animal: { type: String, required: false },
   edad: { type: String, required: false },
   descripcion: { type: String, required: false },
   imageURL: { type: String, required: false },
 });
+
+
+const MascotaPerdidaSchema = new mongoose.Schema({
+  idMascotaPerdida: { type: String, required: true },
+  nombre : { type: String, required: true },
+  vistoPorUltimaVez: { type: String, required: true },
+  respondeA: { type: String, required: true },
+  accesorios: { type: String, required: true },
+  infoContacto: { type: String, required: true },
+  imageURL: { type: String, required: false },
+  comentarios : [ReplySchema], 
+  numComentarios: { type: Number, required: false },
+});
+
 
 // Esquema para la colección usuario que incluye la subcolección mascota
 const UserSchema = new mongoose.Schema({
@@ -23,6 +40,7 @@ const UserSchema = new mongoose.Schema({
   contraseña: { type: String, required: true },
   nombre: { type: String, required: true },
   mascotas: [MascotaSchema], // Referencia al esquema de la subcolección
+  mascotasPerdidas: [MascotaPerdidaSchema],
   numMascotas: { type: Number, required: false },
   rol: { type: String, required: true },
   imageURL: { type: String, required: false },

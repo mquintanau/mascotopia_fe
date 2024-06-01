@@ -1,6 +1,5 @@
-import ReplySchema from "./reply";
 const mongoose = require("mongoose"); //importamos la libreria mongoose para manejar los esquemas
-
+const ReplySchema = require("./reply"); //importamos el esquema de respuesta  
 // Esquema para la coleccion post
 const PostSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
@@ -10,7 +9,7 @@ const PostSchema = new mongoose.Schema({
   autor: { type: String, required: true },
   numComentarios: { type: Number, required: false },
   numLikes: { type: Number, required: false },
-  imgUrl: { type: String, required: false },
+  imageURL: { type: String, required: false },
   comentarios: [ReplySchema],
 });
 
