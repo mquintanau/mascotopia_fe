@@ -1,4 +1,6 @@
-const PostFilter = ({ name, setFilter, posts, setOrderedPosts }) => {
+import { twMerge } from "tailwind-merge";
+
+const PostFilter = ({ name, filter, setFilter, posts, setOrderedPosts }) => {
   const filterPosts = (filter) => {
     if (filter === "All") {
       setOrderedPosts(posts);
@@ -21,19 +23,27 @@ const PostFilter = ({ name, setFilter, posts, setOrderedPosts }) => {
       console.log(popularPosts);
     }
   };
+
   const outputName = (name) => {
     if (name === "All") {
       return "" + name;
     } else if (name === "Local") {
-      return "📢" + name;
+      return "📍 " + name;
     } else if (name === "Featured") {
-      return "💫" + name;
+      return "🌟 " + name;
     } else if (name === "Recent") {
-      return "🕒" + name;
+      return "🕒 " + name;
     } else if (name === "Popular") {
-      return "❤️" + name;
+      return "❤️ " + name;
     }
   };
+
+  const filterClass = twMerge(
+    "mx-1 my-1 flex h-[30px] w-[110px] items-center justify-center rounded-3xl bg-white text-center hover:cursor-pointer shadow-lg",
+    filter === name
+      ? "font-bold bg-neutral-100 outline outline-2"
+      : "hover:font-bold",
+  );
 
   return (
     <div
@@ -41,9 +51,9 @@ const PostFilter = ({ name, setFilter, posts, setOrderedPosts }) => {
         filterPosts(name);
         setFilter(name);
       }}
-      className="m-2 w-[80px] bg-white text-center hover:cursor-pointer"
+      className={filterClass}
     >
-      {outputName(name)}
+      <p className="">{outputName(name)}</p>
     </div>
   );
 };

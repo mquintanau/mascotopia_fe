@@ -6,34 +6,38 @@ const PostFilterContainer = ({ posts, setOrderedPosts }) => {
 
   return (
     <div className="flex flex-row items-center justify-center">
-      <h2 className="w-[100px] text-lg font-bold">Filter by:</h2>
-      <div className="ml-4 flex flex-row flex-wrap justify-between">
+      <div className="flex w-full flex-row flex-wrap justify-center">
         <PostFilter
           name="All"
+          filter={filter}
           setFilter={setFilter}
           posts={posts}
           setOrderedPosts={setOrderedPosts}
         />
         <PostFilter
           name="Local"
+          filter={filter}
           setFilter={setFilter}
           posts={posts}
           setOrderedPosts={setOrderedPosts}
         />
         <PostFilter
           name="Featured"
+          filter={filter}
           setFilter={setFilter}
           posts={posts}
           setOrderedPosts={setOrderedPosts}
         />
         <PostFilter
           name="Recent"
+          filter={filter}
           setFilter={setFilter}
           posts={posts}
           setOrderedPosts={setOrderedPosts}
         />
         <PostFilter
           name="Popular"
+          filter={filter}
           setFilter={setFilter}
           posts={posts}
           setOrderedPosts={setOrderedPosts}

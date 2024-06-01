@@ -13,7 +13,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
   };
 
   return (
-    <div className="my-7 flex flex-row items-center justify-center overflow-hidden rounded-lg bg-white px-4 font-normal">
+    <div className="my-7 flex flex-row items-center justify-center overflow-hidden rounded-lg bg-white px-4 font-normal shadow-lg">
       <div className="flex w-2/5 select-none items-center justify-center pr-4">
         <img src={imageUrl} alt={title} className="my-6 rounded-lg" />
       </div>
