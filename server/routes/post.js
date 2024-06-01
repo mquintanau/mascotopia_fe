@@ -3,6 +3,8 @@ const path = require("path");
 const router = require("express").Router();   //importamos el router de express
 const Post = require("../schema/post") //importamos el modelo de post
 const User = require("../schema/user") //importamos el modelo de usuario
+const ActivityLog = require("../schema/ActivityLog") //importamos el modelo de log de actividades
+
 //Crea ruta post para guardar post
 //Creacion y verificacion automatica de la carpeta uploads
 const fs = require("fs");
@@ -27,8 +29,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 //Crea ruta post para subir imageURL de mascota perdida
 router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) => {
+  const user = await User.findById(req.params.idUsuario); //buscamos el usuario por su id
   try{
     const ImageURL = "/uploads/" + req.file.filename; //Guarda la ruta de la imagen
+    const newActivity = new ActivityLog({ //creamos un nuevo registro en el log de actividades
+      idUsuario: user._id,
+      nombre: user.nombre,
+      accion: "Image uploaded",
+      fecha: new Date(),
+    });
+    await newActivity.save(); //guardamos el registro en la base de datos
     res.status(201).send({ imageURL: ImageURL }); //Envía la respuesta exitosa
   } catch (error) {
     res.status(500).send({ error: "Server error" }); //Envía la respuesta de error
@@ -36,8 +46,9 @@ router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) =>
 });
 
 router.post("/sendPost/", async (req, res) => {
-  const { titulo, tipo, descripcion, fecha, idUsuario, imageURL } = req.body; //obtenemos los datos del post
+  const { titulo, tipo, descripcion, idUsuario, imageURL } = req.body; //obtenemos los datos del post
   const user = await User.findById(idUsuario); //buscamos el usuario por su id
+  const fecha = new Date(); //creamos una nueva fecha
   const post = new Post({
     titulo,
     tipo,
@@ -52,6 +63,14 @@ router.post("/sendPost/", async (req, res) => {
 
   try {
     await post.save(); //guardamos el post
+    const newActivity = new ActivityLog({ //creamos un nuevo registro en el log de actividades
+      idUsuario,
+      nombre: user.nombre,
+      accion: "Post created",
+      fecha: new Date(),
+    });
+
+    await newActivity.save(); //guardamos el registro en la base de datos
     res.status(201).json({ post }); //retornamos un json con el post guardado
   } catch (error) {
     res.status(400).json({ error }); //retornamos un json con el error
