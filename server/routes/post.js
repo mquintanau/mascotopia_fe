@@ -54,7 +54,7 @@ router.post("/sendPost/", async (req, res) => {
     tipo,
     descripcion,
     fecha,
-    autor: user.nombre,
+    autor: idUsuario,
     comentarios: [],
     numComentarios: 0,
     numLikes: 0,
