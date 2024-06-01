@@ -1,8 +1,30 @@
 const router = require("express").Router(); //importamos el router de express
 const User = require("../schema/user"); //importamos el modelo de usuario
 const { v4: uuidv4 } = require("uuid"); //importamos la libreria uuid para generar un id unico
+const multer = require("multer");
+const path = require("path");
 
+//Creacion y verificacion automatica de la carpeta uploads
+const fs = require("fs");
+const dirPath = path.join(__dirname, "/uploads");
+if (!fs.existsSync(dirPath)) {
+  fs.mkdirSync(dirPath, { recursive: true });
+}
 
+// Configuración de Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "/uploads")); // Ubicación de la carpeta donde se guardarán las imágenes
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
+    ); // Nombre del archivo
+  },
+});
+
+const upload = multer({ storage: storage });
 //Crea ruta post para subir imageURL de mascota perdida
 router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) => {
   try{
@@ -12,12 +34,6 @@ router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) =>
     res.status(500).send({ error: "Server error" }); //Envía la respuesta de error
   }
 });
-
-
-
-
-
-
 
 //Crea ruta post para hacer push de mascota perdida
 router.post("/sendPet", async (req, res) => {
