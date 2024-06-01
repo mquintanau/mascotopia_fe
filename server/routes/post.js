@@ -1,16 +1,17 @@
 
 const router = require("express").Router();   //importamos el router de express
 const Post = require("../schema/post") //importamos el modelo de post
-
+const User = require("../schema/user") //importamos el modelo de usuario
 //Crea ruta post para guardar post
 router.post("/sendPost/", async (req, res) => {
-  const { titulo, tipo, descripcion, fecha, autor, imageURL } = req.body; //obtenemos los datos del post
+  const { titulo, tipo, descripcion, fecha, idUsuario, imageURL } = req.body; //obtenemos los datos del post
+  const user = await User.findById(idUsuario); //buscamos el usuario por su id
   const post = new Post({
     titulo,
     tipo,
     descripcion,
     fecha,
-    autor,
+    autor: user.nombre,
     comentarios: [],
     numComentarios: 0,
     numLikes: 0,
