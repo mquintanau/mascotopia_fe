@@ -1,7 +1,7 @@
 import { Heart, HeartSolid } from "iconoir-react";
 
 const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
-  const { title, description, numLikes } = value;
+  const { title, description, date, numLikes, author, authorImageUrl } = value;
   const imageUrl = value.imageUrl || "https://via.placeholder.com/150";
 
   const handlePostLike = () => {
@@ -13,15 +13,37 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
   };
 
   return (
-    <div className="my-7 flex flex-row items-center justify-center overflow-hidden rounded-lg bg-white px-4 font-normal shadow-lg">
-      <div className="flex w-2/5 select-none items-center justify-center pr-4">
-        <img src={imageUrl} alt={title} className="my-6 rounded-lg" />
-      </div>
-      <div className="w-3/5 text-base">
+    <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
+      <div className="flex flex-row items-center justify-start">
+        {/* Author section */}
         <h2 className="font-bold">{title}</h2>
+        <div className="ml-auto flex">
+          <img
+            src={authorImageUrl}
+            alt={author}
+            className="h-[50px] w-[50px] rounded-full object-cover shadow-md"
+          />
+          <div className="ml-3">
+            <p className="font-semibold">{author}</p>
+            <p className="">
+              {new Date(date).toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr className="border-t-1 my-4 border-neutral-200" />
+      <div>
+        {/* Description Section */}
         <p className="mt-2" title="descrip">
           {description}
         </p>
+      </div>
+      <img src={imageUrl} alt={title} className="my-6 rounded-lg" />
+      <div className="flex w-full flex-col text-base">
         <div
           title={isLiked ? "Dislike" : "Like"}
           className="relative mt-2 flex flex-row hover:cursor-pointer"

@@ -9,7 +9,9 @@ const posts = [
     description:
       "I'm very excited to share that my cat now knows how to shake hands.",
     date: "2024-05-01T12:00:00Z",
-    author: "user123",
+    author: "Amanda Smith",
+    authorImageUrl:
+      "https://images.pexels.com/photos/1062280/pexels-photo-1062280.jpeg?cs=srgb&dl=pexels-mattycphoto-1062280.jpg&fm=jpg",
     numComments: 2,
     numLikes: 15,
     imageUrl:
