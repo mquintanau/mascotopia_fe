@@ -1,8 +1,40 @@
-
+const multer = require("multer");
+const path = require("path");
 const router = require("express").Router();   //importamos el router de express
 const Post = require("../schema/post") //importamos el modelo de post
 const User = require("../schema/user") //importamos el modelo de usuario
 //Crea ruta post para guardar post
+//Creacion y verificacion automatica de la carpeta uploads
+const fs = require("fs");
+const dirPath = path.join(__dirname, "/uploads");
+if (!fs.existsSync(dirPath)) {
+  fs.mkdirSync(dirPath, { recursive: true });
+}
+
+// Configuración de Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "/uploads")); // Ubicación de la carpeta donde se guardarán las imágenes
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
+    ); // Nombre del archivo
+  },
+});
+
+const upload = multer({ storage: storage });
+//Crea ruta post para subir imageURL de mascota perdida
+router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) => {
+  try{
+    const ImageURL = "/uploads/" + req.file.filename; //Guarda la ruta de la imagen
+    res.status(201).send({ imageURL: ImageURL }); //Envía la respuesta exitosa
+  } catch (error) {
+    res.status(500).send({ error: "Server error" }); //Envía la respuesta de error
+  }
+});
+
 router.post("/sendPost/", async (req, res) => {
   const { titulo, tipo, descripcion, fecha, idUsuario, imageURL } = req.body; //obtenemos los datos del post
   const user = await User.findById(idUsuario); //buscamos el usuario por su id
