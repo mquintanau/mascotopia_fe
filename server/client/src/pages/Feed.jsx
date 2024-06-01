@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-import PostContainer from "./PostContainer";
+import PostContainer from "../components/Post/PostContainer";
 
 const posts = [
   {
