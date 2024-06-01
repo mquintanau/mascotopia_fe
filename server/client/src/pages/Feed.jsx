@@ -121,7 +121,7 @@ const posts = [
 
 const Feed = () => {
   const [likedPosts, setLikedPosts] = useState([]);
-  console.log(likedPosts);
+  console.log("feed render");
   return (
     <div className="min-h-screen w-screen">
       <h2 className="mx-auto w-full pt-10 text-center text-2xl font-semibold">

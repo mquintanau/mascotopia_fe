@@ -22,7 +22,10 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
         <p className="mt-2" title="descrip">
           {description}
         </p>
-        <div className="relative mt-2 flex flex-row transition-all duration-300 ease-in-out">
+        <div
+          title={isLiked ? "Dislike" : "Like"}
+          className="relative mt-2 flex flex-row hover:cursor-pointer"
+        >
           <Heart
             onClick={handlePostLike}
             className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "-z-50 scale-0 opacity-0" : "z-50 scale-100 opacity-100"}`}
