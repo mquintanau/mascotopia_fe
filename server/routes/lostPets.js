@@ -2,6 +2,23 @@ const router = require("express").Router(); //importamos el router de express
 const User = require("../schema/user"); //importamos el modelo de usuario
 const { v4: uuidv4 } = require("uuid"); //importamos la libreria uuid para generar un id unico
 
+
+//Crea ruta post para subir imageURL de mascota perdida
+router.post("/sendImage/:idUsuario", upload.single("image"), async (req, res) => {
+  try{
+    const ImageURL = "/uploads/" + req.file.filename; //Guarda la ruta de la imagen
+    res.status(201).send({ imageURL: ImageURL }); //Envía la respuesta exitosa
+  } catch (error) {
+    res.status(500).send({ error: "Server error" }); //Envía la respuesta de error
+  }
+});
+
+
+
+
+
+
+
 //Crea ruta post para hacer push de mascota perdida
 router.post("/sendPet", async (req, res) => {
   const {nombre, vistoPorUltimaVez, respondeA, accesorios, infoContacto, imageURL, idUsuario } = req.body; //obtenemos los datos de la mascota
