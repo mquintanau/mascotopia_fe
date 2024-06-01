@@ -1,5 +1,7 @@
 const mongoose = require("mongoose"); //importamos la libreria mongoose para manejar los esquemas
 const bcrypt = require("bcrypt"); //importamos la libreria bcrypt para encriptar la contraseña
+const ReplySchema = require("./reply"); //importamos el modelo de respuesta
+
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -26,6 +28,8 @@ const MascotaPerdidaSchema = new mongoose.Schema({
   accesorios: { type: String, required: true },
   infoContacto: { type: String, required: true },
   imageURL: { type: String, required: false },
+  comentarios : [ReplySchema], 
+  numComentarios: { type: Number, required: false },
 });
 
 

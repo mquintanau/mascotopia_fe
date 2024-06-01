@@ -20,6 +20,8 @@ router.post("/sendPet", async (req, res) => {
             respondeA,
             accesorios,
             infoContacto,
+            comentarios: [],
+            numComentarios: 0,
             imageURL,
         });
         user.save();
