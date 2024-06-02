@@ -161,6 +161,7 @@ const Feed = () => {
         posts={posts}
         likedPosts={likedPosts}
         setLikedPosts={setLikedPosts}
+        loadPosts={loadPosts}
       />
     </div>
   );

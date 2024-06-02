@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PostFilterContainer from "./PostFilterContainer";
 import PostItem from "./PostItem";
 
-const PostContainer = ({ posts, likedPosts, setLikedPosts }) => {
+const PostContainer = ({ posts, likedPosts, setLikedPosts, loadPosts }) => {
+  const [orderedPosts, setOrderedPosts] = useState(posts);
+
+  useEffect(() => {
+    setOrderedPosts(posts);
+  }, [posts]);
+
   if (posts.length === 0) {
     return (
       <div className="mx-auto my-6 max-w-[600px] rounded-lg bg-secondary p-10 shadow-lg">
@@ -12,7 +18,7 @@ const PostContainer = ({ posts, likedPosts, setLikedPosts }) => {
       </div>
     );
   }
-  const [orderedPosts, setOrderedPosts] = useState(posts);
+
   return (
     <div className="mx-auto my-6 max-w-[600px] rounded-lg bg-secondary p-10 shadow-lg">
       <h2 className="text-lg font-bold">Featured &amp; Local News &gt;</h2>
@@ -26,6 +32,7 @@ const PostContainer = ({ posts, likedPosts, setLikedPosts }) => {
             key={post._id}
             setLikedPosts={setLikedPosts}
             isLiked={isLiked}
+            loadPosts={loadPosts}
           />
         );
       })}

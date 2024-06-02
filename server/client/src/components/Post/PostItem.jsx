@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
+const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
   const {
     titulo,
     descripcion,
@@ -60,6 +60,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
           timer: 3000,
         });
         setComment(""); // Limpia el campo de texto
+        loadPosts(); // Recarga las preguntas
       }
     } catch (error) {
       console.error("Error:", error);
