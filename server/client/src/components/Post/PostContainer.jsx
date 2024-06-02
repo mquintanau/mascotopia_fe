@@ -87,7 +87,7 @@ const PostContainer = () => {
       <h2 className="text-lg font-bold">Featured &amp; Local News &gt;</h2>
       <hr className="my-4 border-t-2 border-[#185450]" />
       <PostFilterContainer filter={filter} setFilter={setFilter} />
-      {orderedPosts.map((post, index) => {
+      {orderedPosts.map((post) => {
         const isLiked = likedPosts.includes(post._id);
         return (
           <PostItem
@@ -95,6 +95,7 @@ const PostContainer = () => {
             key={post._id}
             isLiked={isLiked}
             loadPosts={loadPosts}
+            setLikedPosts={setLikedPosts}
           />
         );
       })}
