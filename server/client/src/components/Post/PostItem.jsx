@@ -139,7 +139,10 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
           ))}
         </div>
         <div className="flex flex-row items-center overflow-hidden rounded-lg bg-neutral-200">
-          <form className="flex items-center" onSubmit={handleSubmitComment}>
+          <form
+            className="flex w-full items-center"
+            onSubmit={handleSubmitComment}
+          >
             <input
               type="text"
               placeholder="Add a comment"
@@ -147,8 +150,8 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
               value={comment}
               onChange={(event) => setComment(event.target.value)}
             />
-            <button type="submit">
-              <Send className="ml-auto mr-2 text-neutral-600 hover:cursor-pointer" />
+            <button type="submit" className="ml-auto mr-5">
+              <Send className="text-neutral-600 hover:cursor-pointer" />
             </button>
           </form>
         </div>
