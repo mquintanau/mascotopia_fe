@@ -3,6 +3,7 @@ import moment from "moment";
 import PostContainer from "../components/Post/PostContainer";
 import { API_URL } from "../auth/constants";
 import Swal from "sweetalert2";
+import { useCallback } from "react";
 
 // const posts = [
 //   {
@@ -129,14 +130,11 @@ const Feed = () => {
   const [likedPosts, setLikedPosts] = useState([]);
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
+  const loadPosts = useCallback(async () => {
     try {
-      fetch(`${API_URL}/post/getPosts/`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPosts(data.posts);
-          console.log(data.posts);
-        });
+      const response = await fetch(`${API_URL}/post/getPosts/`);
+      const data = await response.json();
+      setPosts(data.posts);
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -145,6 +143,10 @@ const Feed = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
 
   console.log("feed render");
   return (
