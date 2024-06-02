@@ -53,7 +53,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
       if (response.status === 201) {
         Swal.fire({
           icon: "success",
-          title: "Answer Sent!",
+          title: "Reply Sent!",
           toast: true,
           position: "top-end",
           showConfirmButton: false,

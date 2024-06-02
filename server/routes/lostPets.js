@@ -95,7 +95,7 @@ router.get("/getPets", async (req, res) => {
       users.forEach(user => {
         allLostPets = allLostPets.concat(user.mascotasPerdidas);
       });
-      res.status(200).json({ allLostPets }); //retornamos un json con todas las mascotas perdidas
+      res.status(200).json( allLostPets ); //retornamos un json con todas las mascotas perdidas
     } catch (error) {
       res.status(400).json({ error }); //retornamos un json con el error
     }
