@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import LostPetCard from "../components/LostPetCard/LostPetCard";
@@ -118,6 +118,60 @@ const LostsPets = () => {
       );
   }, []);
 
+  const fileInputRef = useRef();
+
+  const handleImageSubmit = async (event) => {
+    event.preventDefault();
+    console.log("image submit");
+
+    // Creacion del objeto FormData
+    const formData = new FormData();
+
+    // Agregar el archivo seleccionado al objeto FormData
+    formData.append("image", selectedFile);
+
+    // Envíar FormData al servidor
+    try {
+      console.log("response");
+      const response = await axios.post(
+        `${API_URL}/imageProfile/${id}`,
+        formData,
+      );
+      console.log("response", response);
+      // Actualizar
+      setData((prevData) => ({
+        ...prevData,
+        imageURL: response.data.imageURL,
+      }));
+
+      console.log("sdaaaaaaaaaa");
+      if (response) {
+        Swal.fire({
+          icon: "success",
+          title: "Image uploaded successfully",
+          text: "The image was uploaded successfully",
+        });
+        loadUser(); // Recarga el usuario
+      }
+      //setData(data) => ({ ...data, imageURL: response.data.imageURL })
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
+    }
+  };
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   return (
     <section className="min-h-screen w-screen justify-center">
       <h2 className="m-10 mr-0 w-full pt-10 text-center text-4xl font-semibold">
@@ -151,7 +205,17 @@ const LostsPets = () => {
               others can find them:
             </p>
             <p className="mt-3 w-full text-left">Add a recent picture:</p>
-            <div className="bg-background relative mt-5 h-[150px] w-[150px] rounded-lg">
+            <div
+              className="bg-background relative mt-5 h-[150px] w-[150px] rounded-lg"
+              onClick={handleFileButtonClick}
+            >
+              <input
+                type="file"
+                id="fileInput"
+                onChange={handleImageChange}
+                style={{ display: "none" }} // Oculta el input
+                ref={fileInputRef}
+              />
               <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">
                 <Plus fontSize={50} />
               </div>
