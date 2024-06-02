@@ -15,11 +15,13 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
   const imageURL = value.imageURL || "https://via.placeholder.com/150";
 
   const handlePostLike = () => {
-    setLikedPosts((prevValue) => Array.from(new Set([...prevValue, value.id])));
+    setLikedPosts((prevValue) =>
+      Array.from(new Set([...prevValue, value._id])),
+    );
   };
 
   const handlePostDislike = () => {
-    setLikedPosts((prevValue) => prevValue.filter((id) => id !== value.id));
+    setLikedPosts((prevValue) => prevValue.filter((id) => id !== value._id));
   };
 
   return (
