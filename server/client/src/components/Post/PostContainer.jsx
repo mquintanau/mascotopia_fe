@@ -32,12 +32,28 @@ const PostContainer = () => {
     if (filter === "All") {
       setOrderedPosts(posts);
     } else if (filter === "Local") {
-      const localPosts = [...posts].filter((post) => post.tipo === "local");
+      // Ordena primero los posts con tipo igual a "featured"
+      const localPosts = [...posts].sort((a, b) => {
+        if (a.tipo === "local") {
+          return -1;
+        } else if (b.tipo === "local") {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
       setOrderedPosts(localPosts);
     } else if (filter === "Featured") {
-      const featuredPosts = [...posts].filter(
-        (post) => post.tipo === "featured",
-      );
+      // Ordena primero los posts con tipo igual a "featured"
+      const featuredPosts = [...posts].sort((a, b) => {
+        if (a.tipo === "featured") {
+          return -1;
+        } else if (b.tipo === "featured") {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
       setOrderedPosts(featuredPosts);
     } else if (filter === "Recent") {
       // make a copy of posts
