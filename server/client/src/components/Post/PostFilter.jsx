@@ -5,12 +5,12 @@ const PostFilter = ({ name, filter, setFilter, posts, setOrderedPosts }) => {
     if (filter === "All") {
       setOrderedPosts(posts);
     } else if (filter === "Local") {
-      // const localPosts = orderedPosts.filter(
-      //   (post) => post.author === "hamsterfanatic",
-      // );
-      // setOrderedPosts(localPosts);
+      const localPosts = [...posts].filter((post) => post.type === "Local");
+      setOrderedPosts(localPosts);
     } else if (filter === "Featured") {
-      const featuredPosts = [...posts].filter((post) => post.numLikes > 10);
+      const featuredPosts = [...posts].filter(
+        (post) => post.type === "featured",
+      );
       setOrderedPosts(featuredPosts);
     } else if (filter === "Recent") {
       const recentPosts = [...posts].sort(
