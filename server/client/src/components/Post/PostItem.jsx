@@ -4,39 +4,41 @@ import Input from "../Input/Input";
 
 const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
   const {
-    title,
-    description,
-    date,
+    titulo,
+    descripcion,
+    fecha,
     numLikes,
-    author,
-    authorImageUrl,
-    comments,
+    autor,
+    autorImageURL,
+    comentarios,
   } = value;
-  const imageUrl = value.imageUrl || "https://via.placeholder.com/150";
+  const imageURL = value.imageURL || "https://via.placeholder.com/150";
 
   const handlePostLike = () => {
-    setLikedPosts((prevValue) => Array.from(new Set([...prevValue, value.id])));
+    setLikedPosts((prevValue) =>
+      Array.from(new Set([...prevValue, value._id])),
+    );
   };
 
   const handlePostDislike = () => {
-    setLikedPosts((prevValue) => prevValue.filter((id) => id !== value.id));
+    setLikedPosts((prevValue) => prevValue.filter((id) => id !== value._id));
   };
 
   return (
     <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
       <div className="flex flex-row items-center justify-start">
         {/* Author section */}
-        <h2 className="text-lg font-bold">{title}</h2>
+        <h2 className="text-lg font-bold">{titulo}</h2>
         <div className="ml-auto flex">
           <img
-            src={authorImageUrl}
-            alt={author}
+            src={autorImageURL}
+            alt={autor}
             className="h-[50px] w-[50px] rounded-full object-cover shadow-md"
           />
           <div className="ml-3">
-            <p className="font-semibold">{author}</p>
+            <p className="font-semibold">{autor}</p>
             <p className="">
-              {new Date(date).toLocaleDateString(undefined, {
+              {new Date(fecha).toLocaleDateString(undefined, {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -49,10 +51,10 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
       <div>
         {/* Description Section */}
         <p className="mt-2" title="descrip">
-          {description}
+          {descripcion}
         </p>
       </div>
-      <img src={imageUrl} alt={title} className="my-6 rounded-lg" />
+      <img src={imageURL} alt={titulo} className="my-6 rounded-lg" />
       <div className="flex w-full flex-col text-base">
         {/* Like & comment section */}
         <div className="flex w-full flex-row">
@@ -74,11 +76,11 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
           </span>
           <div className="ml-8 flex select-none flex-row">
             <ChatBubble />
-            <p className="ml-2">Comments: {comments.length}</p>
+            <p className="ml-2">Comments: {comentarios.length}</p>
           </div>
         </div>
         <div className="my-2 ml-1 flex w-full flex-col">
-          {value.comments.map((comment, index) => (
+          {value.comentarios.map((comment, index) => (
             <PostComment key={index} {...comment} />
           ))}
         </div>

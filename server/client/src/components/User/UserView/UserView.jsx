@@ -16,7 +16,7 @@ const UserView = () => {
       <p className="flex py-1 pl-4">About You:</p>
       <div className="my-2 flex min-h-[450px] min-w-[300px] flex-col items-center justify-center rounded-[13px] bg-[#A4F3B3]">
         <img
-          src={imageURL ? `https://mascotopia-fe.onrender.com${imageURL}` : UserDefaultPhoto}
+          src={imageURL ? `http://localhost:4000${imageURL}` : UserDefaultPhoto}
           className="my-2 h-[175px] w-[175px] rounded-full"
         />
         <div className="flex-col justify-start border-t-4 border-primary px-4 text-[15px] font-light text-black">

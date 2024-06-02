@@ -7,6 +7,7 @@ const PostSchema = new mongoose.Schema({
   descripcion: { type: String, required: true },
   fecha: { type: Date, required: true },
   autor: { type: String, required: true },
+  autorImageURL: { type: String, required: false },
   numComentarios: { type: Number, required: false },
   numLikes: { type: Number, required: false },
   imageURL: { type: String, required: false },

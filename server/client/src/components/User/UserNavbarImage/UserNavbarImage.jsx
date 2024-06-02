@@ -15,7 +15,7 @@ const UserNavbarImage = ({ className, ...props }) => {
     >
       {data && data.imageURL ? (
         <img
-          src={"https://mascotopia-fe.onrender.com" + data.imageURL}
+          src={"http://localhost:4000" + data.imageURL}
           className="h-10 w-10 rounded-full"
           alt="Avatar del usuario"
         />
