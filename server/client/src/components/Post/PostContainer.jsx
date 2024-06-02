@@ -11,11 +11,11 @@ const PostContainer = ({ posts, likedPosts, setLikedPosts }) => {
       <hr className="my-4 border-t-2 border-[#185450]" />
       <PostFilterContainer posts={posts} setOrderedPosts={setOrderedPosts} />
       {orderedPosts.map((post) => {
-        const isLiked = likedPosts.includes(post.id);
+        const isLiked = likedPosts.includes(post._id);
         return (
           <PostItem
             value={post}
-            key={post.id}
+            key={post._id}
             setLikedPosts={setLikedPosts}
             isLiked={isLiked}
           />

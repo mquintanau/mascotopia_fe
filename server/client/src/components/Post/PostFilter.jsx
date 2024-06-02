@@ -5,11 +5,11 @@ const PostFilter = ({ name, filter, setFilter, posts, setOrderedPosts }) => {
     if (filter === "All") {
       setOrderedPosts(posts);
     } else if (filter === "Local") {
-      const localPosts = [...posts].filter((post) => post.type === "Local");
+      const localPosts = [...posts].filter((post) => post.tipo === "local");
       setOrderedPosts(localPosts);
     } else if (filter === "Featured") {
       const featuredPosts = [...posts].filter(
-        (post) => post.type === "featured",
+        (post) => post.tipo === "featured",
       );
       setOrderedPosts(featuredPosts);
     } else if (filter === "Recent") {
