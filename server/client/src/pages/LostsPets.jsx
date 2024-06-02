@@ -100,7 +100,7 @@ import { API_URL } from "../auth/constants";
 
 const LostsPets = () => {
   const [lostPetsData, setLostPetsData] = useState(null);
-
+  const [previewImage, setPreviewImage] = useState(null);
   useEffect(() => {
     fetch(`${API_URL}/lostPets/getPets`)
       .then((response) => response.json())
@@ -169,7 +169,12 @@ const LostsPets = () => {
   };
 
   const handleImageChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file));
+    } else {
+      setPreview(null);
+    }
   };
 
   return (
@@ -219,6 +224,7 @@ const LostsPets = () => {
               <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">
                 <Plus fontSize={50} />
               </div>
+              {previewImage && <img src={previewImage} alt="Preview" />}
             </div>
             <p className="my-4 w-full">Add your pet&#39;s information: </p>
             <Input label="Last Seen" className="my-4" />
