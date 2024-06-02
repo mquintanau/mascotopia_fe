@@ -1,4 +1,7 @@
+import Button from "../components/Button/Button";
+import Input from "../components/Input/Input";
 import LostPetCard from "../components/LostPetCard/LostPetCard";
+import { Plus } from "iconoir-react";
 
 const lostPetsData = [
   {
@@ -98,16 +101,43 @@ const LostsPets = () => {
       <h2 className="m-10 mr-0 w-full pt-10 text-2xl font-semibold">
         Losts Pets
       </h2>
-      <div className="flex flex-row">
+      <div className="my-10 flex flex-row">
         <div className="flex w-[65%] flex-row flex-wrap items-center justify-center">
           {/* Seccion ver mascotas perdidas */}
-          <h3 className="w-full text-center">Have you seen these pets?</h3>
+          <h3 className="w-full text-center text-xl">
+            Have you seen these pets?
+          </h3>
           {lostPetsData.map((pet) => (
             <LostPetCard key={pet._id} pet={pet} />
           ))}
         </div>
-        <div className="w-[35%] rounded-md bg-primary">
+        <div className="mr-10 w-[35%] rounded-md">
           {/* Formulario mascota perdida */}
+          <h3 className="mb-10 w-full text-center text-xl">
+            Have you lost your pet?
+          </h3>
+          <form
+            action=""
+            className="flex flex-col items-center rounded-lg bg-primary p-4 text-left"
+          >
+            <p>
+              Don’t worry, we’re here to help. Fill with helpful information so
+              others can find them:
+            </p>
+            <p className="mt-3 w-full text-left">Add a recent picture:</p>
+            <div className="bg-background relative mt-5 h-[150px] w-[150px] rounded-lg">
+              <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">
+                <Plus fontSize={50} />
+              </div>
+            </div>
+            <p className="my-4 w-full">Add your pet&#39;s information: </p>
+            <Input label="Last Seen" className="my-4" />
+            <Input label="Responds to" className="my-4" />
+            <Input label="Accesories" className="my-4" />
+            <Input label="Commentary" className="my-4" />
+            <Input label="Contact Information" className="my-4" />
+            <Button className="bg-secondary">Send</Button>
+          </form>
         </div>
       </div>
     </section>
