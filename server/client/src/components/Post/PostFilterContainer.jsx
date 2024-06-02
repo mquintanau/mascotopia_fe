@@ -1,46 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PostFilter from "./PostFilter";
 
-const PostFilterContainer = ({ posts, setOrderedPosts }) => {
-  const [filter, setFilter] = useState("All");
-
+const PostFilterContainer = ({ filter, setFilter }) => {
   return (
     <div className="flex flex-row items-center justify-center">
       <div className="flex w-full flex-row flex-wrap justify-center">
         <PostFilter
           name="All"
-          filter={filter}
           setFilter={setFilter}
-          posts={posts}
-          setOrderedPosts={setOrderedPosts}
+          active={filter === "All"}
         />
         <PostFilter
           name="Local"
-          filter={filter}
           setFilter={setFilter}
-          posts={posts}
-          setOrderedPosts={setOrderedPosts}
+          active={filter === "Local"}
         />
         <PostFilter
           name="Featured"
-          filter={filter}
           setFilter={setFilter}
-          posts={posts}
-          setOrderedPosts={setOrderedPosts}
+          active={filter === "Featured"}
         />
         <PostFilter
           name="Recent"
-          filter={filter}
           setFilter={setFilter}
-          posts={posts}
-          setOrderedPosts={setOrderedPosts}
+          active={filter === "Recent"}
         />
         <PostFilter
           name="Popular"
-          filter={filter}
           setFilter={setFilter}
-          posts={posts}
-          setOrderedPosts={setOrderedPosts}
+          active={filter === "Popular"}
         />
       </div>
     </div>

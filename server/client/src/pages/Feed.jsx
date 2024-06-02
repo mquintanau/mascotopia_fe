@@ -127,27 +127,6 @@ import { useCallback } from "react";
 //crea ruta get para traer todos los posts
 
 const Feed = () => {
-  const [likedPosts, setLikedPosts] = useState([]);
-  const [posts, setPosts] = useState([]);
-
-  const loadPosts = useCallback(async () => {
-    try {
-      const response = await fetch(`${API_URL}/post/getPosts/`);
-      const data = await response.json();
-      setPosts(data.posts);
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: { error },
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    loadPosts();
-  }, [loadPosts]);
-
   console.log("feed render");
   return (
     <div className="min-h-screen w-screen">
@@ -157,12 +136,7 @@ const Feed = () => {
           {moment().format("dddd, MMMM Do YYYY")}
         </span>
       </h2>
-      <PostContainer
-        posts={posts}
-        likedPosts={likedPosts}
-        setLikedPosts={setLikedPosts}
-        loadPosts={loadPosts}
-      />
+      <PostContainer />
     </div>
   );
 };

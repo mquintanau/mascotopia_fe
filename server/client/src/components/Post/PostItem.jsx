@@ -60,7 +60,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
           timer: 3000,
         });
         setComment(""); // Limpia el campo de texto
-        loadPosts(); // Recarga las preguntas
+        // loadPosts(); // Recarga las preguntas
       }
     } catch (error) {
       console.error("Error:", error);
