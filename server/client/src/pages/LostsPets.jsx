@@ -98,8 +98,8 @@ const lostPetsData = [
 const LostsPets = () => {
   return (
     <section className="min-h-screen w-screen justify-center">
-      <h2 className="m-10 mr-0 w-full pt-10 text-2xl font-semibold">
-        Losts Pets
+      <h2 className="m-10 mr-0 w-full pt-10 text-center text-4xl font-semibold">
+        🐶 Losts Pets
       </h2>
       <div className="my-10 flex flex-row">
         <div className="flex w-[65%] flex-row flex-wrap items-center justify-center">
