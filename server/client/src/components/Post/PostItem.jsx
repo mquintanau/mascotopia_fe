@@ -1,6 +1,12 @@
 import { Heart, HeartSolid, ChatBubble, Send } from "iconoir-react";
 import PostComment from "./PostComment";
 import Input from "../Input/Input";
+import useUserLoader from "../../utils/useUserLoader";
+import DataContext from "../../auth/DataContext";
+import { API_URL } from "../../auth/constants";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
   const {
@@ -13,6 +19,14 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
     comentarios,
   } = value;
   const imageURL = value.imageURL || "https://via.placeholder.com/150";
+  const { data, setData } = useContext(DataContext);
+  const [comment, setComment] = useState("");
+  const idUsuario = localStorage.getItem("idUser");
+  const loadUser = useUserLoader(API_URL, idUsuario, setData);
+
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   const handlePostLike = () => {
     setLikedPosts((prevValue) =>
@@ -22,6 +36,39 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
 
   const handlePostDislike = () => {
     setLikedPosts((prevValue) => prevValue.filter((id) => id !== value._id));
+  };
+
+  const handleSubmitComment = async (event) => {
+    event.preventDefault();
+    // Crear FormData
+    const respuesta = comment;
+    const idPost = value._id;
+    try {
+      const response = await axios.post(
+        `${API_URL}/sendReplyPost/${idPost}/${idUsuario}`,
+        {
+          respuesta,
+        },
+      );
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Answer Sent!",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        setComment(""); // Limpia el campo de texto
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
+    }
   };
 
   return (
@@ -91,12 +138,18 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
           ))}
         </div>
         <div className="flex flex-row items-center overflow-hidden rounded-lg bg-neutral-200">
-          <input
-            type="text"
-            placeholder="Add a comment"
-            className="w-full bg-neutral-200 px-4 py-2 focus:outline-none"
-          />
-          <Send className="ml-auto mr-2 text-neutral-600 hover:cursor-pointer" />
+          <form className="flex items-center" onSubmit={handleSubmitComment}>
+            <input
+              type="text"
+              placeholder="Add a comment"
+              className="w-full bg-neutral-200 px-4 py-2 focus:outline-none"
+              value={comment}
+              onChange={(event) => setComment(event.target.value)}
+            />
+            <button type="submit">
+              <Send className="ml-auto mr-2 text-neutral-600 hover:cursor-pointer" />
+            </button>
+          </form>
         </div>
       </div>
     </div>

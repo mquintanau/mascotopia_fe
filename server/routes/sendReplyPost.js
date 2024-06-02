@@ -11,7 +11,7 @@ router.post("/:idPost/:idUsuario", async (req, res) => {
   //obtenemos la fecha actual
   if (post && user) {
     fecha = new Date();
-    const autor = user._id; //obtenemos el nombre del autor del comentario
+    const autor = user.nombre; //obtenemos el nombre del autor del comentario
     post.comentarios.push({ respuesta, fecha, autor }); //hacemos push del comentario
     post.numComentarios = post.numComentarios + 1; //incrementamos el numero de comentarios
     post.save();
