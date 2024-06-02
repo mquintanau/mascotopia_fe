@@ -1,4 +1,5 @@
 const LostPetCard = ({ pet }) => {
+  // Recibe objeto pet directamente y desestructura sus propiedades
   const {
     nombre,
     imageURL,
