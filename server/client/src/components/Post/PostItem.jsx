@@ -31,7 +31,13 @@ const PostItem = ({ value, setLikedPosts, isLiked = false }) => {
         <h2 className="text-lg font-bold">{titulo}</h2>
         <div className="ml-auto flex">
           <img
-            src={autorImageURL}
+            src={
+              !autorImageURL
+                ? "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-user-circle-icon.png"
+                : autorImageURL.startsWith("/uploads")
+                  ? `http://localhost:4000${autorImageURL}`
+                  : autorImageURL
+            }
             alt={autor}
             className="h-[50px] w-[50px] rounded-full object-cover shadow-md"
           />
