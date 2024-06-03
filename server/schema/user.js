@@ -28,8 +28,6 @@ const MascotaPerdidaSchema = new mongoose.Schema({
   accesorios: { type: String, required: true },
   infoContacto: { type: String, required: true },
   imageURL: { type: String, required: false },
-  comentarios : [ReplySchema], 
-  numComentarios: { type: Number, required: false },
 });
 
 

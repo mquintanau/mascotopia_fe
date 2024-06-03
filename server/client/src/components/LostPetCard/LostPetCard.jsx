@@ -1,14 +1,6 @@
 const LostPetCard = ({ pet }) => {
   // Recibe objeto pet directamente y desestructura sus propiedades
-  const {
-    nombre,
-    imageURL,
-    infoContacto,
-    comentarios,
-    numComentarios,
-    accesorios,
-    vistoPorUltimaVez,
-  } = pet;
+  const { nombre, imageURL, infoContacto, accesorios, vistoPorUltimaVez } = pet;
   return (
     <div className="flex flex-row rounded-lg bg-[#90d8d4] p-3 shadow-lg lg:m-2 lg:w-[45%]">
       <div className="w-1/2">
