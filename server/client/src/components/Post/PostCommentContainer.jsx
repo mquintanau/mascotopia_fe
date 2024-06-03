@@ -21,7 +21,7 @@ const PostCommentContainer = ({ comments }) => {
       {comments.length > 2 && (
         <p
           onClick={toggleShowComments}
-          className={`font-light hover:cursor-pointer`}
+          className={`ml-1 font-light hover:cursor-pointer`}
         >
           {showAllComments ? "Hide Comments" : "Show All Comments"}
         </p>
