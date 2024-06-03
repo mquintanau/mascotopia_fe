@@ -5,7 +5,7 @@ import PostItem from "./PostItem";
 const PostContainer = ({ posts, loadPosts }) => {
   const [likedPosts, setLikedPosts] = useState([]);
   const [orderedPosts, setOrderedPosts] = useState(posts);
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("Recent");
 
   useEffect(() => {
     if (filter === "All") {

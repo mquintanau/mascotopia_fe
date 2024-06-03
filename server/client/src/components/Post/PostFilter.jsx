@@ -3,9 +3,7 @@ import { twMerge } from "tailwind-merge";
 const PostFilter = ({ name = "", setFilter, active = false }) => {
   let outputName = "";
 
-  if (name === "All") {
-    outputName = "" + name;
-  } else if (name === "Local") {
+  if (name === "Local") {
     outputName = "📍 " + name;
   } else if (name === "Featured") {
     outputName = "🌟 " + name;

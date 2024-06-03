@@ -6,9 +6,9 @@ const PostFilterContainer = ({ filter, setFilter }) => {
     <div className="flex flex-row items-center justify-center">
       <div className="flex w-full flex-row flex-wrap justify-center">
         <PostFilter
-          name="All"
+          name="Recent"
           setFilter={setFilter}
-          active={filter === "All"}
+          active={filter === "Recent"}
         />
         <PostFilter
           name="Local"
@@ -19,11 +19,6 @@ const PostFilterContainer = ({ filter, setFilter }) => {
           name="Featured"
           setFilter={setFilter}
           active={filter === "Featured"}
-        />
-        <PostFilter
-          name="Recent"
-          setFilter={setFilter}
-          active={filter === "Recent"}
         />
         <PostFilter
           name="Popular"
