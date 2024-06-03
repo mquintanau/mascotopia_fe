@@ -7,9 +7,10 @@ import { API_URL } from "../../auth/constants";
 import { ChatLinesSolid, InfoCircle, Plus } from "iconoir-react";
 import Swal from "sweetalert2";
 
-function AskButton() {
+function AskButton({ loadPosts }) {
   const [showForm, setShowForm] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   // variables de estado formulario
   const [titulo, setTitulo] = useState("");
@@ -21,60 +22,18 @@ function AskButton() {
 
   const fileInputRef = useRef();
 
-  const handleImageSubmit = async (event) => {
-    event.preventDefault();
-    console.log("image submit");
-
-    // Creacion del objeto FormData
-    const formData = new FormData();
-
-    // Agregar el archivo seleccionado al objeto FormData
-    formData.append("image", selectedFile);
-
-    // Envíar FormData al servidor
-    try {
-      console.log("response");
-      const response = await axios.post(
-        `${API_URL}/imageProfile/${id}`,
-        formData,
-      );
-      console.log("response", response);
-      // Actualizar
-      setData((prevData) => ({
-        ...prevData,
-        imageURL: response.data.imageURL,
-      }));
-
-      console.log("sdaaaaaaaaaa");
-      if (response) {
-        Swal.fire({
-          icon: "success",
-          title: "Image uploaded successfully",
-          text: "The image was uploaded successfully",
-        });
-        loadUser(); // Recarga el usuario
-      }
-      //setData(data) => ({ ...data, imageURL: response.data.imageURL })
-    } catch (error) {
-      console.error("Error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: { error },
-      });
-    }
-  };
-
   const handleFileButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
+    setImageFile(file);
+
     if (file) {
       setPreviewImage(URL.createObjectURL(file));
     } else {
-      setPreview(null);
+      setPreviewImage(null);
     }
   };
 
@@ -83,45 +42,75 @@ function AskButton() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/post/sendPost`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          //Se envian los datos del formulario en formato JSON al servidor
-          idUsuario,
-          titulo,
-          tipo,
-          descripcion,
-          imageURL,
-        }),
-      });
+      // Se envía la imagen al servidor
+      // Crear un objeto FormData y añadir el archivo
+      const formData = new FormData();
+      formData.append("image", imageFile);
 
-      if (response.ok) {
-        console.log("El post se creó exitosamente");
+      // Hacer una solicitud HTTP para subir el archivo
+
+      const responseImage = await fetch(
+        `${API_URL}/lostPets/sendImage/${idUsuario}`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (!responseImage.ok) {
         Swal.fire({
-          title: "Success!",
-          text: "Post added successfully",
-          icon: "success",
+          title: "¡Error!",
+          text: "Error uploading the image",
+          icon: "error",
           confirmButtonText: "Continue",
-          confirmButtonColor: "#4caf50",
+          confirmButtonColor: "#f27474",
         });
-        setShowForm(false);
-        refreshQuestions();
-      } else {
-        console.log("Hubo un error en el registro");
-        const json = await response.json();
-        if (json && json.body && typeof json.body.error === "string") {
-          // json tiene la estructura de AuthResponseError
-          if (json.body.error) {
-            Swal.fire({
-              title: "¡Error!",
-              text: json.body.error,
-              icon: "error",
-              confirmButtonText: "Continue",
-              confirmButtonColor: "#f27474",
-            });
+      }
+
+      const data = await responseImage.json();
+      console.log(data);
+
+      if (data.imageURL) {
+        const responsePost = await fetch(`${API_URL}/post/sendPost`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            //Se envian los datos del formulario en formato JSON al servidor
+            idUsuario,
+            titulo,
+            tipo,
+            descripcion,
+            imageURL: data.imageURL,
+          }),
+        });
+
+        if (responsePost.ok) {
+          console.log("El post se creó exitosamente");
+          Swal.fire({
+            title: "Success!",
+            text: "Post added successfully",
+            icon: "success",
+            confirmButtonText: "Continue",
+            confirmButtonColor: "#4caf50",
+          });
+          setShowForm(false);
+          loadPosts();
+        } else {
+          console.log("Hubo un error en el registro");
+          const json = await responsePost.json();
+          if (json && json.body && typeof json.body.error === "string") {
+            // json tiene la estructura de AuthResponseError
+            if (json.body.error) {
+              Swal.fire({
+                title: "¡Error!",
+                text: json.body.error,
+                icon: "error",
+                confirmButtonText: "Continue",
+                confirmButtonColor: "#f27474",
+              });
+            }
           }
         }
       }
@@ -243,7 +232,7 @@ function AskButton() {
                     type="file"
                     id="fileInput"
                     onChange={handleImageChange}
-                    style={{ display: "none" }} // Oculta el input
+                    className="hidden" // Oculta el input
                     ref={fileInputRef}
                   />
                   <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">

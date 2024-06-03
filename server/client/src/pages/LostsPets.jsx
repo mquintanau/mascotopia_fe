@@ -128,7 +128,7 @@ const LostsPets = () => {
         console.error("Error al subir la imagen:", error);
       }
     } else {
-      setPreview(null);
+      setPreviewImage(null);
     }
   };
 

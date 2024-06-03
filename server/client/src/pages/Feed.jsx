@@ -160,7 +160,7 @@ const Feed = () => {
         </span>
       </h2>
       <PostContainer posts={posts} loadPosts={loadPosts} />
-      <PostModal posts={posts} />
+      <PostModal posts={posts} loadPosts={loadPosts} />
     </div>
   );
 };

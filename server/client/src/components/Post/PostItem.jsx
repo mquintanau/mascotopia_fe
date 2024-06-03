@@ -19,7 +19,8 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
     autorImageURL,
     comentarios,
   } = value;
-  const imageURL = value.imageURL || "https://via.placeholder.com/150";
+  const imageURL = value.imageURL;
+
   const { data, setData } = useContext(DataContext);
   const [comment, setComment] = useState("");
   const idUsuario = localStorage.getItem("idUser");
@@ -109,7 +110,17 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
           {descripcion}
         </p>
       </div>
-      <img src={imageURL} alt={titulo} className="my-6 rounded-lg" />
+      <img
+        src={
+          !imageURL
+            ? "https://via.placeholder.com/150"
+            : imageURL.startsWith("/uploads")
+              ? `http://localhost:4000${imageURL}`
+              : imageURL
+        }
+        alt={titulo}
+        className="my-6 rounded-lg"
+      />
       <div className="flex w-full flex-col text-base">
         {/* Like & comment section */}
         <div className="flex w-full flex-row">
