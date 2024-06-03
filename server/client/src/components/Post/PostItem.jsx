@@ -78,8 +78,10 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
     <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
       <div className="flex flex-row flex-wrap items-center justify-start">
         {/* Author section */}
-        <h2 className="mr-auto pr-4 text-lg font-bold">{titulo}</h2>
-        <div className="mt-2 flex items-center text-xs min-[400px]:ml-auto md:mt-0 md:text-base">
+        <h2 className="mr-auto w-full pr-4 text-lg font-bold md:max-w-[300px]">
+          {titulo}
+        </h2>
+        <div className="my-2 mt-4 flex items-center text-xs md:mt-0 md:text-base">
           <img
             src={
               !autorImageURL
@@ -91,7 +93,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
             alt={autor}
             className="h-[50px] w-[50px] rounded-full object-cover shadow-md md:h-[50px] md:w-[50px]"
           />
-          <div className="ml-3 text-xs md:text-base">
+          <div className="ml-3 text-base">
             <p className="font-semibold">{autor}</p>
             <p className="">
               {new Date(fecha).toLocaleDateString(undefined, {
@@ -120,13 +122,13 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
                 : imageURL
           }
           alt={titulo}
-          className="my-6 max-h-[50vh] w-full max-w-[70vw] select-none self-center overflow-hidden rounded-lg object-contain md:max-w-[50vw] lg:max-w-[35vw]"
+          className="mt-6 max-h-[50vh] w-full max-w-[70vw] select-none self-center overflow-hidden rounded-lg object-contain md:max-w-[50vw] lg:max-w-[35vw]"
         />
       )}
 
       <div className="flex w-full flex-col text-base">
         {/* Like & comment section */}
-        <div className="flex w-full flex-row">
+        <div className="mt-6 flex w-full flex-row">
           <div
             title={isLiked ? "Dislike" : "Like"}
             className="relative flex flex-row hover:cursor-pointer"
@@ -140,10 +142,10 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
               className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "z-0 scale-100 opacity-100" : "-z-10 scale-0 opacity-0"}`}
             />
           </div>
-          <span className="ml-8 select-none">
+          <span className="ml-8 select-none text-sm md:text-base">
             Likes: {isLiked ? numLikes + 1 : numLikes}
           </span>
-          <div className="ml-8 flex select-none flex-row">
+          <div className="ml-8 flex select-none flex-row text-sm md:text-base">
             <ChatBubble />
             <p className="ml-2">Comments: {comentarios.length}</p>
           </div>
