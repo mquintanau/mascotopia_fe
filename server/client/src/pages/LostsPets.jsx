@@ -27,76 +27,6 @@ import { API_URL } from "../auth/constants";
 //     ],
 //     numComentarios: 2,
 //   },
-//   {
-//     _id: "2",
-//     nombre: "Whiskers",
-//     vistoPorUltimaVez: "5th Avenue, New York",
-//     respondeA: "Whisk",
-//     accesorios: "Blue bell",
-//     infoContacto: "555-5678",
-//     imageURL: "https://i.ibb.co/jVqSrKt/Rectangle-34.png",
-//     comentarios: [],
-//     numComentarios: 0,
-//   },
-//   {
-//     _id: "3",
-//     nombre: "Max",
-//     vistoPorUltimaVez: "Brooklyn Bridge, New York",
-//     respondeA: "Maxie",
-//     accesorios: "Green harness",
-//     infoContacto: "555-8765",
-//     imageURL: "https://i.ibb.co/jVqSrKt/Rectangle-34.png",
-//     comentarios: [
-//       {
-//         author: "Alice Johnson",
-//         text: "Max is so cute! I hope he comes home soon.",
-//       },
-//     ],
-//     numComentarios: 1,
-//   },
-//   {
-//     _id: "4",
-//     nombre: "Luna",
-//     vistoPorUltimaVez: "Times Square, New York",
-//     respondeA: "Lulu",
-//     accesorios: "Purple scarf",
-//     infoContacto: "555-4321",
-//     imageURL: "https://i.ibb.co/jVqSrKt/Rectangle-34.png",
-//     comentarios: [],
-//     numComentarios: 0,
-//   },
-//   {
-//     _id: "5",
-//     nombre: "Charlie",
-//     vistoPorUltimaVez: "Empire State Building, New York",
-//     respondeA: "Chaz",
-//     accesorios: "Yellow bandana",
-//     infoContacto: "555-1122",
-//     imageURL: "https://i.ibb.co/jVqSrKt/Rectangle-34.png",
-//     comentarios: [
-//       {
-//         author: "Michael Brown",
-//         text: "Charlie was spotted near the subway entrance.",
-//       },
-//       {
-//         author: "Sarah White",
-//         text: "Praying for Charlie's safe return.",
-//       },
-//     ],
-//     numComentarios: 2,
-//   },
-//   {
-//     _id: "6",
-//     nombre: "Bella",
-//     vistoPorUltimaVez: "Liberty Island, New York",
-//     respondeA: "Bell",
-//     accesorios: "Pink leash",
-//     infoContacto: "555-3344",
-//     imageURL: "https://i.ibb.co/jVqSrKt/Rectangle-34.png",
-//     comentarios: [],
-//     numComentarios: 0,
-//   },
-// ];
 
 const LostsPets = () => {
   const [lostPetsData, setLostPetsData] = useState(null);
@@ -119,6 +49,7 @@ const LostsPets = () => {
   }, []);
 
   const fileInputRef = useRef();
+  const idUsuario = localStorage.getItem("idUser");
 
   const handleImageSubmit = async (event) => {
     event.preventDefault();
@@ -168,10 +99,34 @@ const LostsPets = () => {
     fileInputRef.current.click();
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setPreviewImage(URL.createObjectURL(file));
+
+      // Crear un objeto FormData y añadir el archivo
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Hacer una solicitud HTTP para subir el archivo
+      try {
+        const response = await fetch(
+          `${API_URL}/lostPets/sendImage/${idUsuario}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error al subir la imagen:", error);
+      }
     } else {
       setPreview(null);
     }
