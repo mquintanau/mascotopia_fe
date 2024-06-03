@@ -7,6 +7,7 @@ import { API_URL } from "../../auth/constants";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import PostCommentContainer from "./PostCommentContainer";
 
 const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
   const {
@@ -133,11 +134,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
             <p className="ml-2">Comments: {comentarios.length}</p>
           </div>
         </div>
-        <div className="my-2 ml-1 flex w-full flex-col">
-          {value.comentarios.map((comment, index) => (
-            <PostComment key={index} {...comment} />
-          ))}
-        </div>
+        <PostCommentContainer comments={comentarios} />
         <div className="flex flex-row items-center overflow-hidden rounded-lg bg-neutral-200">
           <form
             className="flex w-full items-center"
