@@ -1,7 +1,11 @@
-import moment from "moment";
+import { useState, useEffect, useCallback } from "react";
+
 import PostContainer from "../components/Post/PostContainer";
 import PostModal from "../components/Post/PostModal";
+import { API_URL } from "../auth/constants";
 
+import moment from "moment";
+import Swal from "sweetalert2";
 // const posts = [
 //   {
 //     id: 1,
@@ -124,6 +128,26 @@ import PostModal from "../components/Post/PostModal";
 //crea ruta get para traer todos los posts
 
 const Feed = () => {
+  const [posts, setPosts] = useState([]);
+
+  const loadPosts = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/post/getPosts/`);
+      const data = await response.json();
+      setPosts(data.posts);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: { error },
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
+
   const handlePostModaL = () => {};
 
   console.log("feed render");
@@ -135,8 +159,8 @@ const Feed = () => {
           {moment().format("dddd, MMMM Do YYYY")}
         </span>
       </h2>
-      <PostContainer />
-      <PostModal />
+      <PostContainer posts={posts} loadPosts={loadPosts} />
+      <PostModal posts={posts} />
     </div>
   );
 };

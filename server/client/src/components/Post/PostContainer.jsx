@@ -1,32 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import PostFilterContainer from "./PostFilterContainer";
 import PostItem from "./PostItem";
-import Swal from "sweetalert2";
-import { API_URL } from "../../auth/constants";
 
-const PostContainer = () => {
+const PostContainer = ({ posts, loadPosts }) => {
   const [likedPosts, setLikedPosts] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [orderedPosts, setOrderedPosts] = useState(posts);
   const [filter, setFilter] = useState("All");
-
-  const loadPosts = useCallback(async () => {
-    try {
-      const response = await fetch(`${API_URL}/post/getPosts/`);
-      const data = await response.json();
-      setPosts(data.posts);
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: { error },
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    loadPosts();
-  }, [loadPosts]);
 
   useEffect(() => {
     if (filter === "All") {

@@ -136,9 +136,6 @@ function AskButton({}) {
   );
 }
 
-AskButton.propTypes = {
-  forumId: PropTypes.string.isRequired,
-  refreshQuestions: PropTypes.func.isRequired,
-};
+AskButton.propTypes = {};
 
 export default AskButton;
