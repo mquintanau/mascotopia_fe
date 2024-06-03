@@ -130,11 +130,11 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
           >
             <Heart
               onClick={handlePostLike}
-              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "-z-40 scale-0 opacity-0" : "z-40 scale-100 opacity-100"}`}
+              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "-z-10 scale-0 opacity-0" : "z-0 scale-100 opacity-100"}`}
             />
             <HeartSolid
               onClick={handlePostDislike}
-              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "z-40 scale-100 opacity-100" : "-z-40 scale-0 opacity-0"}`}
+              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "z-0 scale-100 opacity-100" : "-z-10 scale-0 opacity-0"}`}
             />
           </div>
           <span className="ml-8 select-none">
