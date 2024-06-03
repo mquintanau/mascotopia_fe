@@ -161,9 +161,9 @@ const LostPets = () => {
         🐶 Losts Pets
       </h2>
       <div className="my-10 flex flex-row">
-        <div className="flex w-[65%] flex-row flex-wrap items-center justify-center">
+        <div className="flex h-fit w-[65%] flex-row flex-wrap items-center justify-center">
           {/* Seccion ver mascotas perdidas */}
-          <h3 className="w-full text-center text-xl">
+          <h3 className="mb-5 w-full text-center text-xl">
             Have you seen these pets?
           </h3>
           {lostPetsData === null ? (
@@ -206,7 +206,7 @@ const LostPets = () => {
               {previewImage && <img src={previewImage} alt="Preview" />}
             </div>
             <p className="my-4 w-full">Add your pet&#39;s information: </p>
-            <Input label="Last Seen" className="my-4" />
+            <Input label="Last Seen In" className="my-4" />
             <Input label="Responds to" className="my-4" />
             <Input label="Accesories" className="my-4" />
             <Input label="Commentary" className="my-4" />
