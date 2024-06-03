@@ -50,7 +50,7 @@ function AskButton({ loadPosts }) {
       // Hacer una solicitud HTTP para subir el archivo
 
       const responseImage = await fetch(
-        `${API_URL}/lostPets/sendImage/${idUsuario}`,
+        `${API_URL}/post/sendImage/${idUsuario}`,
         {
           method: "POST",
           body: formData,
@@ -226,7 +226,7 @@ function AskButton({ loadPosts }) {
                   Photo:
                 </label>
                 <div
-                  className="bg-background relative mt-5 h-[70%] max-h-[300px] w-[70%] max-w-[300px] rounded-lg"
+                  className="relative mt-5 h-[70%] max-h-[300px] w-[70%] max-w-[300px] rounded-lg bg-background"
                   onClick={handleFileButtonClick}
                 >
                   <input
