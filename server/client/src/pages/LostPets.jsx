@@ -32,6 +32,11 @@ const LostPets = () => {
   const [lostPetsData, setLostPetsData] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [nombre, setNombre] = useState("");
+  const [vistoPorUltimaVez, setVistoPorUltimaVez] = useState("");
+  const [respondeA, setRespondeA] = useState("");
+  const [Accesorios, setAccesorios] = useState("");
+  const [infoContacto, setInfoContacto] = useState("");
 
   useEffect(() => {
     fetch(`${API_URL}/lostPets/getPets`)
@@ -93,11 +98,13 @@ const LostPets = () => {
           },
           body: JSON.stringify({
             //Se envian los datos del formulario en formato JSON al servidor
-            idUsuario,
-            titulo,
-            tipo,
-            descripcion,
+            nombre,
+            vistoPorUltimaVez,
+            respondeA,
+            Accesorios,
+            infoContacto,
             imageURL: data.imageURL,
+            idUsuario,
           }),
         });
 
@@ -190,7 +197,7 @@ const LostPets = () => {
             </p>
             <p className="mt-3 w-full text-left">Add a recent picture:</p>
             <div
-              className="relative mt-5 h-[150px] w-[150px] rounded-lg bg-background"
+              className="relative mt-5 h-[150px] w-[150px] rounded-lg bg-background hover:cursor-pointer hover:bg-neutral-300"
               onClick={handleFileButtonClick}
             >
               <input
@@ -206,11 +213,46 @@ const LostPets = () => {
               {previewImage && <img src={previewImage} alt="Preview" />}
             </div>
             <p className="my-4 w-full">Add your pet&#39;s information: </p>
-            <Input label="Last Seen" className="my-4" />
-            <Input label="Responds to" className="my-4" />
-            <Input label="Accesories" className="my-4" />
-            <Input label="Commentary" className="my-4" />
-            <Input label="Contact Information" className="my-4" />
+            <Input
+              label="Name"
+              className="my-4"
+              maxLength={30}
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              required={true}
+            />
+            <Input
+              label="Last Seen"
+              className="my-4"
+              maxLength={30}
+              value={vistoPorUltimaVez}
+              onChange={(e) => setVistoPorUltimaVez(e.target.value)}
+              required={true}
+            />
+            <Input
+              label="Responds to"
+              className="my-4"
+              maxLength={30}
+              value={respondeA}
+              onChange={(e) => setRespondeA(e.target.value)}
+              required={true}
+            />
+            <Input
+              label="Accesories"
+              className="my-4"
+              maxLength={30}
+              value={Accesorios}
+              onChange={(e) => setAccesorios(e.target.value)}
+              required={true}
+            />
+            <Input
+              label="Contact Information"
+              className="my-4"
+              maxLength={200}
+              value={infoContacto}
+              onChange={(e) => setInfoContacto(e.target.value)}
+              required={true}
+            />
             <Button className="bg-secondary">Send</Button>
           </form>
         </div>
