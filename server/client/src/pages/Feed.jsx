@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react";
 import moment from "moment";
 import PostContainer from "../components/Post/PostContainer";
-import { API_URL } from "../auth/constants";
-import Swal from "sweetalert2";
-import { useCallback } from "react";
+import PostModal from "../components/Post/PostModal";
 
 // const posts = [
 //   {
@@ -127,9 +124,11 @@ import { useCallback } from "react";
 //crea ruta get para traer todos los posts
 
 const Feed = () => {
+  const handlePostModaL = () => {};
+
   console.log("feed render");
   return (
-    <div className="min-h-screen w-screen">
+    <div className="flex min-h-screen w-screen flex-col">
       <h2 className="mx-auto w-full pt-10 text-center text-2xl font-semibold">
         Pet News
         <span className="ml-2 text-lg font-normal">
@@ -137,6 +136,7 @@ const Feed = () => {
         </span>
       </h2>
       <PostContainer />
+      <PostModal />
     </div>
   );
 };
