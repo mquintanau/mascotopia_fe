@@ -62,7 +62,7 @@ const PostContainer = ({ posts, loadPosts }) => {
   }
 
   return (
-    <div className="mx-auto my-6 max-w-[600px] rounded-lg bg-secondary p-10 shadow-lg">
+    <div className="min-[600px] mx-auto my-6 max-w-[600px] rounded-lg p-4 shadow-lg max-[600px]:bg-background max-[600px]:shadow-none min-[600px]:bg-secondary md:p-10">
       <h2 className="text-lg font-bold">Featured &amp; Local News &gt;</h2>
       <hr className="my-4 border-t-2 border-[#185450]" />
       <PostFilterContainer filter={filter} setFilter={setFilter} />

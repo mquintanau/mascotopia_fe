@@ -128,7 +128,7 @@ function AskButton({ loadPosts }) {
   return (
     <>
       <div
-        className="fixed bottom-5 right-5 flex h-20 w-20 animate-fadeIn items-center justify-center overflow-hidden rounded-full bg-primary p-4 shadow-xl transition-all hover:cursor-pointer hover:bg-green-400"
+        className="fixed bottom-5 right-5 flex h-16 w-16 animate-fadeIn items-center justify-center overflow-hidden rounded-full bg-primary p-4 shadow-xl transition-all hover:cursor-pointer hover:bg-green-400 md:h-20 md:w-20"
         title="Create a post"
         onClick={() => setShowForm(true)}
       >

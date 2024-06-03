@@ -76,10 +76,10 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
 
   return (
     <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
-      <div className="flex flex-row items-center justify-start">
+      <div className="flex flex-row flex-wrap items-center justify-start">
         {/* Author section */}
-        <h2 className="text-lg font-bold">{titulo}</h2>
-        <div className="ml-auto flex">
+        <h2 className="mr-auto pr-4 text-lg font-bold">{titulo}</h2>
+        <div className="mt-2 flex items-center text-xs min-[400px]:ml-auto md:mt-0 md:text-base">
           <img
             src={
               !autorImageURL
@@ -89,9 +89,9 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
                   : autorImageURL
             }
             alt={autor}
-            className="h-[50px] w-[50px] rounded-full object-cover shadow-md"
+            className="h-[50px] w-[50px] rounded-full object-cover shadow-md md:h-[50px] md:w-[50px]"
           />
-          <div className="ml-3">
+          <div className="ml-3 text-xs md:text-base">
             <p className="font-semibold">{autor}</p>
             <p className="">
               {new Date(fecha).toLocaleDateString(undefined, {
@@ -110,17 +110,20 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
           {descripcion}
         </p>
       </div>
-      <img
-        src={
-          !imageURL
-            ? "https://via.placeholder.com/150"
-            : imageURL.startsWith("/uploads")
-              ? `http://localhost:4000${imageURL}`
-              : imageURL
-        }
-        alt={titulo}
-        className="my-6 max-h-[50vh] w-full max-w-[50vw] select-none self-center overflow-hidden rounded-lg object-contain lg:max-w-[35vw]"
-      />
+      {imageURL && (
+        <img
+          src={
+            !imageURL
+              ? "https://via.placeholder.com/150"
+              : imageURL.startsWith("/uploads")
+                ? `http://localhost:4000${imageURL}`
+                : imageURL
+          }
+          alt={titulo}
+          className="my-6 max-h-[50vh] w-full max-w-[70vw] select-none self-center overflow-hidden rounded-lg object-contain md:max-w-[50vw] lg:max-w-[35vw]"
+        />
+      )}
+
       <div className="flex w-full flex-col text-base">
         {/* Like & comment section */}
         <div className="flex w-full flex-row">
