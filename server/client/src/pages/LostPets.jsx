@@ -28,7 +28,7 @@ import { API_URL } from "../auth/constants";
 //     numComentarios: 2,
 //   },
 
-const LostsPets = () => {
+const LostPets = () => {
   const [lostPetsData, setLostPetsData] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   useEffect(() => {
@@ -166,7 +166,7 @@ const LostsPets = () => {
             </p>
             <p className="mt-3 w-full text-left">Add a recent picture:</p>
             <div
-              className="bg-background relative mt-5 h-[150px] w-[150px] rounded-lg"
+              className="relative mt-5 h-[150px] w-[150px] rounded-lg bg-background"
               onClick={handleFileButtonClick}
             >
               <input
@@ -195,4 +195,4 @@ const LostsPets = () => {
   );
 };
 
-export default LostsPets;
+export default LostPets;

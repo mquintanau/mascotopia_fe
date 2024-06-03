@@ -44,7 +44,7 @@ const NavbarInternal = () => {
       </Link>
       <div className="hidden h-full lg:flex">
         <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
-          <Link to="/">News</Link>
+          <Link to="/feed">News</Link>
         </div>
 
         <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
@@ -53,6 +53,10 @@ const NavbarInternal = () => {
 
         <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
           <Link to="/calendar">Calendar</Link>
+        </div>
+
+        <div className="mr-[25px] flex items-center justify-center hover:border-b-2 hover:border-primary hover:font-semibold hover:text-[#424a49]">
+          <Link to="/lostPets">Lost Pets</Link>
         </div>
         <Button className="my-2 mr-5" onClick={signOut}>
           Sign Out
@@ -77,25 +81,28 @@ const NavbarInternal = () => {
         {showMenu && (
           <div className="absolute right-0 top-9 w-screen rounded border bg-white shadow-lg">
             <Link
-              to="/"
+              to="/feed"
               className="block px-4 py-2 text-black hover:bg-gray-100"
-              onClick={() => console.log("Click en Noticias")}
             >
               News
             </Link>
             <Link
               to="/forum"
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-              onClick={() => console.log("Click en Foros")}
             >
               Forums
             </Link>
             <a
               href="/calendar"
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-              onClick={() => console.log("Click en Calendario")}
             >
               Calendar
+            </a>
+            <a
+              href="/lostPets"
+              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+            >
+              Lost Pets
             </a>
             <a
               className="block px-4 py-2 font-bold text-gray-800 hover:cursor-pointer hover:bg-gray-100"

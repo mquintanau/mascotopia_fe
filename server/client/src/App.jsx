@@ -23,7 +23,7 @@ import QuestionView from "./pages/QuestionView";
 import Calendar from "./pages/Calendar";
 import Modal from "react-modal";
 import Feed from "./pages/Feed";
-import LostsPets from "./pages/LostsPets";
+import LostPets from "./pages/LostPets";
 
 Modal.setAppElement("#root");
 
@@ -72,7 +72,7 @@ function App() {
               {/* Se muestra el calendario */}
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/feed" element={<Feed />} />
-              <Route path="/lostsPets" element={<LostsPets />} />
+              <Route path="/lostPets" element={<LostPets />} />
             </Route>
           </Routes>
         </main>
