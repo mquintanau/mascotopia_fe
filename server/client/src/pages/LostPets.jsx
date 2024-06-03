@@ -200,7 +200,7 @@ const LostPets = () => {
             </p>
             <p className="mt-3 w-full text-left">Add a recent picture:</p>
             <div
-              className="relative mt-5 h-[150px] w-[150px] rounded-lg bg-background hover:cursor-pointer hover:bg-neutral-300"
+              className="relative mt-5 h-[150px] w-[150px] rounded-lg bg-background hover:cursor-pointer hover:bg-neutral-200"
               onClick={handleFileButtonClick}
             >
               <input
@@ -213,7 +213,13 @@ const LostPets = () => {
               <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">
                 <Plus fontSize={50} />
               </div>
-              {previewImage && <img src={previewImage} alt="Preview" />}
+              {previewImage && (
+                <img
+                  src={previewImage}
+                  alt="Preview"
+                  className="h-full w-full object-contain"
+                />
+              )}
             </div>
             <p className="my-4 w-full">Add your pet&#39;s information: </p>
             <Input
