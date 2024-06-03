@@ -50,7 +50,7 @@ UserView.propTypes = {
   username: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
   number_pets: PropTypes.number.isRequired,
-  imageURL: PropTypes.string.isRequired,
+  imageURL: PropTypes.string,
 };
 
 export default UserView;
