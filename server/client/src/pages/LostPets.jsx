@@ -35,10 +35,10 @@ const LostPets = () => {
   const [nombre, setNombre] = useState("");
   const [vistoPorUltimaVez, setVistoPorUltimaVez] = useState("");
   const [respondeA, setRespondeA] = useState("");
-  const [Accesorios, setAccesorios] = useState("");
+  const [accesorios, setAccesorios] = useState("");
   const [infoContacto, setInfoContacto] = useState("");
 
-  useEffect(() => {
+  const loadPets = () => {
     fetch(`${API_URL}/lostPets/getPets`)
       .then((response) => response.json())
       .then((data) => {
@@ -53,7 +53,11 @@ const LostPets = () => {
           description: error,
         }),
       );
-  }, []);
+  };
+
+  useEffect(() => {
+    loadPets();
+  }, [loadPets]);
 
   const fileInputRef = useRef();
   const idUsuario = localStorage.getItem("idUser");
@@ -101,7 +105,7 @@ const LostPets = () => {
             nombre,
             vistoPorUltimaVez,
             respondeA,
-            Accesorios,
+            accesorios,
             infoContacto,
             imageURL: data.imageURL,
             idUsuario,
@@ -112,13 +116,12 @@ const LostPets = () => {
           console.log("El post se creó exitosamente");
           Swal.fire({
             title: "Success!",
-            text: "Post added successfully",
+            text: "Pet added successfully",
             icon: "success",
             confirmButtonText: "Continue",
             confirmButtonColor: "#4caf50",
           });
-          setShowForm(false);
-          loadPosts();
+          loadPets();
         } else {
           console.log("Hubo un error en el registro");
           const json = await responsePost.json();
@@ -241,7 +244,7 @@ const LostPets = () => {
               label="Accesories"
               className="my-4"
               maxLength={30}
-              value={Accesorios}
+              value={accesorios}
               onChange={(e) => setAccesorios(e.target.value)}
               required={true}
             />
