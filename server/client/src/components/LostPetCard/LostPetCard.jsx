@@ -15,7 +15,7 @@ const LostPetCard = ({ pet }) => {
         <h3 className="text-xl font-bold">{nombre}</h3>
         <img
           className="rounded-lg"
-          src="https://i.ibb.co/jVqSrKt/Rectangle-34.png"
+          src={`http://localhost:4000${imageURL}`}
           alt="lost pet"
         />
       </div>
