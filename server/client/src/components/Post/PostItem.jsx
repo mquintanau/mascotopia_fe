@@ -119,7 +119,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
               : imageURL
         }
         alt={titulo}
-        className="my-6 rounded-lg"
+        className="my-6 max-h-[50vh] w-full max-w-[50vw] select-none self-center overflow-hidden rounded-lg object-contain lg:max-w-[35vw]"
       />
       <div className="flex w-full flex-col text-base">
         {/* Like & comment section */}
