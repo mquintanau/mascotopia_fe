@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import LostPetCard from "../components/LostPetCard/LostPetCard";
@@ -38,7 +38,7 @@ const LostPets = () => {
   const [accesorios, setAccesorios] = useState("");
   const [infoContacto, setInfoContacto] = useState("");
 
-  const loadPets = () => {
+  const loadPets = useCallback(() => {
     fetch(`${API_URL}/lostPets/getPets`)
       .then((response) => response.json())
       .then((data) => {
@@ -53,7 +53,7 @@ const LostPets = () => {
           description: error,
         }),
       );
-  };
+  }, []);
 
   useEffect(() => {
     loadPets();
@@ -165,6 +165,7 @@ const LostPets = () => {
     }
   };
 
+  console.log(lostPetsData);
   return (
     <section className="min-h-screen w-screen justify-center">
       <h2 className="m-10 mr-0 w-full pt-10 text-center text-4xl font-semibold">
@@ -177,9 +178,9 @@ const LostPets = () => {
             Have you seen these pets?
           </h3>
           {lostPetsData === null ? (
-            <h1 className="mt-[-400px]">Loading...</h1>
+            <h1 className="mt-[100px]">Loading...</h1>
           ) : lostPetsData.length === 0 ? (
-            <h1 className="mt-[-400px]">No lost pets found</h1>
+            <h1 className="mt-[100px]">No lost pets found</h1>
           ) : (
             lostPetsData.map((pet) => <LostPetCard key={pet._id} pet={pet} />)
           )}
