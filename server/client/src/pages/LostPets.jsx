@@ -31,6 +31,8 @@ import { API_URL } from "../auth/constants";
 const LostPets = () => {
   const [lostPetsData, setLostPetsData] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+
   useEffect(() => {
     fetch(`${API_URL}/lostPets/getPets`)
       .then((response) => response.json())
@@ -51,49 +53,92 @@ const LostPets = () => {
   const fileInputRef = useRef();
   const idUsuario = localStorage.getItem("idUser");
 
-  const handleImageSubmit = async (event) => {
-    event.preventDefault();
-    console.log("image submit");
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-    // Creacion del objeto FormData
-    const formData = new FormData();
-
-    // Agregar el archivo seleccionado al objeto FormData
-    formData.append("image", selectedFile);
-
-    // Envíar FormData al servidor
     try {
-      console.log("response");
-      const response = await axios.post(
-        `${API_URL}/imageProfile/${id}`,
-        formData,
-      );
-      console.log("response", response);
-      // Actualizar
-      setData((prevData) => ({
-        ...prevData,
-        imageURL: response.data.imageURL,
-      }));
+      // Se envía la imagen al servidor
+      // Crear un objeto FormData y añadir el archivo
+      const formData = new FormData();
+      formData.append("image", imageFile);
 
-      console.log("sdaaaaaaaaaa");
-      if (response) {
+      // Hacer una solicitud HTTP para subir el archivo
+
+      const responseImage = await fetch(
+        `${API_URL}/lostPets/sendImage/${idUsuario}`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (!responseImage.ok) {
         Swal.fire({
-          icon: "success",
-          title: "Image uploaded successfully",
-          text: "The image was uploaded successfully",
+          title: "¡Error!",
+          text: "Error uploading the image",
+          icon: "error",
+          confirmButtonText: "Continue",
+          confirmButtonColor: "#f27474",
         });
-        loadUser(); // Recarga el usuario
       }
-      //setData(data) => ({ ...data, imageURL: response.data.imageURL })
+
+      const data = await responseImage.json();
+      console.log(data);
+
+      if (data.imageURL) {
+        const responsePost = await fetch(`${API_URL}/lostPets/sendPet`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            //Se envian los datos del formulario en formato JSON al servidor
+            idUsuario,
+            titulo,
+            tipo,
+            descripcion,
+            imageURL: data.imageURL,
+          }),
+        });
+
+        if (responsePost.ok) {
+          console.log("El post se creó exitosamente");
+          Swal.fire({
+            title: "Success!",
+            text: "Post added successfully",
+            icon: "success",
+            confirmButtonText: "Continue",
+            confirmButtonColor: "#4caf50",
+          });
+          setShowForm(false);
+          loadPosts();
+        } else {
+          console.log("Hubo un error en el registro");
+          const json = await responsePost.json();
+          if (json && json.body && typeof json.body.error === "string") {
+            // json tiene la estructura de AuthResponseError
+            if (json.body.error) {
+              Swal.fire({
+                title: "¡Error!",
+                text: json.body.error,
+                icon: "error",
+                confirmButtonText: "Continue",
+                confirmButtonColor: "#f27474",
+              });
+            }
+          }
+        }
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.log(error);
       Swal.fire({
+        title: "¡Error!",
+        text: "Something went wrong",
         icon: "error",
-        title: "Error",
-        text: { error },
+        confirmButtonText: "Continue",
       });
     }
-  };
+  }
 
   const handleFileButtonClick = () => {
     fileInputRef.current.click();
@@ -101,32 +146,10 @@ const LostPets = () => {
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
+    setImageFile(file);
+
     if (file) {
       setPreviewImage(URL.createObjectURL(file));
-
-      // Crear un objeto FormData y añadir el archivo
-      const formData = new FormData();
-      formData.append("image", file);
-
-      // Hacer una solicitud HTTP para subir el archivo
-      try {
-        const response = await fetch(
-          `${API_URL}/lostPets/sendImage/${idUsuario}`,
-          {
-            method: "POST",
-            body: formData,
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error("Error al subir la imagen:", error);
-      }
     } else {
       setPreviewImage(null);
     }
@@ -159,6 +182,7 @@ const LostPets = () => {
           <form
             action=""
             className="flex flex-col items-center rounded-lg bg-primary p-4 text-left"
+            onSubmit={handleSubmit}
           >
             <p>
               Don’t worry, we’re here to help. Fill with helpful information so
