@@ -39,8 +39,8 @@ const PostContainer = ({ posts, loadPosts }) => {
       let recentPosts = [...posts];
 
       recentPosts = recentPosts.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+        const dateA = new Date(a.fecha);
+        const dateB = new Date(b.fecha);
         return dateB - dateA;
       });
 
