@@ -215,7 +215,7 @@ function AskButton({ loadPosts }) {
                 <Input
                   textArea={true}
                   className="mt-6 h-20 w-full rounded-xl bg-main shadow-lg"
-                  inputClassName="h-full p-0"
+                  inputClassName="h-full py-1 px-2"
                   placeholder="Write Here"
                   maxLength={200}
                   onChange={(e) => setDescription(e.target.value)}

@@ -14,7 +14,7 @@ const ProtectedRoute = () => {
   const isRegister = location.pathname === "/register"; // Verifica si la ubicación actual es /register
   const isForum = location.pathname === "/forum"; // Verifica si la ubicación actual es /forum
   const isQuestionView = location.pathname.startsWith("/questionView"); // Verifica si la ubicación actual es /questionView
-
+  const isLandingPage = location.pathname === "/"; // Verifica si la ubicación actual es /
   // Si el token existe, retorna el componente Outlet
   // Si no, redirige al usuario a la página de login
 
@@ -23,9 +23,9 @@ const ProtectedRoute = () => {
     localStorage.setItem("idUser", id);
   }
 
-  if (isLogin || isForgotPassword || isRegister) {
+  if (isLogin || isForgotPassword || isRegister || isLandingPage) {
     let idUser = localStorage.getItem("idUser");
-    return token ? <Navigate to={`/profile/${idUser}`} /> : <Outlet />; //Si la ubicación actual es /login y el token existe, redirige al usuario a la página de perfil
+    return token ? <Navigate to={`/feed`} /> : <Outlet />; //Si la ubicación actual es /login y el token existe, redirige al usuario a la página de perfil
   }
 
   if (isResetPassword) {

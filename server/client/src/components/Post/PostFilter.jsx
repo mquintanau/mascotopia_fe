@@ -4,7 +4,7 @@ const PostFilter = ({ name = "", setFilter, active = false }) => {
   let outputName = "";
 
   if (name === "Local") {
-    outputName = "📍 " + name;
+    outputName = "📢 " + name;
   } else if (name === "Featured") {
     outputName = "🌟 " + name;
   } else if (name === "Recent") {

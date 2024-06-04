@@ -112,6 +112,11 @@ function Login() {
         ) {
           auth.saveUser(json);
           goTo(`/profile/${json.body.userId}`);
+
+          // Luego, después de un retraso (o después de que se hayan cargado los datos que necesitas), navega a la ruta del feed
+          setTimeout(() => {
+            goTo("/feed");
+          }, 0);
         }
       } else {
         console.log("Something went wrong");

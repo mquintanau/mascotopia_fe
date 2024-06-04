@@ -9,7 +9,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import PostCommentContainer from "./PostCommentContainer";
 
-const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
+const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
   const {
     titulo,
     descripcion,
@@ -18,26 +18,36 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
     autor,
     autorImageURL,
     comentarios,
+    tipo,
   } = value;
-  const imageURL = value.imageURL;
 
   const { data, setData } = useContext(DataContext);
   const [comment, setComment] = useState("");
+  const [isLikedPost, setIsLiked] = useState(isLiked);
+  const [visualNumLikes, setVisualNumLikes] = useState(numLikes);
+  const tipoVisual = tipo === "local" ? "📢 Local" : "🌟 Featured";
+  const fondo =
+    tipo === "local" ? "bg-red-400 text-black" : "bg-neutral-900 text-white";
+
   const idUsuario = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, idUsuario, setData);
+  const imageURL = value.imageURL;
 
   useEffect(() => {
     loadUser();
   }, [loadUser]);
 
   const handlePostLike = () => {
-    setLikedPosts((prevValue) =>
-      Array.from(new Set([...prevValue, value._id])),
-    );
+    setIsLiked(true);
+    setVisualNumLikes((prev) => prev + 1);
+    setLikedPost();
   };
 
   const handlePostDislike = () => {
-    setLikedPosts((prevValue) => prevValue.filter((id) => id !== value._id));
+    setIsLiked(false);
+    setVisualNumLikes((prev) => prev - 1);
+
+    setLikedPost();
   };
 
   const handleSubmitComment = async (event) => {
@@ -120,9 +130,15 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
     <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
       <div className="flex flex-row flex-wrap items-center justify-start">
         {/* Author section */}
-        <h2 className="mr-auto w-full pr-4 text-lg font-bold md:max-w-[300px]">
-          {titulo}
-        </h2>
+        <div className="mr-auto pr-4 text-lg font-bold md:max-w-[300px]">
+          <h2 className="mb-2">{titulo}</h2>
+          <span
+            className={`text-shadow rounded-xl bg-opacity-70 px-3 py-1 capitalize shadow-md ${fondo}`}
+          >
+            {tipoVisual}
+          </span>
+        </div>
+
         <div className="my-2 mt-4 flex items-center text-xs md:mt-0 md:text-base">
           <img
             src={
@@ -157,7 +173,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
       <hr className="border-t-1 my-4 border-neutral-200" />
       <div>
         {/* Description Section */}
-        <p className="mt-2" title="descrip">
+        <p className="mt-2" title="Descripcion publicacion">
           {descripcion}
         </p>
       </div>
@@ -179,20 +195,20 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
         {/* Like & comment section */}
         <div className="mt-6 flex w-full flex-row">
           <div
-            title={isLiked ? "Dislike" : "Like"}
+            title={isLikedPost ? "Dislike" : "Like"}
             className="relative flex flex-row hover:cursor-pointer"
           >
             <Heart
               onClick={handlePostLike}
-              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "-z-10 scale-0 opacity-0" : "z-0 scale-100 opacity-100"}`}
+              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLikedPost ? "-z-10 scale-0 opacity-0" : "z-0 scale-100 opacity-100"}`}
             />
             <HeartSolid
               onClick={handlePostDislike}
-              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "z-0 scale-100 opacity-100" : "-z-10 scale-0 opacity-0"}`}
+              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLikedPost ? "z-0 scale-100 opacity-100" : "-z-10 scale-0 opacity-0"}`}
             />
           </div>
           <span className="ml-8 select-none text-sm md:text-base">
-            Likes: {isLiked ? numLikes + 1 : numLikes}
+            Likes: {visualNumLikes}
           </span>
           <div className="ml-8 flex select-none flex-row text-sm md:text-base">
             <ChatBubble />

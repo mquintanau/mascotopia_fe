@@ -1,11 +1,30 @@
 import { useState, useEffect, useCallback } from "react";
 import PostFilterContainer from "./PostFilterContainer";
 import PostItem from "./PostItem";
+import { API_URL } from "../../auth/constants";
 
 const PostContainer = ({ posts, loadPosts }) => {
-  const [likedPosts, setLikedPosts] = useState([]);
+  console.log(`${API_URL}/sendLike`);
   const [orderedPosts, setOrderedPosts] = useState(posts);
   const [filter, setFilter] = useState("Recent");
+
+  const setLikedPost = (postId, idUser) => {
+    // hace una peticion a la ruta de sendLike para dar like a un post
+    fetch(`${API_URL}/sendLike`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId, idUser }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     if (filter === "All") {
@@ -67,14 +86,15 @@ const PostContainer = ({ posts, loadPosts }) => {
       <hr className="my-4 border-t-2 border-[#185450]" />
       <PostFilterContainer filter={filter} setFilter={setFilter} />
       {orderedPosts.map((post) => {
-        const isLiked = likedPosts.includes(post._id);
+        const idUser = localStorage.getItem("idUser");
+        const isLiked = post.likes.includes(idUser);
         return (
           <PostItem
             value={post}
             key={post._id}
             isLiked={isLiked}
             loadPosts={loadPosts}
-            setLikedPosts={setLikedPosts}
+            setLikedPost={() => setLikedPost(post._id, idUser)}
           />
         );
       })}

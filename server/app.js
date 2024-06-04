@@ -43,12 +43,13 @@ app.use("/api/forum", require("./routes/forum")); // Ruta get de los foros
 app.use("/api/sendQuestion", require("./routes/sendQuestion")); // Ruta para post de las preguntas
 app.use("/api/sendAnswer", require("./routes/sendAnswer")); // Ruta para post de las respuestas
 app.use("/api/deleteQuestion", require("./routes/deleteQuestion")); // Ruta para eliminar preguntas
-app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eliminar preguntas
+app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eliminar respuestas
 
 //FEED
-app.use("/api/post", require("./routes/post")); // Ruta para dar like a las preguntas
-app.use("/api/lostPets", require("./routes/lostPets")); // Ruta para dar like a las preguntas
+app.use("/api/post", require("./routes/post"));
+app.use("/api/lostPets", require("./routes/lostPets"));
 app.use("/api/sendReplyPost", require("./routes/sendReplyPost")); // Ruta para post de los comentarios
+app.use("/api/sendLike", require("./routes/sendLike")); // Ruta para dar like
 
 //Use the client folder in production
 app.use(express.static(path.join(__dirname, "/client/dist")));
