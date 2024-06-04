@@ -1,4 +1,4 @@
-import { Heart, HeartSolid, ChatBubble, Send, BinMinusIn } from "iconoir-react";
+import { Heart, HeartSolid, ChatBubble, Send, Trash } from "iconoir-react";
 import PostComment from "./PostComment";
 import Input from "../Input/Input";
 import useUserLoader from "../../utils/useUserLoader";
@@ -147,11 +147,11 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
           </div>
         </div>
         {data && data.correo === "admin@gmail.com" && (
-          <BinMinusIn
+          <Trash
             className="mt-3 w-full rounded-2xl bg-red-400 hover:cursor-pointer hover:bg-red-500"
             fontSize={30}
             onClick={confirmationDelete}
-          ></BinMinusIn>
+          ></Trash>
         )}
       </div>
       <hr className="border-t-1 my-4 border-neutral-200" />
