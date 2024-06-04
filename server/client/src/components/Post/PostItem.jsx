@@ -19,22 +19,30 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
     autorImageURL,
     comentarios,
   } = value;
-  const imageURL = value.imageURL;
 
   const { data, setData } = useContext(DataContext);
   const [comment, setComment] = useState("");
+  const [isLikedPost, setIsLiked] = useState(isLiked);
+  const [visualNumLikes, setVisualNumLikes] = useState(numLikes);
+
   const idUsuario = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, idUsuario, setData);
+  const imageURL = value.imageURL;
 
   useEffect(() => {
     loadUser();
   }, [loadUser]);
 
   const handlePostLike = () => {
+    setIsLiked(true);
+    setVisualNumLikes((prev) => prev + 1);
     setLikedPost();
   };
 
   const handlePostDislike = () => {
+    setIsLiked(false);
+    setVisualNumLikes((prev) => prev - 1);
+
     setLikedPost();
   };
 
@@ -106,7 +114,7 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
       <hr className="border-t-1 my-4 border-neutral-200" />
       <div>
         {/* Description Section */}
-        <p className="mt-2" title="descrip">
+        <p className="mt-2" title="Descripcion publicacion">
           {descripcion}
         </p>
       </div>
@@ -128,20 +136,20 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
         {/* Like & comment section */}
         <div className="mt-6 flex w-full flex-row">
           <div
-            title={isLiked ? "Dislike" : "Like"}
+            title={isLikedPost ? "Dislike" : "Like"}
             className="relative flex flex-row hover:cursor-pointer"
           >
             <Heart
               onClick={handlePostLike}
-              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "-z-10 scale-0 opacity-0" : "z-0 scale-100 opacity-100"}`}
+              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLikedPost ? "-z-10 scale-0 opacity-0" : "z-0 scale-100 opacity-100"}`}
             />
             <HeartSolid
               onClick={handlePostDislike}
-              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLiked ? "z-0 scale-100 opacity-100" : "-z-10 scale-0 opacity-0"}`}
+              className={`absolute transform transition-transform duration-300 ease-in-out hover:scale-125 ${isLikedPost ? "z-0 scale-100 opacity-100" : "-z-10 scale-0 opacity-0"}`}
             />
           </div>
           <span className="ml-8 select-none text-sm md:text-base">
-            Likes: {isLiked ? numLikes + 1 : numLikes}
+            Likes: {visualNumLikes}
           </span>
           <div className="ml-8 flex select-none flex-row text-sm md:text-base">
             <ChatBubble />
