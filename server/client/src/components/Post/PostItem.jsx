@@ -1,4 +1,4 @@
-import { Heart, HeartSolid, ChatBubble, Send } from "iconoir-react";
+import { Heart, HeartSolid, ChatBubble, Send, BinMinusIn } from "iconoir-react";
 import PostComment from "./PostComment";
 import Input from "../Input/Input";
 import useUserLoader from "../../utils/useUserLoader";
@@ -74,6 +74,48 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
     }
   };
 
+  const handleDeletePost = async () => {
+    const idPost = value._id;
+    try {
+      const response = await fetch(`${API_URL}/post/deletePost/${idPost}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "The question has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#6FC2BD",
+        });
+        loadPosts();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const confirmationDelete = (e) => {
+    e.stopPropagation();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#6FC2BD",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDeletePost();
+        // Aquí va el código para manejar la eliminación
+      }
+    });
+  };
+
   return (
     <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
       <div className="flex flex-row flex-wrap items-center justify-start">
@@ -104,6 +146,13 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
             </p>
           </div>
         </div>
+        {data && data.correo === "admin@gmail.com" && (
+          <BinMinusIn
+            className="mt-3 w-full rounded-2xl bg-red-400 hover:cursor-pointer hover:bg-red-500"
+            fontSize={30}
+            onClick={confirmationDelete}
+          ></BinMinusIn>
+        )}
       </div>
       <hr className="border-t-1 my-4 border-neutral-200" />
       <div>
