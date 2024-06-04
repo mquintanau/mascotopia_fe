@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 
 import { API_URL } from "../../auth/constants";
-import { ChatLinesSolid, InfoCircle, Plus } from "iconoir-react";
+import { ChatLinesSolid, InfoCircle, Plus, Camera } from "iconoir-react";
 import Swal from "sweetalert2";
 
 function AskButton({ loadPosts }) {
@@ -16,7 +16,6 @@ function AskButton({ loadPosts }) {
   const [titulo, setTitulo] = useState("");
   const [tipo, setTipo] = useState("");
   const [descripcion, setDescription] = useState("");
-  const [imageURL, setImageURL] = useState("");
 
   const idUsuario = localStorage.getItem("idUser");
 
@@ -41,36 +40,40 @@ function AskButton({ loadPosts }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    let image = null;
+
     try {
-      // Se envía la imagen al servidor
-      // Crear un objeto FormData y añadir el archivo
-      const formData = new FormData();
-      formData.append("image", imageFile);
+      if (imageFile) {
+        // Se envía la imagen al servidor
+        // Crear un objeto FormData y añadir el archivo
+        const formData = new FormData();
+        formData.append("image", imageFile);
 
-      // Hacer una solicitud HTTP para subir el archivo
+        // Hacer una solicitud HTTP para subir el archivo
 
-      const responseImage = await fetch(
-        `${API_URL}/post/sendImage/${idUsuario}`,
-        {
-          method: "POST",
-          body: formData,
-        },
-      );
+        const responseImage = await fetch(
+          `${API_URL}/post/sendImage/${idUsuario}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
 
-      if (!responseImage.ok) {
-        Swal.fire({
-          title: "¡Error!",
-          text: "Error uploading the image",
-          icon: "error",
-          confirmButtonText: "Continue",
-          confirmButtonColor: "#f27474",
-        });
+        if (!responseImage.ok) {
+          Swal.fire({
+            title: "¡Error!",
+            text: "Error uploading the image",
+            icon: "error",
+            confirmButtonText: "Continue",
+            confirmButtonColor: "#f27474",
+          });
+        }
+
+        const data = await responseImage.json();
+        image = data.imageURL;
       }
 
-      const data = await responseImage.json();
-      console.log(data);
-
-      if (data.imageURL) {
+      if (image || !imageFile) {
         const responsePost = await fetch(`${API_URL}/post/sendPost`, {
           method: "POST",
           headers: {
@@ -82,7 +85,7 @@ function AskButton({ loadPosts }) {
             titulo,
             tipo,
             descripcion,
-            imageURL: data.imageURL,
+            imageURL: image,
           }),
         });
 
@@ -96,6 +99,8 @@ function AskButton({ loadPosts }) {
             confirmButtonColor: "#4caf50",
           });
           setShowForm(false);
+          setImageFile(null);
+          setPreviewImage(null);
           loadPosts();
         } else {
           console.log("Hubo un error en el registro");
@@ -143,18 +148,17 @@ function AskButton({ loadPosts }) {
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur hover:cursor-pointer"
           onClick={() => setShowForm(false)}
         >
-          <div
-            className="mx-5 flex flex-col gap-5 rounded-xl bg-navbar p-5 md:mx-0"
+          <form
+            className="flex h-[400px] w-[400px] translate-y-[25px] flex-col items-center justify-center gap-5 overflow-x-hidden overflow-y-scroll rounded-xl bg-navbar py-2 outline outline-2 outline-black md:h-fit md:w-fit md:flex-row md:flex-wrap"
+            onSubmit={handleSubmit}
             onClick={(e) => e.stopPropagation()}
           >
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-row flex-wrap justify-center"
-            >
-              <div className="flex w-[40%] max-w-[320px] flex-col">
-                <p>Publication Type:</p>
-                <div className="mb-7 mt-2 flex flex-row items-center justify-center">
-                  <label className="mr-4 flex flex-row justify-center">
+            {/* Publicacion */}
+            <div className="mt-[300px] flex w-full max-w-[320px] flex-col md:mt-0 md:w-[40%] md:pl-6">
+              <div className="flex w-full flex-row items-center justify-center p-8">
+                <p className="mr-7">Publication Type:</p>
+                <div className="flex flex-col items-center justify-center rounded-lg bg-main p-4 shadow-lg">
+                  <label className="mb-2 flex flex-row justify-center">
                     <input
                       type="radio"
                       name="Tipo"
@@ -174,7 +178,7 @@ function AskButton({ loadPosts }) {
                     </div>
                   </label>
 
-                  <label className="flex flex-row justify-center">
+                  <label className="flex w-full flex-row justify-center">
                     <input
                       type="radio"
                       name="Tipo"
@@ -194,73 +198,81 @@ function AskButton({ loadPosts }) {
                     </div>
                   </label>
                 </div>
+              </div>
 
+              <div className="flex flex-col px-4 md:p-0">
                 <Input
                   type="text"
                   label="Publication title"
                   id="title"
                   inputClassName="rounded-xl"
-                  maxLength={30}
+                  maxLength={100}
                   onChange={(e) => setTitulo(e.target.value)}
                   required={true}
+                  className="rounded-lg shadow-lg md:mx-0"
                 />
 
-                <label className="mt-5" htmlFor="description">
-                  Add a Description:{" "}
-                </label>
-                <textarea
-                  type="text"
-                  className="mt-3  h-32 w-full rounded-xl bg-main px-4 py-2"
+                <Input
+                  textArea={true}
+                  className="mt-6 h-20 w-full rounded-xl bg-main shadow-lg"
+                  inputClassName="h-full p-0"
                   placeholder="Write Here"
                   maxLength={200}
                   onChange={(e) => setDescription(e.target.value)}
                   required={true}
-                  id="description"
+                  label="Add a Description"
                 />
               </div>
+            </div>
 
-              <div className="mx-14 my-auto mr-4 h-[300px] w-[2px] bg-green-800 opacity-40"></div>
+            {/* Barra */}
+            <div className="mx-14 my-auto mr-4 hidden h-[300px] w-[2px] bg-green-800 opacity-40 md:block"></div>
 
-              <div className="flex w-[40%] max-w-[320px] flex-col items-center justify-center">
-                <label htmlFor="fileInput" className="">
-                  Photo:
-                </label>
-                <div
-                  className="relative mt-5 h-[70%] max-h-[300px] w-[70%] max-w-[300px] rounded-lg bg-background"
-                  onClick={handleFileButtonClick}
-                >
-                  <input
-                    type="file"
-                    id="fileInput"
-                    onChange={handleImageChange}
-                    className="hidden" // Oculta el input
-                    ref={fileInputRef}
-                  />
-                  <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">
-                    <Plus fontSize={50} />
-                  </div>
-                  {previewImage && (
-                    <img
-                      src={previewImage}
-                      alt="Preview"
-                      className="h-full w-full object-contain"
-                    />
-                  )}
+            {/* foto */}
+            <div className="flex w-full max-w-[320px] flex-col items-center justify-center md:ml-7 md:w-[40%]">
+              <label htmlFor="fileInput" className="">
+                Photo:
+              </label>
+              <div
+                className="relative mt-5 flex aspect-square h-full max-h-[200px] w-full max-w-[200px] items-center justify-center rounded-lg bg-background outline outline-2 transition-all hover:cursor-pointer hover:bg-neutral-200"
+                onClick={handleFileButtonClick}
+              >
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleImageChange}
+                  className="hidden" // Oculta el input
+                  ref={fileInputRef}
+                />
+                <div className="absolute right-0 top-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary outline outline-2">
+                  <Plus fontSize={50} />
                 </div>
-              </div>
+                <Camera fontSize={70} />
 
-              <div className="mt-7 flex w-full flex-row justify-center">
-                <Button
-                  type="button"
-                  className="mr-3 bg-red-400 hover:bg-black hover:text-red-400"
-                  onClick={() => setShowForm(false)}
-                >
-                  Close
-                </Button>
-                <Button type="submit">Send</Button>
+                {previewImage && (
+                  <img
+                    src={previewImage}
+                    alt="Preview"
+                    className="h-full w-full object-contain"
+                  />
+                )}
               </div>
-            </form>
-          </div>
+            </div>
+
+            {/* Botontes */}
+            <div className="flex w-full flex-row justify-center pb-6">
+              <Button
+                type="button"
+                className="mr-3 max-h-[40px] bg-red-400 hover:bg-black hover:text-red-400"
+                onClick={() => setShowForm(false)}
+              >
+                Close
+              </Button>
+              <Button type="submit" className="max-h-[40px]">
+                Send
+              </Button>
+            </div>
+          </form>
         </div>
       )}
     </>
