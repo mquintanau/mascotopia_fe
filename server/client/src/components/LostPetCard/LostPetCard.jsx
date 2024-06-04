@@ -13,7 +13,7 @@ const LostPetCard = ({ pet, className }) => {
         <h3 className="w-full break-words text-xl font-bold">{nombre}</h3>
         <img
           className="rounded-lg"
-          src={`http://localhost:4000${imageURL}`}
+          src={`https://mascotopia-fe.onrender.com/:4000${imageURL}`}
           alt="lost pet"
         />
       </div>

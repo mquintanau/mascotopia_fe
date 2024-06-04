@@ -148,7 +148,7 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
               !autorImageURL
                 ? "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-user-circle-icon.png"
                 : autorImageURL.startsWith("/uploads")
-                  ? `http://localhost:4000${autorImageURL}`
+                  ? `https://mascotopia-fe.onrender.com${autorImageURL}`
                   : autorImageURL
             }
             alt={autor}
@@ -189,7 +189,7 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
             !imageURL
               ? "https://via.placeholder.com/150"
               : imageURL.startsWith("/uploads")
-                ? `http://localhost:4000${imageURL}`
+                ? `https://mascotopia-fe.onrender.com${imageURL}`
                 : imageURL
           }
           alt={titulo}

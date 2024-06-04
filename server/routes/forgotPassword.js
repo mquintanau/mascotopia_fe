@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
     context: {
       title: 'Reset Your Password',
       text: "Click the following link to reset your password:",
-      link: `http://localhost:4000/resetPassword/${user._id}/${token}`,
+      link: `https://mascotopia-fe.onrender.com/resetPassword/${user._id}/${token}`,
       linkMessage: "Click here to reset your password",
     }
   };
