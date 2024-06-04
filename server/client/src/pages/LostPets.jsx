@@ -168,13 +168,14 @@ const LostPets = () => {
   console.log(lostPetsData);
   return (
     <section className="min-h-screen w-screen justify-center">
-      <h2 className="m-10 mr-0 w-full pt-10 text-center text-4xl font-semibold">
-        🐶 Losts Pets
-      </h2>
-      <div className="my-10 flex flex-row">
-        <div className="flex h-fit w-[65%] flex-row flex-wrap items-center justify-center">
+      <div className="my-10 flex flex-row flex-wrap justify-around">
+        <h2 className="mr-0 mt-6 w-full text-center text-4xl font-semibold md:m-10 md:mt-0 md:pt-10">
+          🐶 Lost Pets
+        </h2>
+        {/* Vista mascotas perdidas */}
+        <div className="mb-10 flex max-h-[1000px] w-full flex-row flex-wrap items-center justify-center overflow-y-scroll md:mb-0 md:h-fit md:w-[60%] md:max-w-full">
           {/* Seccion ver mascotas perdidas */}
-          <h3 className="mb-5 w-full text-center text-xl">
+          <h3 className="mb-10 w-full text-center text-xl md:mb-5">
             Have you seen these pets?
           </h3>
           {lostPetsData === null ? (
@@ -182,10 +183,13 @@ const LostPets = () => {
           ) : lostPetsData.length === 0 ? (
             <h1 className="mt-[100px]">No lost pets found</h1>
           ) : (
-            lostPetsData.map((pet) => <LostPetCard key={pet._id} pet={pet} />)
+            lostPetsData.map((pet) => (
+              <LostPetCard key={pet._id} pet={pet} className="m-2 md:my-3" />
+            ))
           )}
         </div>
-        <div className="mr-10 w-[35%] rounded-md">
+        {/* Formulario */}
+        <div className="w-full max-w-[500px] rounded-md px-4 md:w-[30%] md:px-0">
           {/* Formulario mascota perdida */}
           <h3 className="mb-10 w-full text-center text-xl">
             Have you lost your pet?
