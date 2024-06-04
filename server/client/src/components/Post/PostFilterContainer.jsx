@@ -4,7 +4,7 @@ import PostFilter from "./PostFilter";
 const PostFilterContainer = ({ filter, setFilter }) => {
   return (
     <div className="flex flex-row items-center justify-center">
-      <div className="flex w-full flex-row flex-wrap justify-center">
+      <div className="mb-4 flex w-full flex-row flex-wrap justify-center">
         <PostFilter
           name="Recent"
           setFilter={setFilter}
