@@ -3,9 +3,10 @@ import PostFilterContainer from "./PostFilterContainer";
 import PostItem from "./PostItem";
 
 const PostContainer = ({ posts, loadPosts }) => {
-  const [likedPosts, setLikedPosts] = useState([]);
   const [orderedPosts, setOrderedPosts] = useState(posts);
   const [filter, setFilter] = useState("Recent");
+
+  const setLikedPosts = (postId, isLiked) => {};
 
   useEffect(() => {
     if (filter === "All") {
@@ -67,7 +68,8 @@ const PostContainer = ({ posts, loadPosts }) => {
       <hr className="my-4 border-t-2 border-[#185450]" />
       <PostFilterContainer filter={filter} setFilter={setFilter} />
       {orderedPosts.map((post) => {
-        const isLiked = likedPosts.includes(post._id);
+        const idUser = localStorage.getItem("idUser");
+        const isLiked = post.likes.includes(idUser);
         return (
           <PostItem
             value={post}

@@ -135,6 +135,7 @@ const Feed = () => {
       const response = await fetch(`${API_URL}/post/getPosts/`);
       const data = await response.json();
       setPosts(data.posts);
+      console.log(data.posts);
     } catch (error) {
       Swal.fire({
         icon: "error",
