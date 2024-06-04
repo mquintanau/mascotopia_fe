@@ -131,7 +131,7 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
     <div
       className={`${margin} flex flex-col justify-center rounded-lg bg-white px-4 py-4 font-normal shadow-lg`}
     >
-      <div className="relative flex flex-row flex-wrap items-center justify-start">
+      <div className="relative flex flex-row flex-wrap items-center justify-start md:flex-nowrap">
         {/* Author section */}
         <div className="mr-auto pr-4 text-lg font-bold md:max-w-[300px]">
           <h2 className="mb-2">{titulo}</h2>
