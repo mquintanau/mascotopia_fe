@@ -87,7 +87,7 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
       if (response.ok) {
         Swal.fire({
           title: "Deleted!",
-          text: "The question has been deleted.",
+          text: "The post has been deleted.",
           icon: "success",
           confirmButtonColor: "#6FC2BD",
         });
