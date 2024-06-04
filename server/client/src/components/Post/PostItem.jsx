@@ -1,4 +1,4 @@
-import { Heart, HeartSolid, ChatBubble, Send, Trash } from "iconoir-react";
+import { Heart, HeartSolid, ChatBubble, Send, Xmark } from "iconoir-react";
 import PostComment from "./PostComment";
 import Input from "../Input/Input";
 import useUserLoader from "../../utils/useUserLoader";
@@ -32,6 +32,7 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
   const idUsuario = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, idUsuario, setData);
   const imageURL = value.imageURL;
+  const margin = data && data.correo === "admin@gmail.com" ? "my-12" : "mb-7";
 
   useEffect(() => {
     loadUser();
@@ -127,8 +128,10 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
   };
 
   return (
-    <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
-      <div className="flex flex-row flex-wrap items-center justify-start">
+    <div
+      className={`${margin} flex flex-col justify-center rounded-lg bg-white px-4 py-4 font-normal shadow-lg`}
+    >
+      <div className="relative flex flex-row flex-wrap items-center justify-start">
         {/* Author section */}
         <div className="mr-auto pr-4 text-lg font-bold md:max-w-[300px]">
           <h2 className="mb-2">{titulo}</h2>
@@ -163,11 +166,14 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
           </div>
         </div>
         {data && data.correo === "admin@gmail.com" && (
-          <Trash
-            className="mt-3 w-full rounded-2xl bg-red-400 hover:cursor-pointer hover:bg-red-500"
-            fontSize={30}
-            onClick={confirmationDelete}
-          ></Trash>
+          <div className="z-index-40 absolute -right-10 -top-10 my-2 ml-auto flex w-fit flex-row items-center justify-center rounded-2xl bg-red-300 p-2 font-bold hover:cursor-pointer hover:bg-red-400 active:bg-red-500">
+            <Xmark
+              className="w-fit"
+              fontSize={20}
+              strokeWidth={3}
+              onClick={confirmationDelete}
+            />
+          </div>
         )}
       </div>
       <hr className="border-t-1 my-4 border-neutral-200" />
