@@ -45,13 +45,18 @@ app.use("/api/sendAnswer", require("./routes/sendAnswer")); // Ruta para post de
 app.use("/api/deleteQuestion", require("./routes/deleteQuestion")); // Ruta para eliminar preguntas
 app.use("/api/deleteAnswer", require("./routes/deleteAnswer")); // Ruta para eliminar preguntas
 
+//FEED
+app.use("/api/post", require("./routes/post")); // Ruta para dar like a las preguntas
+app.use("/api/lostPets", require("./routes/lostPets")); // Ruta para dar like a las preguntas
+app.use("/api/sendReplyPost", require("./routes/sendReplyPost")); // Ruta para post de los comentarios
+
 //Use the client folder in production
-app.use(express.static(path.join(__dirname,'/client/dist')));
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
 // Render cliend index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/dist/index.html'));
-})
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+});
 
 // app.get("/", (req, res) => {
 //   res.send("Hello World!");

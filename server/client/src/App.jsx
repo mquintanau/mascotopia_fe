@@ -22,6 +22,8 @@ import Forum from "./pages/Forum";
 import QuestionView from "./pages/QuestionView";
 import Calendar from "./pages/Calendar";
 import Modal from "react-modal";
+import Feed from "./pages/Feed";
+import LostPets from "./pages/LostPets";
 
 Modal.setAppElement("#root");
 
@@ -69,6 +71,8 @@ function App() {
               <Route path="/register" element={<Signup />} />
               {/* Se muestra el calendario */}
               <Route path="/calendar" element={<Calendar />} />
+              <Route path="/feed" element={<Feed />} />
+              <Route path="/lostPets" element={<LostPets />} />
             </Route>
           </Routes>
         </main>

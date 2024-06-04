@@ -9,6 +9,7 @@ const Input = React.forwardRef(function Input(
     className = "",
     inputClassName = "",
     labelClassName = "",
+    textArea = false,
     ...props
   },
   ref,
@@ -28,13 +29,24 @@ const Input = React.forwardRef(function Input(
 
   return (
     <div className={divClass}>
-      <input
-        ref={ref}
-        id={resolvedId}
-        className={inputClass}
-        placeholder={label}
-        {...props}
-      />
+      {textArea && (
+        <textarea
+          className={inputClass}
+          ref={ref}
+          id={resolvedId}
+          placeholder={label}
+          {...props}
+        />
+      )}
+      {!textArea && (
+        <input
+          ref={ref}
+          id={resolvedId}
+          className={inputClass}
+          placeholder={label}
+          {...props}
+        />
+      )}
       <label htmlFor={resolvedId} className={labelClass}>
         {label}
       </label>

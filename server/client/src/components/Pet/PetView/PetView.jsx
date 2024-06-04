@@ -14,7 +14,7 @@ const PetView = (props) => {
           <div className="relative m-4 mb-4 h-[175px] w-[175px] justify-center overflow-hidden">
             <img
               src={
-                imageURL ? `https://mascotopia-fe.onrender.com${imageURL}` : PetDefaultPhoto
+                imageURL ? `http://localhost:4000${imageURL}` : PetDefaultPhoto
               }
               className={`h-full w-full object-cover ${imageURL ? "rounded-full" : ""}`}
             />
