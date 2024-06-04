@@ -1,10 +1,12 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useContext } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import LostPetCard from "../components/LostPetCard/LostPetCard";
 import { Plus, Camera } from "iconoir-react";
 import Swal from "sweetalert2";
 import { API_URL } from "../auth/constants";
+import useUserLoader from "../utils/useUserLoader";
+import DataContext from "../auth/DataContext";
 
 // const lostPetsData = [
 //   {
@@ -31,12 +33,20 @@ import { API_URL } from "../auth/constants";
 const LostPets = () => {
   const [lostPetsData, setLostPetsData] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const { data, setData } = useContext(DataContext);
   const [imageFile, setImageFile] = useState(null);
   const [nombre, setNombre] = useState("");
   const [vistoPorUltimaVez, setVistoPorUltimaVez] = useState("");
   const [respondeA, setRespondeA] = useState("");
   const [accesorios, setAccesorios] = useState("");
   const [infoContacto, setInfoContacto] = useState("");
+  const idUsuario = localStorage.getItem("idUser");
+  const loadUser = useUserLoader(API_URL, idUsuario, setData);
+
+  // Carga el usuario al cargar la página
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   const loadPets = useCallback(() => {
     fetch(`${API_URL}/lostPets/getPets`)
@@ -60,7 +70,6 @@ const LostPets = () => {
   }, [loadPets]);
 
   const fileInputRef = useRef();
-  const idUsuario = localStorage.getItem("idUser");
 
   async function handleSubmit(e) {
     e.preventDefault();
