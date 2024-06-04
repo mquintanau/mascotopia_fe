@@ -18,12 +18,16 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
     autor,
     autorImageURL,
     comentarios,
+    tipo,
   } = value;
 
   const { data, setData } = useContext(DataContext);
   const [comment, setComment] = useState("");
   const [isLikedPost, setIsLiked] = useState(isLiked);
   const [visualNumLikes, setVisualNumLikes] = useState(numLikes);
+  const tipoVisual = tipo === "local" ? "📢 Local" : "🌟 Featured";
+  const fondo =
+    tipo === "local" ? "bg-red-400 text-black" : "bg-neutral-900 text-white";
 
   const idUsuario = localStorage.getItem("idUser");
   const loadUser = useUserLoader(API_URL, idUsuario, setData);
@@ -84,9 +88,15 @@ const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
     <div className="my-7 flex flex-col justify-center overflow-hidden rounded-lg bg-white px-4 py-4 font-normal shadow-lg">
       <div className="flex flex-row flex-wrap items-center justify-start">
         {/* Author section */}
-        <h2 className="mr-auto w-full pr-4 text-lg font-bold md:max-w-[300px]">
-          {titulo}
-        </h2>
+        <div className="mr-auto pr-4 text-lg font-bold md:max-w-[300px]">
+          <h2 className="mb-2">{titulo}</h2>
+          <span
+            className={`text-shadow rounded-xl bg-opacity-70 px-3 py-1 capitalize shadow-md ${fondo}`}
+          >
+            {tipoVisual}
+          </span>
+        </div>
+
         <div className="my-2 mt-4 flex items-center text-xs md:mt-0 md:text-base">
           <img
             src={

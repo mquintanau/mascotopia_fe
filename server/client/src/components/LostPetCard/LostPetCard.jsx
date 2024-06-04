@@ -19,7 +19,7 @@ const LostPetCard = ({ pet, className }) => {
       </div>
       <div className="mt-4 flex max-h-[100px] w-full flex-row flex-wrap overflow-y-scroll break-words text-sm md:ml-4 md:mt-0 md:h-[200px] md:max-h-fit md:w-[45%] md:max-w-[45%] md:flex-row">
         <p className="w-full">
-          🗺️Last seen in{" "}
+          📢Last seen in{" "}
           <span className="font-semibold">{vistoPorUltimaVez}</span>
         </p>
         <p className="w-full">

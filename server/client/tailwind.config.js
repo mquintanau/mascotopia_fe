@@ -34,6 +34,9 @@ export default {
         welcome: "url('./assets/Group14.png')",
         "line-background": "url('./assets/lineForgotPassword.svg')",
       },
+      textShadow: {
+        outline: "0 0 2px #000",
+      },
     },
   },
   // eslint-disable-next-line no-undef
