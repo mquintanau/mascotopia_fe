@@ -51,8 +51,8 @@ function App() {
         <main className="mt-[50px]">
           {/* Contenido principal, manejando la navegacion con react-router-dom */}
           <Routes>
-            <Route path="/" element={<LandingPage />} />
             <Route path="/" element={<ProtectedRoute />}>
+              <Route path="/" element={<LandingPage />} />
               {/* Se protege la ruta de perfil y resetPassword */}
               <Route path="/forum" element={<Forum />} /> {/* Prueba foro */}
               <Route path="/login" element={<Login />} />
