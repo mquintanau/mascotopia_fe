@@ -125,4 +125,13 @@ router.get("/getFeaturedPosts/", async (req, res) => {
   }
 });
 
+router.delete("/deletePost/:id", async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id); //eliminamos el post por su id
+    res.status(200).json({ message: "Post deleted" }); //retornamos un json con el mensaje de eliminado
+  } catch (error) {
+    res.status(400).json({ error }); //retornamos un json con el error
+  }
+});
+
 module.exports = router; //exportamos el router
