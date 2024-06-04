@@ -9,7 +9,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import PostCommentContainer from "./PostCommentContainer";
 
-const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
+const PostItem = ({ value, setLikedPost, isLiked = false, loadPosts }) => {
   const {
     titulo,
     descripcion,
@@ -31,13 +31,11 @@ const PostItem = ({ value, setLikedPosts, isLiked = false, loadPosts }) => {
   }, [loadUser]);
 
   const handlePostLike = () => {
-    setLikedPosts((prevValue) =>
-      Array.from(new Set([...prevValue, value._id])),
-    );
+    setLikedPost();
   };
 
   const handlePostDislike = () => {
-    setLikedPosts((prevValue) => prevValue.filter((id) => id !== value._id));
+    setLikedPost();
   };
 
   const handleSubmitComment = async (event) => {

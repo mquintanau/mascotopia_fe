@@ -1,12 +1,27 @@
 import { useState, useEffect, useCallback } from "react";
 import PostFilterContainer from "./PostFilterContainer";
 import PostItem from "./PostItem";
+import { API_URL } from "../../auth/constants";
 
 const PostContainer = ({ posts, loadPosts }) => {
+  console.log(`${API_URL}/sendLike`);
   const [orderedPosts, setOrderedPosts] = useState(posts);
   const [filter, setFilter] = useState("Recent");
 
-  const setLikedPosts = (postId, isLiked) => {};
+  const setLikedPost = (postId, idUser) => {
+    // hace una peticion a la ruta de sendLike para dar like a un post
+    fetch(`${API_URL}/sendLike`, {
+      method: "POST",
+      body: JSON.stringify({ postId, idUser }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     if (filter === "All") {
@@ -76,7 +91,7 @@ const PostContainer = ({ posts, loadPosts }) => {
             key={post._id}
             isLiked={isLiked}
             loadPosts={loadPosts}
-            setLikedPosts={setLikedPosts}
+            setLikedPost={() => setLikedPost(post._id, idUser)}
           />
         );
       })}
