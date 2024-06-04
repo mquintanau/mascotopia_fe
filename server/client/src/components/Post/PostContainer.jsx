@@ -12,6 +12,9 @@ const PostContainer = ({ posts, loadPosts }) => {
     // hace una peticion a la ruta de sendLike para dar like a un post
     fetch(`${API_URL}/sendLike`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ postId, idUser }),
     })
       .then((res) => res.json())

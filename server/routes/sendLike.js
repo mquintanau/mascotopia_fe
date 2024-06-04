@@ -14,12 +14,14 @@ router.post("/", async (req, res) => {
     //verificamos que el post y el usuario existan
     // Verificamos que en el atributo likes se encuentre el id del usuario
     if (post.likes.includes(idUser)) {
-      post.likes = post.likes.filter((id) => id !== idUser); //removemos el id del usuario del arreglo de likes
-      likeGiven = true;
+      //removemos el objectId con idUser del arreglo de post.likes
+      post.likes = post.likes.filter((like) => like != idUser);
+      post.numLikes -= 1; //actualizamos el numero de likes
     } else {
       post.likes.push(idUser); //agregamos el id del usuario al arreglo de likes
+      post.numLikes += 1; //actualizamos el numero de likes
+      likeGiven = true;
     }
-    post.numLikes = post.likes.length; //actualizamos el numero de likes
     post.save(); //guardamos el post
 
     const newActivity = new ActivityLog({
