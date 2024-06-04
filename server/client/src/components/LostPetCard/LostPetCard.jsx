@@ -2,14 +2,14 @@ import { twMerge } from "tailwind-merge";
 
 const LostPetCard = ({ pet, className }) => {
   const divClass = twMerge(
-    "flex flex-row rounded-lg max-w-[90vw] bg-[#90d8d4] p-3 shadow-lg lg:m-2 lg:w-[45%] flex-wrap md:justify-center lg:mt-0",
+    "flex flex-row rounded-lg max-w-full bg-[#90d8d4] p-3 shadow-lg lg:m-2 lg:w-[45%] flex-wrap md:justify-center lg:mt-0",
     className,
   );
   // Recibe objeto pet directamente y desestructura sus propiedades
   const { nombre, imageURL, infoContacto, accesorios, vistoPorUltimaVez } = pet;
   return (
     <div className={divClass}>
-      <div className="flex w-full flex-col flex-wrap items-center justify-center md:h-[200px] md:w-[45%]">
+      <div className="flex w-full flex-col flex-wrap items-center justify-center md:h-[200px] md:w-[45%] md:flex-nowrap">
         <h3 className="w-full break-words text-xl font-bold">{nombre}</h3>
         <img
           className="rounded-lg"

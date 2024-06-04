@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import LostPetCard from "../components/LostPetCard/LostPetCard";
-import { Plus } from "iconoir-react";
+import { Plus, Camera } from "iconoir-react";
 import Swal from "sweetalert2";
 import { API_URL } from "../auth/constants";
 
@@ -92,7 +92,6 @@ const LostPets = () => {
       }
 
       const data = await responseImage.json();
-      console.log(data);
 
       if (data.imageURL) {
         const responsePost = await fetch(`${API_URL}/lostPets/sendPet`, {
@@ -122,6 +121,13 @@ const LostPets = () => {
             confirmButtonColor: "#4caf50",
           });
           loadPets();
+          setNombre("");
+          setVistoPorUltimaVez("");
+          setRespondeA("");
+          setAccesorios("");
+          setInfoContacto("");
+          setPreviewImage(null);
+          setImageFile(null);
         } else {
           console.log("Hubo un error en el registro");
           const json = await responsePost.json();
@@ -205,19 +211,21 @@ const LostPets = () => {
             </p>
             <p className="mt-3 w-full text-left">Add a recent picture:</p>
             <div
-              className="relative mt-5 h-[150px] w-[150px] rounded-lg bg-background hover:cursor-pointer hover:bg-neutral-200"
+              className="relative mt-5 flex aspect-square h-full max-h-[200px] w-full max-w-[200px] items-center justify-center rounded-lg bg-background outline outline-2 transition-all hover:cursor-pointer hover:bg-neutral-200"
               onClick={handleFileButtonClick}
             >
               <input
                 type="file"
                 id="fileInput"
                 onChange={handleImageChange}
-                style={{ display: "none" }} // Oculta el input
+                className="hidden" // Oculta el input
                 ref={fileInputRef}
               />
-              <div className="absolute right-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary">
+              <div className="absolute right-0 top-0 flex h-[40px] w-[40px] -translate-y-3 translate-x-3 items-center justify-center rounded-full bg-secondary outline outline-2">
                 <Plus fontSize={50} />
               </div>
+              <Camera fontSize={70} />
+
               {previewImage && (
                 <img
                   src={previewImage}
